@@ -1,0 +1,128 @@
+Wiki page management.
+Document can be edited by a set of users.
+Users' actions will be log.
+Management tool should be able to show the history of a document and restore it to previous version.
+
+Written in Java and driven by text commands.
+
+Documents:
+Title, unique among all docements in the wiki.
+Contents.
+    Sequence of lines of plain text.
+    New document is initially empty.
+User update the document.
+    Replace or delete a line already exists in the document.
+    Add new lune to the end of the document.
+Changes to the document each time gets log and save.
+User can ask to see both the most current version of any document and the history of all changes made to a document.
+
+Users:
+If you want to edit document, you must be a register user with unique id.
+User can create new or edit existing documents.
+User's history of document changes can be displayed at anytime.
+
+Commands:
+Processing a text file that consists of commands.
+    One line per command.
+Name of the command text file must not be hardcoded into the program.
+    Prompted for the name of the file that user enter.
+Each command has a global unit time count increasing by 1 each command process.
+    Start at 0, zero.
+Command refers to line number in the document will start at 0, zero.
+    First line is line 0, zero.
+
+USER [userid]
+    Outcomes either confirmed or duplicated.
+    Duplicated user is ignore after being reported.
+    userid is a sequence at most 80-non-whitespace characters.
+        Uppercases, lowercases, letters, and numbers.
+
+CREATE [doc name] [userid]
+    Outcomes confirmed, diplicate, not found.
+    Document is duplicate if already exists. Ignore after report.
+    Not found, the userid is not registered in the system.
+    confirmed, create document initially empty.
+Name of a document is at most 80 non-whitespace characters.
+
+APPEND [doc name] [userid] [content]
+    Append content to a signle line at the end of the doc.
+    Outcomes not found, fail, success.
+    Not found if the user is not in the system or the document does not exists.
+        No further action occurs.
+    Success append operation add contents to the doc. One line.
+
+REPLACE [doc name] [userid] [line number] [Edit contents]
+    Outcomes not found, fail, success.
+    Not found if not valid doc, or not registered user.
+        No further action after prompt.
+    Failed, no line numer L in the document.
+    Successful, replace the the contents line. The rest of the doc unchange.
+
+DELETE [doc name] [userid] [line number]
+    Outcomes not found, fail, success.
+    Not found if the user or the doc is not in the system.
+    Fail if there is not line number given in the doc.
+    Success if line number given is delete in the document.
+
+PRINT [doc name]
+    Outcomes not found, print doc.
+    Not found if the doc does not exists in the system.
+    Print the document.
+        Title of the documenton on a line.
+	Contents of the doc with the number of each line before each line.
+
+RESTORE [userid] [doc name] [time]
+    Outcomes not found, restore document.
+    Not found, the document or the user does not exist in the system.
+        Additional case is when the doc did not exist at given time.
+	No futher actions occur.
+    Success restore, print the contents of a doc at given time.
+        After the last edit.
+
+HISTORY [doc name]
+    Outcomes not found , print history.
+    not found if the doc has not been created, no further actions.
+    History output of the doc.
+        Doc creation.
+	all replace, delete, restore, and append commands.
+	For each of the command performed, the user should be reported along with type of edit and all relevant information.
+	    Line number.
+	    Old version in case of replace.
+	    Newest to oldest.
+    Note: Restore does not change the history.
+
+USERREPORT [userid]
+    Print a list of all edits made  by user.
+    Outcomes not found, print report.
+    Not found if the user does not exist in the system.
+    Success user report command output.
+        User id.
+	Edits that the user has made.
+	    Creation, append, delete, restore, and replace commands.
+	    oldest to newest.
+	Command should still be reported even if edit was undone by restore command.
+
+QUIT
+    This command ends the program.
+    Message "BYE" print and the program terminate.
+    !Report that QUIT command was missing and then terminate.
+
+COMMENTS
+    # -> Any lines that starts with this character is a comment and ignore.
+
+Ignore any non-registed, command.
+There can be multiple whitespace between tokens in a line.
+Output statements is not strict, but must provide enough information.
+
+
+Unit testing...
+
+
+    
+
+
+
+Fields string method.
+
+
+
