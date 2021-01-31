@@ -19,5 +19,5 @@ public interface Printable
     Print method.
     */
     public abstract void print();
-    
+
 }
