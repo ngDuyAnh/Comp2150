@@ -19,14 +19,5 @@ public interface Printable
     Print method.
     */
     public abstract void print();
-
-
-    /* toString()
-    Return a string to print.
-
-    Return:
-    String that is the same as print.
-    */
-    public abstract String toString();
-
+    
 }
