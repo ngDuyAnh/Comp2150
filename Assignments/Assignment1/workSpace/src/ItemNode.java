@@ -24,7 +24,7 @@ setNext() - Set the next node.
 setPrev() - Set the previous node.
 */
 
-public class ItemNode
+public class ItemNode implements Printable
 {
     // Private member
     private Item datum; // The datum
@@ -103,6 +103,16 @@ public class ItemNode
     public void setPrev(final ItemNode PREV)
     {
         this.prevNode = PREV;
+    }
+
+
+    /* print()
+    Print the datum.
+    */
+    @Override
+    public void print()
+    {
+        System.out.print(this.datum.toString());
     }
 
 }
