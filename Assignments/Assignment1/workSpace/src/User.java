@@ -5,9 +5,6 @@ January 22, 2021
 User.java
 public class User
 This class will represent a register user.
-There will be two public static methods. One public static
-    method is use to register new user. The other public
-    static method is use to retrieve registered user.
 All activities perform, request, by the user must be log
     and keep track.
 
@@ -17,10 +14,12 @@ userLog - The file name to the user activities log.
 
 Public method:
 User() - Constructor create a new instance of user.
-recordLog() - Log user's activity.
 userReport() - Return a string that is the user's information and
     activities. The order of the activities will be from oldest
     to newest.
+
+Private method:
+recordLog() - Log user's activity.
 */
 
 public class User extends Item
@@ -41,18 +40,6 @@ public class User extends Item
     {
         this.userName = USERNAME;
         this.userLog = new Log();
-    }
-
-
-    /* recordLog()
-    Log the user's activity.
-
-    Parameter:
-    LOG - The LogPackage to log.
-    */
-    public void recordLog(final LogPackage LOG)
-    {
-        this.userLog.recordLog(LOG);
     }
 
 
@@ -89,13 +76,32 @@ public class User extends Item
     }
 
 
-    /* print()
-    Print the user report.
+    /* printString()
+    Return user name.
+
+    Return:
+    Username.
     */
     @Override
-    public void print()
+    public String printString()
     {
-        System.out.println(this.userReport());
+        return this.userName;
+    }
+
+
+
+
+    // Private method
+
+    /* recordLog()
+    Log the user's activity.
+
+    Parameter:
+    LOG - The LogPackage to log.
+    */
+    public void recordLog(final LogPackage LOG)
+    {
+        this.userLog.recordLog(LOG);
     }
 
 }
