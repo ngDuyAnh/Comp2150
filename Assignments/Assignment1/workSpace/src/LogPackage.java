@@ -8,12 +8,14 @@ This class acts as container to store the String command
     and time stamp.
 
 Private member:
-command - The string command.
+COMMAND - The string command.
+ARGUEMENTS - The string arguements.
 timeStamp - The time this command got executed.
 
 Public method:
 LogPackage() - Construction to create a log event.
 getCommand() - Return the command.
+getArguements() - Return the arguements.
 getTime() - Return the time stamp.
 */
 
@@ -21,6 +23,7 @@ public class LogPackage extends Item
 {
     // Private member
     private final String COMMAND; // The command
+    private final String ARGUEMENTS; // The arguements of command
     private final int TIME;  // The time stamp
 
 
@@ -31,9 +34,10 @@ public class LogPackage extends Item
     /* LogPackage()
     Constructor to create a log event.
     */
-    public LogPackage(final int TIME, final String COMMAND)
+    public LogPackage(final int TIME, final String COMMAND, final String ARGUEMENTS)
     {
         this.COMMAND = COMMAND;
+        this.ARGUEMENTS = ARGUEMENTS;
         this.TIME = TIME;
     }
 
@@ -42,11 +46,23 @@ public class LogPackage extends Item
     Return the command.
 
     Return:
-    Return the command.
+    Return the command string.
     */
     public String getCommand()
     {
         return this.COMMAND;
+    }
+
+
+    /* getArguements()
+    Return the arguements.
+
+    Return:
+    Return the arguements string.
+    */
+    public String getArguements()
+    {
+        return this.ARGUEMENTS;
     }
 
 

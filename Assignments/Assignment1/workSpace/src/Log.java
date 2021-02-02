@@ -41,19 +41,8 @@ public class Log
     Log the given time and command.
 
     Parameter:
-    TIME - The time stamp.
-    COMMAND - The command to log.
+    LOG_PACKAGE - The log package to add to the log list.
     */
-    public void recordLog(final int TIME, final String COMMAND)
-    {
-        // Create a log package
-        final LogPackage LOG = new LogPackage(TIME, COMMAND);
-
-        // Log the event
-        this.logList.append(LOG);
-    }
-
-
     public void recordLog(final LogPackage LOG)
     {
         // Log the event
