@@ -14,8 +14,11 @@ Public method:
 Log() - Constructor to create log.
 recordLog() - Log the given time and command.
 readLogCommand() - Read the log command with given index.
+readLogArguments() - Read the log arguments with given index.
 readLogTime() - Read the log time with given index.
 getLength() - The number of record the log has.
+printOldNew() - Print the log from order oldest to newest.
+printNewOld() - Print the log from order newest to oldest.
 */
 
 public class Log
@@ -72,6 +75,28 @@ public class Log
     }
 
 
+    /* readLogArguments()
+    Read the log arguments with given index.
+
+    Parameter:
+    INDEX - The index to read the log arguments.
+
+    Return:
+    The arguments logged.
+    */
+    public String readLogArguments(final int INDEX)
+    {
+        // Get the log package at given index
+        final LogPackage LOG = (LogPackage) this.logList.peekIndex(INDEX);
+
+        // Get the arguments
+        final String ARGUMENTS = LOG.getArguments();
+
+        // Return the arguments
+        return ARGUMENTS;
+    }
+
+
     /* readLogTime()
     Read the log time with given index.
 
@@ -104,5 +129,26 @@ public class Log
     {
         return this.logList.getLength();
     }
+
+
+    /* printOldNew()
+    Print the log from order oldest to newest.
+    */
+    public void printOldNew()
+    {
+        // Oldest to newest is start from index zero to go forward
+        for (int counter = 0; counter < this.logList.getLength(); counter++)
+        {
+
+
+
+
+        }
+    }
+
+
+    /* printNewOld()
+    Print the log from order newest to oldest.
+    */
 
 }
