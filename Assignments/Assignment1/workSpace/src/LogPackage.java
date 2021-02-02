@@ -23,7 +23,7 @@ public class LogPackage extends Item
 {
     // Private member
     private final String COMMAND; // The command
-    private final String ARGUMENTS; // The arguements of command
+    private final String ARGUMENTS; // The arguments of command
     private final int TIME;  // The time stamp
 
 
@@ -78,13 +78,16 @@ public class LogPackage extends Item
     }
 
 
-    /* print()
-    Print the time and command.
+    /* printString()
+    Return the command and arguments in one line.
+
+    Return:
+    String command and arguments in one line.
     */
     @Override
-    public void print()
+    public String printString()
     {
-        System.out.println(this.COMMAND + this.ARGUMENTS);
+        return this.COMMAND + " " + this.ARGUMENTS;
     }
 
 }

@@ -17,8 +17,10 @@ readLogCommand() - Read the log command with given index.
 readLogArguments() - Read the log arguments with given index.
 readLogTime() - Read the log time with given index.
 getLength() - The number of record the log has.
-printOldNew() - Print the log from order oldest to newest.
-printNewOld() - Print the log from order newest to oldest.
+printOldNewString() - Printable String the log from order
+    oldest to newest.
+printNewOldString() - Printable String the log from order
+    newest to oldest.
 */
 
 public class Log
@@ -131,24 +133,56 @@ public class Log
     }
 
 
-    /* printOldNew()
-    Print the log from order oldest to newest.
+    /* printOldNewString()
+    Return printable String the log from order oldest to newest.
+
+    Return:
+    Return String printable String of the log history.
     */
-    public void printOldNew()
+    public String printOldNewString()
     {
+        // Local variable dictionary
+        String logString = ""; // The String of the log to return
+
         // Oldest to newest is start from index zero to go forward
         for (int counter = 0; counter < this.logList.getLength(); counter++)
         {
+            // Get the log package
+            final Item LOG_PACKAGE = this.logList.peekIndex(counter);
 
-
-
-
+            // Get the log package String
+            logString += LOG_PACKAGE.printString() + "\n";
         }
+
+        // Return the String of the log
+        return logString;
     }
 
 
-    /* printNewOld()
-    Print the log from order newest to oldest.
+    /* printNewOldString()
+    Return printable String the log from order newest to oldest.
+
+    Return:
+    Return String printable String of the log history.
     */
+    public String printNewOldString()
+    {
+        // Local variable dictionary
+        String logString = ""; // The String of the log to return
+
+        // Oldest to newest is start from index zero to go forward
+        for (int counter = 0; counter < this.logList.getLength(); counter++)
+        {
+            // Get the log package
+            final Item LOG_PACKAGE = this.logList
+                    .peekIndex((this.logList.getLength() - 1) - counter);
+
+            // Get the log package String
+            logString += LOG_PACKAGE.printString() + "\n";
+        }
+
+        // Return the String of the log
+        return logString;
+    }
 
 }
