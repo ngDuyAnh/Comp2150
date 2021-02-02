@@ -64,15 +64,7 @@ public class User extends Item
         report += this.userName + "\n";
 
         // Get the user activities
-        for (int counter = 0; counter < this.userLog.getLength(); counter++)
-        {
-            // Get the log package
-            final int TIME = this.userLog.readLogTime(counter);
-            final String COMMAND = this.userLog.readLogCommand(counter);
-
-            // Add to the report
-            report += TIME + " " + COMMAND + "\n";
-        }
+        report += this.userLog.printOldNewString();
 
         // Return the user's report
         return report;
