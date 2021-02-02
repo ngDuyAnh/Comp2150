@@ -12,14 +12,16 @@ userList - The linked list to keep track of all the users registered.
 Public method:
 UserManager() - Constructor to initialize user list.
 createUser() - Create the user and manage the user instance.
-findUser() - Find user from track list.
 userReport() - Get the user and return the user report.
 
 Private method:
+findUser() - Find user from track list.
+findUserIndex() - Find the user and return the index the user is
+        in the list.
 validUsername() - Check if the given string is valid conditions
-    for the username.
-    At most 80 non-whitespace characters.
-    Uppercase, lowercase, letter, number, and underscore.
+        for the username.
+        At most 80 non-whitespace characters.
+        Uppercase, lowercase, letter, number, and underscore.
 */
 
 public class UserManager
@@ -61,15 +63,7 @@ public class UserManager
         final String USERNAME = LOG_PACKAGE.getArguments();
 
         // Check if the user already exist in track list
-        boolean userFound = false;
-        for (int counter = 0; counter < this.userList.getLength() && !userFound; counter++)
-        {
-            // Compare the username
-            if (this.userList.peekIndex(counter).printString().equals(USERNAME))
-            {
-                userFound = true;
-            }
-        }
+        boolean userFound = findUser(USERNAME);
 
         // User found already
         if (userFound)
@@ -84,7 +78,7 @@ public class UserManager
             // Create and add new user
             if (validUsername)
             {
-                final User USER = new User(USERNAME);
+                final User USER = new User(LOG_PACKAGE);
                 this.userList.append(USER);
                 resultString = "Confirm. " + USER.printString() + " registered.";
             }
@@ -99,21 +93,103 @@ public class UserManager
     }
 
 
+    /* userReport()
+    Get the user and return the user report.
 
-    /*
-    Public method:
-createUser() - Create the user and manage the user instance.
-findUser() - Find user from track list.
-userReport() - Get the user and return the user report.
+    Parameter:
+    LOG_PACKAGE - The command package to get the user
+            we want to get the report.
 
-Private method:
-validUsername() - Check if the given string is valid conditions
-    for the username.
-    At most 80 non-whitespace characters.
-    Uppercase, lowercase, letter, number, and underscore.
-     */
+    Return:
+    String report of the user.
+    */
+    public String userReport(final LogPackage LOG_PACKAGE)
+    {
+        // Local variable dictionary
+        String resultString = "";
+
+        // Check if the user exist
+        boolean foundUser = this.findUser(LOG_PACKAGE.getArguments());
+
+        // Get the user report
+        if (foundUser)
+        {
+            // Get the index of the user
+            final int INDEX = this.findUserIndex(LOG_PACKAGE.getArguments());
+            resultString = ((User) this.userList.peekIndex(INDEX)).userReport();
+        }
+        else
+        {
+            resultString = "User not found.";
+        }
+
+        // Return the result of operation
+        return resultString;
+    }
+
+
+
 
     // Private method
+
+    /* findUser()
+    Find user from track list.
+
+    Parameter:
+    USERNAME - Given username to find in the track list.
+
+    Return:
+    Flag if user exist in the track list.
+    */
+    private boolean findUser(final String USERNAME)
+    {
+        // Check if the user already exist in track list
+        boolean userFound = false;
+        for (int counter = 0; counter < this.userList.getLength() && !userFound; counter++)
+        {
+            // Compare the username
+            if (this.userList.peekIndex(counter).printString().equals(USERNAME))
+            {
+                userFound = true;
+            }
+        }
+
+        // Return flag
+        return userFound;
+    }
+
+
+    /* findUserIndex()
+    Find the user and return the index the user is
+            in the list.
+
+    Parameter:
+    USERNAME - Given username to find in the track list.
+
+    Return:
+    The index of where the user is located in the list.
+    */
+    private int findUserIndex(final String USERNAME)
+    {
+        // Local variable dictionary
+        int userIndex = -1;
+
+        // Check if the user already exist in track list
+        boolean userFound = false;
+        for (int counter = 0; counter < this.userList.getLength() && !userFound; counter++)
+        {
+            // Compare the username
+            if (this.userList.peekIndex(counter).printString().equals(USERNAME))
+            {
+                userFound = true;
+                userIndex = counter;
+            }
+        }
+
+        // Return the index of the user
+        return userIndex;
+    }
+
 
     /* validUsername()
     Check if the given string is valid conditions
@@ -139,7 +215,6 @@ validUsername() - Check if the given string is valid conditions
             {
                 validUsername = true;
             }
-
         }
 
         // Return
