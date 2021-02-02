@@ -36,10 +36,13 @@ public class User extends Item
     /* User()
     Constructor create a new instance of user.
     */
-    public User(final String USERNAME)
+    public User(final LogPackage LOG_PACKAGE)
     {
-        this.userName = USERNAME;
+        this.userName = LOG_PACKAGE.getArguments(); // Username
         this.userLog = new Log();
+
+        // Log event
+        this.userLog.recordLog(LOG_PACKAGE);
     }
 
 
@@ -99,7 +102,7 @@ public class User extends Item
     Parameter:
     LOG - The LogPackage to log.
     */
-    public void recordLog(final LogPackage LOG)
+    private void recordLog(final LogPackage LOG)
     {
         this.userLog.recordLog(LOG);
     }
