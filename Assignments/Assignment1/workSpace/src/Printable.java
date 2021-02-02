@@ -18,6 +18,6 @@ public interface Printable
     /* print()
     Print method.
     */
-    public abstract void print();
+    public abstract String printString();
 
 }
