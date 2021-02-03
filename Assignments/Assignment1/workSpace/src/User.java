@@ -17,8 +17,6 @@ User() - Constructor create a new instance of user.
 userReport() - Return a string that is the user's information and
     activities. The order of the activities will be from oldest
     to newest.
-
-Private method:
 recordLog() - Log user's activity.
 */
 
@@ -71,6 +69,18 @@ public class User extends Item
     }
 
 
+    /* recordLog()
+    Log the user's activity.
+
+    Parameter:
+    LOG - The LogPackage to log.
+    */
+    public void recordLog(final LogPackage LOG)
+    {
+        this.userLog.recordLog(LOG);
+    }
+
+
     /* printString()
     Return user name.
 
@@ -81,22 +91,6 @@ public class User extends Item
     public String printString()
     {
         return this.userName;
-    }
-
-
-
-
-    // Private method
-
-    /* recordLog()
-    Log the user's activity.
-
-    Parameter:
-    LOG - The LogPackage to log.
-    */
-    private void recordLog(final LogPackage LOG)
-    {
-        this.userLog.recordLog(LOG);
     }
 
 }

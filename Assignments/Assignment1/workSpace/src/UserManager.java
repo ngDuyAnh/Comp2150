@@ -13,11 +13,10 @@ Public method:
 UserManager() - Constructor to initialize user list.
 createUser() - Create the user and manage the user instance.
 userReport() - Get the user and return the user report.
+findUser() - Find user from track list.
+findUserInstance() - Find the user from track list and return instance.
 
 Private method:
-findUser() - Find user from track list.
-findUserIndex() - Find the user and return the index the user is
-        in the list.
 validUsername() - Check if the given string is valid conditions
         for the username.
         At most 80 non-whitespace characters.
@@ -59,33 +58,40 @@ public class UserManager
         // Local variable dictionary
         String resultString = "";
 
-        // Get the username that we want to create
-        final String USERNAME = LOG_PACKAGE.getArguments();
+        // Token the arguments
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
-        // Check if the user already exist in track list
-        boolean userFound = findUser(USERNAME);
-
-        // User found already
-        if (userFound)
+        // Get the user report
+        if (ARGUMENTS_TOKENS.length == 1)
         {
-            resultString = "Duplicated. User already exist.";
-        }
-        else
-        {
-            // Check that the username meets the standard
-            boolean validUsername = this.validUsername(USERNAME);
+            final String USERNAME = ARGUMENTS_TOKENS[0];
 
-            // Create and add new user
-            if (validUsername)
+            // Check if the user already exist in the track list
+            if (this.findUser(USERNAME))
             {
-                final User USER = new User(LOG_PACKAGE);
-                this.userList.append(USER);
-                resultString = "Confirm. " + USER.printString() + " registered.";
+                resultString = "Duplicated. User already exist.";
             }
             else
             {
-                resultString = "The username does not meet the requirements.";
+                // Check that the username meets the standard
+                boolean validUsername = this.validUsername(USERNAME);
+
+                // Create and add new user
+                if (validUsername)
+                {
+                    final User USER = new User(LOG_PACKAGE);
+                    this.userList.append(USER);
+                    resultString = "Confirm. " + USER.printString() + " registered.";
+                }
+                else
+                {
+                    resultString = "The username does not meet the requirements.";
+                }
             }
+        }
+        else
+        {
+            resultString = "Create user. Too few or too many arguments.";
         }
 
         // Return the result of operation
@@ -108,29 +114,34 @@ public class UserManager
         // Local variable dictionary
         String resultString = "";
 
-        // Check if the user exist
-        boolean foundUser = this.findUser(LOG_PACKAGE.getArguments());
+        // Token the arguments
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
         // Get the user report
-        if (foundUser)
+        if (ARGUMENTS_TOKENS.length == 1)
         {
-            // Get the index of the user
-            final int INDEX = this.findUserIndex(LOG_PACKAGE.getArguments());
-            resultString = ((User) this.userList.peekIndex(INDEX)).userReport();
+            final String USERNAME = ARGUMENTS_TOKENS[0];
+
+            // Find the user
+            if (this.findUser(USERNAME))
+            {
+                // Get the user report
+                resultString = ((User) this.findUserInstance(USERNAME)).userReport();
+            }
+            else
+            {
+                resultString = "User not found.";
+            }
         }
         else
         {
-            resultString = "User not found.";
+            resultString = "User report. Too few or too many arguments.";
         }
 
         // Return the result of operation
         return resultString;
     }
 
-
-
-
-    // Private method
 
     /* findUser()
     Find user from track list.
@@ -141,17 +152,14 @@ public class UserManager
     Return:
     Flag if user exist in the track list.
     */
-    private boolean findUser(final String USERNAME)
+    public boolean findUser(final String USERNAME)
     {
         // Check if the user already exist in track list
-        boolean userFound = false;
-        for (int counter = 0; counter < this.userList.getLength() && !userFound; counter++)
+        final User USER_FOUND = this.findUserInstance(USERNAME);
+        boolean userFound = true;
+        if (USER_FOUND == null)
         {
-            // Compare the username
-            if (this.userList.peekIndex(counter).printString().equals(USERNAME))
-            {
-                userFound = true;
-            }
+            userFound = false;
         }
 
         // Return flag
@@ -159,37 +167,40 @@ public class UserManager
     }
 
 
-    /* findUserIndex()
-    Find the user and return the index the user is
-            in the list.
+    /* findUserInstance()
+    Find the user from track list and return instance.
 
     Parameter:
-    USERNAME - Given username to find in the track list.
+    USERNAME - String username to find the user.
 
     Return:
-    The index of where the user is located in the list.
+    Instance of the user found.
     */
-    private int findUserIndex(final String USERNAME)
+    public User findUserInstance(final String USERNAME)
     {
         // Local variable dictionary
-        int userIndex = -1;
+        User userFound = null;
 
-        // Check if the user already exist in track list
-        boolean userFound = false;
-        for (int counter = 0; counter < this.userList.getLength() && !userFound; counter++)
+        // Find user in track list
+        for (int counter = 0; counter < this.userList.getLength() && userFound == null; counter++)
         {
             // Compare the username
             if (this.userList.peekIndex(counter).printString().equals(USERNAME))
             {
-                userFound = true;
-                userIndex = counter;
+                userFound = (User) this.userList.peekIndex(counter);
             }
         }
 
-        // Return the index of the user
-        return userIndex;
+        // Return the instance found
+        return userFound;
     }
 
+
+
+
+
+
+    // Private method
 
     /* validUsername()
     Check if the given string is valid conditions

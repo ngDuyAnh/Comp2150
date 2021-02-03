@@ -1,6 +1,6 @@
 
 /*
-Duy Anh Nguyne 7892957
+Duy Anh Nguyen 7892957
 February 2, 2021
 DocumentManager.java
 public class DocumentManager
@@ -14,11 +14,10 @@ DocumentManager() - Constructor to initialize document list.
 createDocument() - Create the document and manage the document
         instance.
 documentHistory() - Get the history of changes of the document.
+findDocument() - Find document from track list.
+findDocumentInstance() - Find the document from track list and return instance.
 
 Private method:
-findDocument() - Find document from track list.
-findUserIndex() - Find the document and return the index the document is
-        in the list.
 validUsername() - Check if the given string is valid conditions
         for the username.
         At most 80 non-whitespace characters.
@@ -29,6 +28,7 @@ public class DocumentManager
 {
     // Private member
     private List docList = null; // Linked list to keep track of documents
+    private UserManager userManager = null; // Handle to the user manager
 
 
 
@@ -38,9 +38,10 @@ public class DocumentManager
     /* DocumentManager()
     Constructor to initialize document list.
     */
-    public DocumentManager()
+    public DocumentManager(final UserManager USER_MANAGER)
     {
         this.docList = new List();
+        this.userManager = USER_MANAGER;
     }
 
 
@@ -64,29 +65,40 @@ public class DocumentManager
         final String ARGUMENTS_LINE = LOG_PACKAGE.getArguments().trim();
 
         // Token the arguments
-        final String[] ARGUMENTS_TOKENS = ARGUMENTS_LINE.split("\\s+");
+        final String[] ARGUMENTS_TOKENS = ARGUMENTS_LINE.trim().split("\\s+");
 
         // There should only be two arguments
         if (ARGUMENTS_TOKENS.length == 2)
         {
+            // Get the user and document name arguments
             final String DOC_NAME = ARGUMENTS_TOKENS[0];
+            final String USER_NAME = ARGUMENTS_TOKENS[1];
 
             // Check if the document already exist
             if (this.findDocument(DOC_NAME))
             {
                 resultString = "Duplicated. Document already exist.";
             }
-            else
+            else if (!this.userManager.findUser(USER_NAME))
+            {
+                resultString = "User not found. User does not exist.";
+            }
+            else // User exists and document has not yet created
             {
                 // Check that the document name meets the standard
-                boolean validDocumentName = this.validUsername(DOC_NAME);
+                boolean validDocumentName = this.validDocumentName(DOC_NAME);
 
                 // Create and add new user
                 if (validDocumentName)
                 {
+                    // Make the new document
                     final Document DOC = new Document(LOG_PACKAGE);
                     this.docList.append(DOC);
                     resultString = "Confirm. " + DOC.printString() + " created.";
+
+                    // User activity log
+                    User userFound = this.userManager.findUserInstance(USER_NAME);
+                    userFound.recordLog(LOG_PACKAGE);
                 }
                 else
                 {
@@ -97,7 +109,7 @@ public class DocumentManager
         }
         else
         {
-            resultString = "Too many or few arguments. Expected 2 arguments.";
+            resultString = "Create document. Too few or too many arguments.";
         }
 
         // Return the result of operation
@@ -120,32 +132,31 @@ public class DocumentManager
         // Local variable dictionary
         String resultString = "";
 
-        // Get the arguments that contain the document name
-        final String ARGUMENTS_LINE = LOG_PACKAGE.getArguments();
+        // Token the arguments
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
-        // Get the document name
-        final String DOC_NAME = (LOG_PACKAGE.getArguments().trim().split("\\s+"))[0];
+        // Get the history of the document
+        if (ARGUMENTS_TOKENS.length == 1)
+        {
+            // Get the document name
+            final String DOC_NAME = (LOG_PACKAGE.getArguments().trim().split("\\s+"))[0];
 
-        // Get the history changes of the document
-        if (this.findDocument(DOC_NAME))
-        {
-            // Get the index of the user
-            final int INDEX = this.findDocumentIndex(DOC_NAME);
-            resultString = ((Document) this.docList.peekIndex(INDEX)).history();
-        }
-        else
-        {
-            resultString = "Document not found.";
+            // Get the history changes of the document
+            if (this.findDocument(DOC_NAME))
+            {
+                // Get the document and get its history log
+                resultString = ((Document) this.findDocumentInstance(DOC_NAME)).history();
+            }
+            else
+            {
+                resultString = "Document not found.";
+            }
         }
 
         // Return the result of operation
         return resultString;
     }
 
-
-    
-
-    // Private method
 
     /* findDocument()
     Find document from track list.
@@ -156,54 +167,54 @@ public class DocumentManager
     Return:
     Flag if given document name exist in track list.
     */
-    private boolean findDocument(final String DOCUMENT_NAME)
+    public boolean findDocument(final String DOCUMENT_NAME)
     {
-        // Check if the user already exist in track list
-        final int INDEX = findDocumentIndex(DOCUMENT_NAME);
-        boolean docFound = false;
-        if (INDEX >= 0)
+        // Check if the document already exist in track list
+        final Document DOCUMENT_FOUND = this.findDocumentInstance(DOCUMENT_NAME);
+        boolean documentFound = true;
+        if (DOCUMENT_FOUND == null)
         {
-            docFound = true;
+            documentFound = false;
         }
 
         // Return flag
-        return docFound;
+        return documentFound;
     }
 
 
-    /*
-    findUserIndex() - Find the document and return the index the document is
-            in the list.
+    /* findDocumentInstance()
+    Find the document from track list and return instance.
 
     Parameter:
-    DOCUMENT_NAME - The document name.
+    DOCUMENT_NAME - String document name to find the user.
 
     Return:
-    Index of given document name exist in track list.
+    Instance of the user found.
     */
-    private int findDocumentIndex(final String DOCUMENT_NAME)
-    {
+    public Document findDocumentInstance(final String DOCUMENT_NAME) {
         // Local variable dictionary
-        int docIndex = -1;
+        Document documentFound = null;
 
-        // Check if the user already exist in track list
-        boolean docFound = false;
-        for (int counter = 0; counter < this.docList.getLength() && !docFound; counter++)
+        // Find document in track list
+        for (int counter = 0; counter < this.docList.getLength() && documentFound == null; counter++)
         {
-            // Compare the username
+            // Compare the document name
             if (this.docList.peekIndex(counter).printString().equals(DOCUMENT_NAME))
             {
-                docFound = true;
-                docIndex = counter;
+                documentFound = (Document) this.docList.peekIndex(counter);
             }
         }
 
-        // Return the index of the user
-        return docIndex;
+        // Return the instance found
+        return documentFound;
     }
 
 
-    /* validUsername()
+
+
+    // Private method
+
+    /* validDocumentName()
     Check if the given string is valid conditions
             for the document name.
     At most 80 non-whitespace characters.
@@ -215,7 +226,7 @@ public class DocumentManager
     Return:
     Flag if the document name is valid to use. Meet all the standards.
     */
-    private boolean validUsername(final String DOC_NAME)
+    private boolean validDocumentName(final String DOC_NAME)
     {
         // Local variable dictionary
         boolean validDocName = false;
