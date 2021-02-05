@@ -221,7 +221,7 @@ public class UserManager
         // The number of characters cannot be more than 80 characters
         if (USERNAME.length() <= 80)
         {
-            if (USERNAME.matches("^[a-z]A-Z0-9_]+$"))
+            if (USERNAME.matches("^[a-zA-Z0-9_]+$"))
             {
                 validUsername = true;
             }
