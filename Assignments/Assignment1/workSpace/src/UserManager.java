@@ -62,7 +62,7 @@ public class UserManager
         final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
         // Get the user report
-        if (ARGUMENTS_TOKENS.length == 1)
+        if (ARGUMENTS_TOKENS.length == 1 && ARGUMENTS_TOKENS[0].isEmpty())
         {
             final String USERNAME = ARGUMENTS_TOKENS[0];
 
@@ -119,7 +119,7 @@ public class UserManager
         final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
         // Get the user report
-        if (ARGUMENTS_TOKENS.length == 1)
+        if (ARGUMENTS_TOKENS.length == 1 && ARGUMENTS_TOKENS[0].isEmpty())
         {
             final String USERNAME = ARGUMENTS_TOKENS[0];
 
