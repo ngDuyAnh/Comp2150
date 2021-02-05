@@ -115,7 +115,7 @@ public class ItemNode implements Printable
     @Override
     public String printString()
     {
-        return this.datum.toString();
+        return this.datum.printString();
     }
 
 }
