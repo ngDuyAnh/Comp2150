@@ -13,6 +13,7 @@ content - The string content.
 Public method:
 StringItem() - Constructor to create String
     container.
+getString() - Get the String content.
 print() - Print the content.
 */
 
@@ -35,6 +36,18 @@ public class StringItem extends Item
     }
 
 
+    /* getString()
+    Get the String content.
+
+    Return:
+    Return the String content.
+    */
+    public String getString()
+    {
+        return this.content;
+    }
+
+
     /* print()
     Print the content.
 
@@ -42,9 +55,9 @@ public class StringItem extends Item
     Return the string content
     */
     @Override
-    public void print()
+    public String printString()
     {
-        System.out.print(this.content);
+        return this.content;
     }
 
 }

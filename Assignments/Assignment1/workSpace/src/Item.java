@@ -9,5 +9,5 @@ Parent call act as storage for item in list.
 
 public abstract class Item implements Printable
 {
-
+    /* Empty */
 }

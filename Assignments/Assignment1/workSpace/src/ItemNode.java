@@ -106,13 +106,16 @@ public class ItemNode implements Printable
     }
 
 
-    /* print()
-    Print the datum.
+    /* printString()
+    Return the datum String.
+
+    Return:
+    Datum toString().
     */
     @Override
-    public void print()
+    public String printString()
     {
-        System.out.print(this.datum.toString());
+        return this.datum.toString();
     }
 
 }
