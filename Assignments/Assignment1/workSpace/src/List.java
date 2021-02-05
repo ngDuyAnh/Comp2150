@@ -296,23 +296,44 @@ public class List implements Printable
     }
 
 
-    /* print()
-    Print all the nodes' datum.
+    /* getLength()
+    Return the number of Node, data, the
+        structure contains.
+
+    Return:
+    Number of data in the list.
+    */
+    public int getLength()
+    {
+        return this.length;
+    }
+
+
+    /* printString()
+    Return String of all the nodes' datum.
+
+    Return:
+    String of all node's datum.
     */
     @Override
-    public void print()
+    public String printString()
     {
+        // Local variable dictionary
+        String returnOutput = ""; // The return String
+
         // Run though all the node and print
-        ItemNode reference = this.dummyHead;
-        for (int counter = 0; counter < this.length; counter++)
+        for (int counter = 0; counter < this.getLength(); counter++)
         {
             // Get the node
-            reference = reference.getNext();
+            final Item ITEM = this.peekIndex(counter);
 
             // Print the datum
-            reference.getDatum().print();
-            System.out.println();
+            returnOutput += ITEM.printString();
+            returnOutput += "\n";
         }
+
+        // Return the output String
+        return returnOutput;
     }
 
 }
