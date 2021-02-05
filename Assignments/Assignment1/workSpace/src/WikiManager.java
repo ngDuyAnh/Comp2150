@@ -87,6 +87,7 @@ quit() - Terminate the WikiManager session.
     For this assignment, all the data will be erase.
     WikiManager, UserManager, and DocumentManager.
     Return a string message "BYE".
+getActiveStatus() - Flag if the WikiManager instance is active.
 */
 
 public class WikiManager
@@ -123,7 +124,7 @@ public class WikiManager
         {
             // Read the input file and process command
             scan = new Scanner(new File(INPUT_FILE_NAME));
-            while (scan.hasNext())
+            while (scan.hasNext() && wikiManager.getActiveStatus())
             {
                 // Get command line
                 final String LINE = scan.nextLine().trim();
@@ -138,6 +139,12 @@ public class WikiManager
         catch (FileNotFoundException e)
         {
             System.out.println("File not found.");
+        }
+
+        // If quit command is missing
+        if (wikiManager.getActiveStatus())
+        {
+            System.out.println("QUIT command was missing. Terminating...");
         }
     }
 
@@ -457,6 +464,18 @@ public class WikiManager
     {
         this.wikiActive = false;
         return "BYE.";
+    }
+
+
+    /* getActiveStatus()
+    Flag if the WikiManager instance is active.
+
+    Return:
+    Flag if WikiManager is active.
+    */
+    public boolean getActiveStatus()
+    {
+        return this.wikiActive;
     }
 
 }
