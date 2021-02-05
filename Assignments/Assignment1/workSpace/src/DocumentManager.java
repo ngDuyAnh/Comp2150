@@ -673,7 +673,7 @@ public class DocumentManager
         // The number of characters cannot be more than 80 characters
         if (DOC_NAME.length() <= 80)
         {
-            if (DOC_NAME.matches("^[a-z]A-Z0-9_]+$"))
+            if (DOC_NAME.matches("^[a-zA-Z0-9_]+$"))
             {
                 validDocName = true;
             }
