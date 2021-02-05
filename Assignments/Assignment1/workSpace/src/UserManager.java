@@ -79,7 +79,8 @@ public class UserManager
                 // Create and add new user
                 if (validUsername)
                 {
-                    final User USER = new User(LOG_PACKAGE);
+                    final User USER = new User(USERNAME);
+                    USER.recordLog(LOG_PACKAGE);
                     this.userList.append(USER);
                     resultString = "Confirm. " + USER.printString() + " registered.";
                 }
@@ -194,8 +195,6 @@ public class UserManager
         // Return the instance found
         return userFound;
     }
-
-
 
 
 

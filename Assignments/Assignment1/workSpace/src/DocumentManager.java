@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 /*
 Duy Anh Nguyen 7892957
@@ -13,6 +14,11 @@ Public method:
 DocumentManager() - Constructor to initialize document list.
 createDocument() - Create the document and manage the document
         instance.
+appendContents() - Append contents to the document.
+replaceContents() - Replace a line contents in the document.
+deleteContents() - Delete a line contents in the document.
+restoreDocument() - Restore the document as given time.
+documentString() - Return the document contents.
 documentHistory() - Get the history of changes of the document.
 findDocument() - Find document from track list.
 findDocumentInstance() - Find the document from track list and return instance.
@@ -61,11 +67,8 @@ public class DocumentManager
         // Local variable dictionary
         String resultString = "";
 
-        // Get the arguments that contain the document name
-        final String ARGUMENTS_LINE = LOG_PACKAGE.getArguments().trim();
-
         // Token the arguments
-        final String[] ARGUMENTS_TOKENS = ARGUMENTS_LINE.trim().split("\\s+");
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
         // There should only be two arguments
         if (ARGUMENTS_TOKENS.length == 2)
@@ -77,11 +80,11 @@ public class DocumentManager
             // Check if the document already exist
             if (this.findDocument(DOC_NAME))
             {
-                resultString = "Duplicated. Document already exist.";
+                resultString = "Create document. Document already exist.";
             }
             else if (!this.userManager.findUser(USER_NAME))
             {
-                resultString = "User not found. User does not exist.";
+                resultString = "Create document. User does not exist.";
             }
             else // User exists and document has not yet created
             {
@@ -92,7 +95,8 @@ public class DocumentManager
                 if (validDocumentName)
                 {
                     // Make the new document
-                    final Document DOC = new Document(LOG_PACKAGE);
+                    final Document DOC = new Document(DOC_NAME);
+                    DOC.recordLog(LOG_PACKAGE);
                     this.docList.append(DOC);
                     resultString = "Confirm. " + DOC.printString() + " created.";
 
@@ -105,11 +109,397 @@ public class DocumentManager
                     resultString = "The username does not meet the requirements.";
                 }
             }
-
         }
         else
         {
             resultString = "Create document. Too few or too many arguments.";
+        }
+
+        // Return the result of operation
+        return resultString;
+    }
+
+
+    /* appendContents()
+    Append contents to the document.
+
+    Parameter:
+    LOG_PACKAGE - The command package request to append.
+
+    Return:
+    String result of operation.
+    */
+    public String appendContents(final LogPackage LOG_PACKAGE)
+    {
+        // Local variable dictionary
+        String resultString = "";
+
+        // Token the arguments
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
+
+        // There should be 3 arguments
+        if (ARGUMENTS_TOKENS.length >= 3)
+        {
+            // Get the username, document name, and append contents arguments
+            Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
+            final String DOC_NAME = scan.next();
+            final String USER_NAME = scan.next();
+            final String CONTENTS = scan.nextLine();
+
+            // Check if document and user exist
+            if (!this.findDocument(DOC_NAME))
+            {
+                resultString = "Append contents. Document does not exist.";
+            }
+            else if (!this.userManager.findUser(USER_NAME))
+            {
+                resultString = "Append contents. User does not exist.";
+            }
+            else
+            {
+                // Append contents to document
+                Document doc = (Document) this.findDocumentInstance(DOC_NAME);
+                doc.appendContents(CONTENTS);
+                doc.recordLog(LOG_PACKAGE);
+
+                // Update user activity
+                User user = (User) this.userManager.findUserInstance(USER_NAME);
+                user.recordLog(LOG_PACKAGE);
+
+                // Operation return string
+                resultString = "Append contents. Successfully append contents.";
+            }
+        }
+        else
+        {
+            resultString = "Append document. Too few or too many arguments.";
+        }
+
+        // Return the result of operation
+        return resultString;
+    }
+
+
+    /* replaceContents()
+    Replace a line contents in the document.
+
+    Parameter:
+    LOG_PACKAGE - The command package to get instruction to replace contents.
+
+    Return:
+    String report of the document.
+    */
+    public String replaceContents(final LogPackage LOG_PACKAGE)
+    {
+        // Local variable dictionary
+        String resultString = "";
+
+        // Token the arguments
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
+
+        // There should be 4 arguments
+        if (ARGUMENTS_TOKENS.length < 4)
+        {
+            resultString = "Replace contents. Too few or too many arguments.";
+        }
+        else
+        {
+            // Get the user and document name arguments
+            Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
+            final String DOC_NAME = scan.next();
+            final String USER_NAME = scan.next();
+
+            // Get line number
+            int lineNumber = -1;
+            if (scan.hasNextInt())
+            {
+                lineNumber = scan.nextInt();
+            }
+
+            // Get the replace contents
+            final String REPLACE_CONTENTS = scan.nextLine();
+
+            // Check if document and user exist
+            if (!this.findDocument(DOC_NAME))
+            {
+                resultString = "Replace contents. Document does not exist.";
+            }
+            else if (!this.userManager.findUser(USER_NAME))
+            {
+                resultString = "Replace contents. User does not exist.";
+            }
+            else if (lineNumber < 0)
+            {
+                resultString = "Replace contents. Line number is invalid.";
+            }
+            else
+            {
+                // Replace contents to document
+                Document doc = (Document) this.findDocumentInstance(DOC_NAME);
+                boolean operationSuccess = doc.replaceContents(lineNumber, REPLACE_CONTENTS);
+
+                // Operation failed or success
+                if (!operationSuccess)
+                {
+                    resultString = "Replace contents. Failed contents replace.";
+                }
+                else
+                {
+                    // Log for document
+                    doc.recordLog(LOG_PACKAGE);
+
+                    // Update user activity
+                    User user = (User) this.userManager.findUserInstance(USER_NAME);
+                    user.recordLog(LOG_PACKAGE);
+
+                    // Operation success
+                    resultString = "Replace contents. Successful contents replace.";
+                }
+            }
+        }
+
+        // Return the result of operation
+        return resultString;
+    }
+
+
+    /* deleteContents()
+    Delete a line contents in the document.
+
+    Parameter:
+    LOG_PACKAGE 0 The command package to get the document and arguments
+            to replace a line contents.
+
+    Return:
+    String report of the document.
+    */
+    public String deleteContents(final LogPackage LOG_PACKAGE)
+    {
+        // Local variable dictionary
+        String resultString = "";
+
+        // Token the arguments
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
+
+        // There should be 4 arguments
+        if (ARGUMENTS_TOKENS.length < 3)
+        {
+            resultString = "Delete document. Too few or too many arguments.";
+        }
+        else
+        {
+            // Get the user and document name arguments
+            Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
+            final String DOC_NAME = scan.next();
+            final String USER_NAME = scan.next();
+
+            // Get line number
+            int lineNumber = -1;
+            if (scan.hasNextInt())
+            {
+                lineNumber = scan.nextInt();
+            }
+
+            // Check if document and user exist
+            if (!this.findDocument(DOC_NAME))
+            {
+                resultString = "Delete contents. Document does not exist.";
+            }
+            else if (!this.userManager.findUser(USER_NAME))
+            {
+                resultString = "Delete contents. User does not exist.";
+            }
+            else if (lineNumber < 0)
+            {
+                resultString = "Delete contents. Line number is invalid.";
+            }
+            else
+            {
+                // Remove contents to document
+                Document doc = (Document) this.findDocumentInstance(DOC_NAME);
+                boolean contentsRemoved = doc.removeContents(lineNumber);
+
+                // Update the log
+                if (!contentsRemoved)
+                {
+                    resultString = "Remove contents. Failed contents remove.";
+                }
+                else
+                {
+                    // Update log for the document
+                    doc.recordLog(LOG_PACKAGE);
+
+                    // Update user activity
+                    User user = (User) this.userManager.findUserInstance(USER_NAME);
+                    user.recordLog(LOG_PACKAGE);
+
+                    // Success operation
+                    resultString = "Remove contents. Failed contents remove.";
+                }
+            }
+        }
+
+        // Return operation result
+        return resultString;
+    }
+
+
+    /* restoreDocument()
+    Restore the document as given time.
+
+    Parameter:
+    LOG_PACKAGE - The command package to get the document
+            we want to get the report.
+
+    Return:
+    String report of the document.
+    */
+    private String restoreDocument(final LogPackage LOG_PACKAGE)
+    {
+        // Local variable dictionary
+        String resultString = "";
+
+        // Token the arguments
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
+
+        // There should be 4 arguments
+        if (ARGUMENTS_TOKENS.length != 3)
+        {
+            resultString = "Restore document. Too few or too many arguments.";
+        }
+        else
+        {
+            // Get the user and document name arguments
+            Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
+            final String DOC_NAME = scan.next();
+            final String USER_NAME = scan.next();
+
+            // Get line number
+            int time = -1;
+            if (scan.hasNextInt())
+            {
+                time = scan.nextInt();
+            }
+
+            // Check if document and user exist
+            if (this.findDocument(DOC_NAME))
+            {
+                resultString = "Restore contents. Document does not exist.";
+            }
+            else if (!this.userManager.findUser(USER_NAME))
+            {
+                resultString = "Restore contents. User does not exist.";
+            }
+            else if (time < 0)
+            {
+                resultString = "Restore contents. Line number is invalid.";
+            }
+            else
+            {
+                // Get the document and document log to restore
+                Document doc = (Document) this.findDocumentInstance(DOC_NAME);
+                Log docLog = doc.getLogList();
+
+                // Get the time to document created
+                final int DOC_CREATED = docLog.readLogTime(0);
+
+                // Restore the document
+                if (time < DOC_CREATED)
+                {
+                    resultString = "Restore contents. Time requested to restore is before document was created.";
+                }
+                else
+                {
+                    // Delete all contents in document
+                    doc.deleteAllContents();
+
+                    // Restore the document to the right point
+                    boolean doneRestore = false;
+                    for (int counter = 0; counter < docLog.getLength() && !doneRestore; counter++)
+                    {
+                        // Get the log package to perform the restore
+                        final int TIME = docLog.readLogTime(counter);
+                        final String COMMAND = docLog.readLogCommand(counter);
+                        final String ARGUMENTS = docLog.readLogArguments(counter);
+
+                        // Setup the arguments for process
+                        scan = new Scanner(LOG_PACKAGE.getArguments().trim());
+
+                        // Process the command
+                        if (TIME > time)
+                        {
+                            doneRestore = true;
+                        }
+                        else
+                        {
+                            switch (COMMAND)
+                            {
+                                case "APPEND":
+                                {
+                                    // Get the username, document name, and append contents arguments
+                                    final String ARG_DOC_NAME = scan.next();
+                                    final String ARG_USER_NAME = scan.next();
+                                    final String ARG_CONTENTS = scan.nextLine();
+
+                                    // Append the contents to the document
+                                    doc.appendContents(ARG_CONTENTS);
+                                }
+                                break;
+
+                                case "REPLACE":
+                                {
+                                    // Get the user and document name arguments
+                                    final String ARG_DOC_NAME = scan.next();
+                                    final String ARG_USER_NAME = scan.next();
+
+                                    // Get line number
+                                    int lineNumber = -1;
+                                    if (scan.hasNextInt()) {
+                                        lineNumber = scan.nextInt();
+                                    }
+
+                                    // Get the replace contents
+                                    final String REPLACE_CONTENTS = scan.nextLine();
+                                    doc.replaceContents(lineNumber, REPLACE_CONTENTS);
+                                }
+                                break;
+
+                                case "DELETE":
+                                {
+                                    // Get the user and document name arguments
+                                    final String ARG_DOC_NAME = scan.next();
+                                    final String ARG_USER_NAME = scan.next();
+
+                                    // Get line number
+                                    int lineNumber = -1;
+                                    if (scan.hasNextInt()) {
+                                        lineNumber = scan.nextInt();
+                                    }
+
+                                    // Delete contents
+                                    doc.removeContents(lineNumber);
+                                }
+                                break;
+
+                                default:
+                                {
+                                    /* Do nothing */
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Record document log
+                doc.recordLog(LOG_PACKAGE);
+
+                // Update document activity
+                User user = (User) this.userManager.findUserInstance(USER_NAME);
+                user.recordLog(LOG_PACKAGE);
+
+                // Operation return string
+                resultString = "Restore contents. Successfully restore contents.";
+            }
         }
 
         // Return the result of operation
@@ -149,7 +539,55 @@ public class DocumentManager
             }
             else
             {
-                resultString = "Document not found.";
+                resultString = "History document. Document not found.";
+            }
+        }
+        else
+        {
+            resultString = "Delete document. Too few or too many arguments.";
+        }
+
+        // Return the result of operation
+        return resultString;
+    }
+
+
+    /* documentString()
+    Return the document contents.
+
+    Parameter:
+    LOG_PACKAGE - The command package.
+
+    Return:
+    String contents of the document.
+    */
+    public String documentString(final LogPackage LOG_PACKAGE)
+    {
+        // Local variable dictionary
+        String resultString = "";
+
+        // Token the arguments
+        final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
+
+        // Get the contents of the document
+        if (ARGUMENTS_TOKENS.length != 1)
+        {
+            resultString = "Delete document. Too few or too many arguments.";
+        }
+        else
+        {
+            // Get the document name
+            final String DOC_NAME = (LOG_PACKAGE.getArguments().trim().split("\\s+"))[0];
+
+            // Get the history changes of the document
+            if (this.findDocument(DOC_NAME))
+            {
+                // Get the document and get its history log
+                resultString = ((Document) this.findDocumentInstance(DOC_NAME)).printString();
+            }
+            else
+            {
+                resultString = "Contents document. Document not found.";
             }
         }
 
@@ -191,7 +629,8 @@ public class DocumentManager
     Return:
     Instance of the user found.
     */
-    public Document findDocumentInstance(final String DOCUMENT_NAME) {
+    public Document findDocumentInstance(final String DOCUMENT_NAME)
+    {
         // Local variable dictionary
         Document documentFound = null;
 

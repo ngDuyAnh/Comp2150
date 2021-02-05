@@ -34,13 +34,10 @@ public class User extends Item
     /* User()
     Constructor create a new instance of user.
     */
-    public User(final LogPackage LOG_PACKAGE)
+    public User(final String USERNAME)
     {
-        this.userName = LOG_PACKAGE.getArguments(); // Username
+        this.userName = USERNAME;
         this.userLog = new Log();
-
-        // Log event
-        this.userLog.recordLog(LOG_PACKAGE);
     }
 
 
