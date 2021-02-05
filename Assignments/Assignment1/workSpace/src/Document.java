@@ -230,7 +230,7 @@ public class Document extends Item
         docContents += this.docContents.printString();
 
         // Return the document contents
-        return this.docName;
+        return docContents;
     }
 
 }
