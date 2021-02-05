@@ -61,6 +61,7 @@ public class Document extends Item
     public Document(final String DOCUMENT_NAME)
     {
         this.docName = DOCUMENT_NAME;
+        this.docContents = new List();
         this.docLog = new Log();
     }
 
