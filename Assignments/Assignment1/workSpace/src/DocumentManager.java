@@ -98,7 +98,7 @@ public class DocumentManager
                     final Document DOC = new Document(DOC_NAME);
                     DOC.recordLog(LOG_PACKAGE);
                     this.docList.append(DOC);
-                    resultString = "Confirm. " + DOC.printString() + " created.";
+                    resultString = "Confirm. " + DOC_NAME + " created.";
 
                     // User activity log
                     User userFound = this.userManager.findUserInstance(USER_NAME);
@@ -106,7 +106,7 @@ public class DocumentManager
                 }
                 else
                 {
-                    resultString = "The username does not meet the requirements.";
+                    resultString = "The document name does not meet the requirements.";
                 }
             }
         }
@@ -142,9 +142,9 @@ public class DocumentManager
         {
             // Get the username, document name, and append contents arguments
             Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
-            final String DOC_NAME = scan.next();
-            final String USER_NAME = scan.next();
-            final String CONTENTS = scan.nextLine();
+            final String DOC_NAME = scan.next().trim();
+            final String USER_NAME = scan.next().trim();
+            final String CONTENTS = scan.nextLine().trim();
 
             // Check if document and user exist
             if (!this.findDocument(DOC_NAME))
@@ -206,8 +206,8 @@ public class DocumentManager
         {
             // Get the user and document name arguments
             Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
-            final String DOC_NAME = scan.next();
-            final String USER_NAME = scan.next();
+            final String DOC_NAME = scan.next().trim();
+            final String USER_NAME = scan.next().trim();
 
             // Get line number
             int lineNumber = -1;
@@ -217,7 +217,7 @@ public class DocumentManager
             }
 
             // Get the replace contents
-            final String REPLACE_CONTENTS = scan.nextLine();
+            final String REPLACE_CONTENTS = scan.nextLine().trim();
 
             // Check if document and user exist
             if (!this.findDocument(DOC_NAME))
@@ -290,8 +290,8 @@ public class DocumentManager
         {
             // Get the user and document name arguments
             Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
-            final String DOC_NAME = scan.next();
-            final String USER_NAME = scan.next();
+            final String DOC_NAME = scan.next().trim();
+            final String USER_NAME = scan.next().trim();
 
             // Get line number
             int lineNumber = -1;
@@ -371,8 +371,8 @@ public class DocumentManager
         {
             // Get the user and document name arguments
             Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
-            final String DOC_NAME = scan.next();
-            final String USER_NAME = scan.next();
+            final String DOC_NAME = scan.next().trim();
+            final String USER_NAME = scan.next().trim();
 
             // Get line number
             int time = -1;
@@ -638,7 +638,7 @@ public class DocumentManager
         for (int counter = 0; counter < this.docList.getLength() && documentFound == null; counter++)
         {
             // Compare the document name
-            if (this.docList.peekIndex(counter).printString().equals(DOCUMENT_NAME))
+            if (( (Document) this.docList.peekIndex(counter)).getDocName().equals(DOCUMENT_NAME))
             {
                 documentFound = (Document) this.docList.peekIndex(counter);
             }
