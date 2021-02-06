@@ -110,6 +110,19 @@ class DocumentTest
     }
 
     @Test
+    void getDocName()
+    {
+        // Test data
+        final String DOC_NAME = "TestDocument";
+
+        // Make instance of the document
+        final Document DOC = new Document(DOC_NAME);
+
+        // Assert
+        assertEquals(DOC.getDocName(), DOC_NAME);
+    }
+
+    @Test
     void deleteAllContents()
     {
         // Test data
