@@ -30,13 +30,12 @@ strDocument() - Return a string that is the contents of the document.
     The string starts with title follow by the contents line-by-line
         in the document.
 getLogList() - Return the log list.
+getDocName() - Get the String document name.
 deleteAllContents() - Delete all contents in document.
 history() - Return a string that contain all the information
     about the recorded changes to the document.
     The history will contain all replace, delete, restore, and append
     commands in the order of newest or oldest.
-
-Private method:
 recordLog() - Record document change log.
 */
 
@@ -161,6 +160,18 @@ public class Document extends Item
     public Log getLogList()
     {
         return this.docLog;
+    }
+
+
+    /* getDocName()
+    Get the String document name.
+
+    Return:
+    String document name.
+    */
+    public String getDocName()
+    {
+        return this.docName;
     }
 
 
