@@ -322,7 +322,7 @@ public class DocumentManager
                 // Update the log
                 if (!contentsRemoved)
                 {
-                    resultString = "Remove contents. Failed contents remove.";
+                    resultString = "Delete contents. Failed contents remove.";
                 }
                 else
                 {
@@ -334,7 +334,7 @@ public class DocumentManager
                     user.recordLog(LOG_PACKAGE);
 
                     // Success operation
-                    resultString = "Remove contents. Failed contents remove.";
+                    resultString = "Delete contents. Able contents remove.";
                 }
             }
         }
