@@ -141,6 +141,22 @@ class DocumentManagerTest
                 DOC_NAME + "\n" +
                 APPEND_STRING2 + "\n";
         assertEquals(DOCUMENT.printString(), EXPECTED_DELETE);
+
+        // Too few arguments
+        final LogPackage TOO_FEW_ARGUMENTS = new LogPackage(6, "APPEND", DOC_NAME + " " + USER_NAME + " ");
+        assertEquals(documentManager.deleteContents(TOO_FEW_ARGUMENTS), "Delete document. Too few or too many arguments.");
+
+        // Document does not exist
+        final LogPackage DOC_DOES_NOT_EXIST = new LogPackage(6, "APPEND", "Something" + " " + USER_NAME + " " + 0);
+        assertEquals(documentManager.deleteContents(DOC_DOES_NOT_EXIST), "Delete contents. Document does not exist.");
+
+        // User does not exist
+        final LogPackage USER_DOES_NOT_EXIST = new LogPackage(6, "APPEND", DOC_NAME + " " + "Something" + " " + 0);
+        assertEquals(documentManager.deleteContents(USER_DOES_NOT_EXIST), "Delete contents. User does not exist.");
+
+        // Given line number is less than 0
+        final LogPackage LINE_NUM_BELOW_ZERO = new LogPackage(6, "APPEND", DOC_NAME + " " + USER_NAME + " " + -1);
+        assertEquals(documentManager.deleteContents(LINE_NUM_BELOW_ZERO), "Delete contents. Line number is invalid.");
     }
 
     @Test
