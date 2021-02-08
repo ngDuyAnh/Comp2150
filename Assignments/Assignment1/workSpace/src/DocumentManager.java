@@ -17,7 +17,7 @@ createDocument() - Create the document and manage the document
 appendContents() - Append contents to the document.
 replaceContents() - Replace a line contents in the document.
 deleteContents() - Delete a line contents in the document.
-restoreDocument() - Restore the document as given time.
+restoreDocument() - Get the LogPackage and perform restore on document.
 documentString() - Return the document contents.
 documentHistory() - Get the history of changes of the document.
 findDocument() - Find document from track list.
@@ -28,6 +28,7 @@ validUsername() - Check if the given string is valid conditions
         for the username.
         At most 80 non-whitespace characters.
         Uppercase, lowercase, letter, number, and underscore.
+restoreDocument() - Restore the document at given time.
 */
 
 public class DocumentManager
@@ -354,7 +355,7 @@ public class DocumentManager
     Return:
     String report of the document.
     */
-    private String restoreDocument(final LogPackage LOG_PACKAGE)
+    public String restoreDocument(final LogPackage LOG_PACKAGE)
     {
         // Local variable dictionary
         String resultString = "";
@@ -362,7 +363,7 @@ public class DocumentManager
         // Token the arguments
         final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
-        // There should be 4 arguments
+        // There should be 3 arguments
         if (ARGUMENTS_TOKENS.length != 3)
         {
             resultString = "Restore document. Too few or too many arguments.";
@@ -371,18 +372,18 @@ public class DocumentManager
         {
             // Get the user and document name arguments
             Scanner scan = new Scanner(LOG_PACKAGE.getArguments().trim());
-            final String DOC_NAME = scan.next().trim();
             final String USER_NAME = scan.next().trim();
+            final String DOC_NAME = scan.next().trim();
 
             // Get line number
-            int time = -1;
+            int restoreTime = -1;
             if (scan.hasNextInt())
             {
-                time = scan.nextInt();
+                restoreTime = scan.nextInt();
             }
 
             // Check if document and user exist
-            if (this.findDocument(DOC_NAME))
+            if (!this.findDocument(DOC_NAME))
             {
                 resultString = "Restore contents. Document does not exist.";
             }
@@ -390,115 +391,33 @@ public class DocumentManager
             {
                 resultString = "Restore contents. User does not exist.";
             }
-            else if (time < 0)
+            else if (restoreTime < 0)
             {
                 resultString = "Restore contents. Line number is invalid.";
             }
             else
             {
-                // Get the document and document log to restore
-                Document doc = (Document) this.findDocumentInstance(DOC_NAME);
-                Log docLog = doc.getLogList();
+                // Restore document
+                Document DOC = (Document) this.findDocumentInstance(DOC_NAME);
+                boolean restored = this.restoreDocument(DOC, restoreTime);
 
-                // Get the time to document created
-                final int DOC_CREATED = docLog.readLogTime(0);
-
-                // Restore the document
-                if (time < DOC_CREATED)
+                // Record log
+                if (!restored)
                 {
-                    resultString = "Restore contents. Time requested to restore is before document was created.";
+                    resultString = "Restore contents. Failed to restore contents.";
                 }
                 else
                 {
-                    // Delete all contents in document
-                    doc.deleteAllContents();
+                    // Record document log
+                    DOC.recordLog(LOG_PACKAGE);
 
-                    // Restore the document to the right point
-                    boolean doneRestore = false;
-                    for (int counter = 0; counter < docLog.getLength() && !doneRestore; counter++)
-                    {
-                        // Get the log package to perform the restore
-                        final int TIME = docLog.readLogTime(counter);
-                        final String COMMAND = docLog.readLogCommand(counter);
-                        final String ARGUMENTS = docLog.readLogArguments(counter);
+                    // Update document activity
+                    User user = (User) this.userManager.findUserInstance(USER_NAME);
+                    user.recordLog(LOG_PACKAGE);
 
-                        // Setup the arguments for process
-                        scan = new Scanner(LOG_PACKAGE.getArguments().trim());
-
-                        // Process the command
-                        if (TIME > time)
-                        {
-                            doneRestore = true;
-                        }
-                        else
-                        {
-                            switch (COMMAND)
-                            {
-                                case "APPEND":
-                                {
-                                    // Get the username, document name, and append contents arguments
-                                    final String ARG_DOC_NAME = scan.next();
-                                    final String ARG_USER_NAME = scan.next();
-                                    final String ARG_CONTENTS = scan.nextLine();
-
-                                    // Append the contents to the document
-                                    doc.appendContents(ARG_CONTENTS);
-                                }
-                                break;
-
-                                case "REPLACE":
-                                {
-                                    // Get the user and document name arguments
-                                    final String ARG_DOC_NAME = scan.next();
-                                    final String ARG_USER_NAME = scan.next();
-
-                                    // Get line number
-                                    int lineNumber = -1;
-                                    if (scan.hasNextInt()) {
-                                        lineNumber = scan.nextInt();
-                                    }
-
-                                    // Get the replace contents
-                                    final String REPLACE_CONTENTS = scan.nextLine();
-                                    doc.replaceContents(lineNumber, REPLACE_CONTENTS);
-                                }
-                                break;
-
-                                case "DELETE":
-                                {
-                                    // Get the user and document name arguments
-                                    final String ARG_DOC_NAME = scan.next();
-                                    final String ARG_USER_NAME = scan.next();
-
-                                    // Get line number
-                                    int lineNumber = -1;
-                                    if (scan.hasNextInt()) {
-                                        lineNumber = scan.nextInt();
-                                    }
-
-                                    // Delete contents
-                                    doc.removeContents(lineNumber);
-                                }
-                                break;
-
-                                default:
-                                {
-                                    /* Do nothing */
-                                }
-                            }
-                        }
-                    }
+                    // Operation return string
+                    resultString = "Restore contents. Successfully restore contents.";
                 }
-
-                // Record document log
-                doc.recordLog(LOG_PACKAGE);
-
-                // Update document activity
-                User user = (User) this.userManager.findUserInstance(USER_NAME);
-                user.recordLog(LOG_PACKAGE);
-
-                // Operation return string
-                resultString = "Restore contents. Successfully restore contents.";
             }
         }
 
@@ -526,7 +445,7 @@ public class DocumentManager
         final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
         // Get the history of the document
-        if (ARGUMENTS_TOKENS.length == 1)
+        if (ARGUMENTS_TOKENS.length == 1 && !ARGUMENTS_TOKENS[0].isBlank())
         {
             // Get the document name
             final String DOC_NAME = (LOG_PACKAGE.getArguments().trim().split("\\s+"))[0];
@@ -544,7 +463,7 @@ public class DocumentManager
         }
         else
         {
-            resultString = "Delete document. Too few or too many arguments.";
+            resultString = "History document. Too few or too many arguments.";
         }
 
         // Return the result of operation
@@ -572,7 +491,7 @@ public class DocumentManager
         // Get the contents of the document
         if (ARGUMENTS_TOKENS.length != 1)
         {
-            resultString = "Delete document. Too few or too many arguments.";
+            resultString = "Document contents. Too few or too many arguments.";
         }
         else
         {
@@ -587,7 +506,7 @@ public class DocumentManager
             }
             else
             {
-                resultString = "Contents document. Document not found.";
+                resultString = "Document contents. Document not found.";
             }
         }
 
@@ -681,6 +600,131 @@ public class DocumentManager
 
         // Return
         return validDocName;
+    }
+
+
+    /* restoreDocument()
+    Restore the document at given time.
+
+    Parameter:
+    DOC- Handle to document.
+    */
+    private boolean restoreDocument(final Document DOC, final int RESTORE_TIME)
+    {
+        // Local variable dictionary
+        boolean doneRestore = false;
+        Scanner scan = null;      // Read arguments
+
+        // Get the document and document log to restore
+        Log docLog = DOC.getLogList();
+
+        // Get the time to document created
+        final int DOC_CREATED = docLog.readLogTime(0);
+
+        // Restore the document
+        if (RESTORE_TIME >= DOC_CREATED)
+        {
+            // Delete all contents in document
+            DOC.deleteAllContents();
+
+            // Restore the document to the right point
+            for (int counter = 0; counter < docLog.getLength() && !doneRestore; counter++)
+            {
+                // Get the log package to perform the restore
+                final int TIME = docLog.readLogTime(counter);
+                final String COMMAND = docLog.readLogCommand(counter);
+                final String ARGUMENTS = docLog.readLogArguments(counter);
+
+                // Setup the arguments for process
+                scan = new Scanner(ARGUMENTS.trim());
+
+                // Process the command
+                if (TIME > RESTORE_TIME)
+                {
+                    doneRestore = true;
+                }
+                else
+                {
+                    switch (COMMAND)
+                    {
+                        case "APPEND":
+                        {
+                            // Get the username, document name, and append contents arguments
+                            final String ARG_DOC_NAME = scan.next().trim();
+                            final String ARG_USER_NAME = scan.next().trim();
+                            final String ARG_CONTENTS = scan.nextLine().trim();
+
+                            // Append the contents to the document
+                            DOC.appendContents(ARG_CONTENTS);
+                        }
+                        break;
+
+                        case "REPLACE":
+                        {
+                            // Get the user and document name arguments
+                            final String ARG_DOC_NAME = scan.next().trim();
+                            final String ARG_USER_NAME = scan.next().trim();
+
+                            // Get line number
+                            int lineNumber = -1;
+                            if (scan.hasNextInt())
+                            {
+                                lineNumber = scan.nextInt();
+                            }
+
+                            // Get the replace contents
+                            final String REPLACE_CONTENTS = scan.nextLine().trim();
+                            DOC.replaceContents(lineNumber, REPLACE_CONTENTS);
+                        }
+                        break;
+
+                        case "DELETE":
+                        {
+                            // Get the user and document name arguments
+                            final String ARG_DOC_NAME = scan.next().trim();
+                            final String ARG_USER_NAME = scan.next().trim();
+
+                            // Get line number
+                            int lineNumber = -1;
+                            if (scan.hasNextInt())
+                            {
+                                lineNumber = scan.nextInt();
+                            }
+
+                            // Delete contents
+                            DOC.removeContents(lineNumber);
+                        }
+                        break;
+
+                        case "RESTORE":
+                        {
+                            // Get the user and document name arguments
+                            final String ARG_USER_NAME = scan.next().trim();
+                            final String ARG_DOC_NAME = scan.next().trim();
+
+                            // Get line number
+                            int time = -1;
+                            if (scan.hasNextInt())
+                            {
+                                time = scan.nextInt();
+                            }
+
+                            // Restore the document
+                            this.restoreDocument(DOC, time);
+                        }
+                        break;
+
+                        default:
+                        {
+                            /* Do nothing */
+                        }
+                    }
+                }
+            }
+        }
+
+        // Return flag
+        return doneRestore;
     }
 
 }
