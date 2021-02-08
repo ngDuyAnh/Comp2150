@@ -62,7 +62,7 @@ public class UserManager
         final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
         // Get the user report
-        if (ARGUMENTS_TOKENS.length == 1 && !ARGUMENTS_TOKENS[0].isEmpty())
+        if (ARGUMENTS_TOKENS.length == 1 && !ARGUMENTS_TOKENS[0].isBlank())
         {
             final String USERNAME = ARGUMENTS_TOKENS[0];
 
@@ -119,7 +119,7 @@ public class UserManager
         final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
         // Get the user report
-        if (ARGUMENTS_TOKENS.length == 1 && !ARGUMENTS_TOKENS[0].isEmpty())
+        if (ARGUMENTS_TOKENS.length == 1 && !ARGUMENTS_TOKENS[0].isBlank())
         {
             final String USERNAME = ARGUMENTS_TOKENS[0];
 
@@ -221,7 +221,7 @@ public class UserManager
         // The number of characters cannot be more than 80 characters
         if (USERNAME.length() <= 80)
         {
-            if (USERNAME.matches("^[a-zA-Z0-9_]+$"))
+            if (USERNAME.matches("^[a-zA-Z0-9]+$"))
             {
                 validUsername = true;
             }
