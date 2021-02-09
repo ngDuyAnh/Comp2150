@@ -129,11 +129,14 @@ public class WikiManager
                 // Get command line
                 final String LINE = scan.nextLine().trim();
 
+                // Print the command
+                System.out.println(LINE);
+
                 // Process the command
                 final String OUTPUT = wikiManager.processCommandLine(LINE);
 
                 // Print the output result of the command
-                System.out.println(OUTPUT);
+                System.out.println(OUTPUT + "\n");
             }
         }
         catch (FileNotFoundException e)
