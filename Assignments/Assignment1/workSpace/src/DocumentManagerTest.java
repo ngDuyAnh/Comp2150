@@ -99,8 +99,8 @@ class DocumentManagerTest
         final Document DOCUMENT = documentManager.findDocumentInstance(DOC_NAME);
         final String EXPECTED =
                 DOC_NAME + "\n" +
-                REPLACE_STRING + "\n" +
-                APPEND_STRING2 + "\n";
+                "[0] " + REPLACE_STRING + "\n" +
+                "[1] " + APPEND_STRING2 + "\n";
         assertEquals(DOCUMENT.printString(), EXPECTED);
     }
 
@@ -130,8 +130,8 @@ class DocumentManagerTest
         final Document DOCUMENT = documentManager.findDocumentInstance(DOC_NAME);
         final String EXPECTED =
                 DOC_NAME + "\n" +
-                APPEND_STRING1 + "\n" +
-                APPEND_STRING2 + "\n";
+                "[0] " + APPEND_STRING1 + "\n" +
+                "[1] " + APPEND_STRING2 + "\n";
         assertEquals(DOCUMENT.printString(), EXPECTED);
 
         // Delete contents
@@ -139,7 +139,7 @@ class DocumentManagerTest
         assertEquals(documentManager.deleteContents(DELETE_PACKAGE), "Delete contents. Able contents remove.");
         final String EXPECTED_DELETE =
                 DOC_NAME + "\n" +
-                APPEND_STRING2 + "\n";
+                "[0] " + APPEND_STRING2 + "\n";
         assertEquals(DOCUMENT.printString(), EXPECTED_DELETE);
 
         // Too few arguments
@@ -195,8 +195,8 @@ class DocumentManagerTest
         // Assert
         final String APPENDED_DOC_STRING =
                 DOC_NAME + "\n" +
-                APPEND_STRING1 + "\n" +
-                APPEND_STRING2 + "\n";
+                "[0] " + APPEND_STRING1 + "\n" +
+                "[1] " + APPEND_STRING2 + "\n";
         assertEquals(DOCUMENT.printString(), APPENDED_DOC_STRING);
 
         // Replace
@@ -207,8 +207,8 @@ class DocumentManagerTest
         // Assert
         final String REPLACED_DOC_STRING =
                 DOC_NAME + "\n" +
-                APPEND_STRING1 + "\n" +
-                REPLACE_STRING + "\n";
+                "[0] " + APPEND_STRING1 + "\n" +
+                "[1] " + REPLACE_STRING + "\n";
         assertEquals(DOCUMENT.printString(), REPLACED_DOC_STRING);
 
         // Remove the second line
@@ -216,7 +216,7 @@ class DocumentManagerTest
         assertEquals(documentManager.deleteContents(REMOVE_STRING), "Delete contents. Able contents remove.");
         final String REMOVED_DOC_STRING =
                 DOC_NAME + "\n" +
-                REPLACE_STRING + "\n";
+                "[0] " + REPLACE_STRING + "\n";
         assertEquals(DOCUMENT.printString(), REMOVED_DOC_STRING);
 
         // Restore document, too few arguments
@@ -331,8 +331,8 @@ class DocumentManagerTest
         final LogPackage GET_DOCUMENT = new LogPackage(0, "COMMAND", DOC_NAME);
         final String EXPECTED =
                 DOC_NAME + "\n" +
-                APPEND_STRING1 + "\n" +
-                APPEND_STRING2 + "\n";
+                "[0] " + APPEND_STRING1 + "\n" +
+                "[1] " + APPEND_STRING2 + "\n";
         assertEquals(documentManager.documentString(GET_DOCUMENT), EXPECTED);
 
         // Too many arguments
