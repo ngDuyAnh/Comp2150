@@ -377,8 +377,7 @@ public class DocumentManager
 
             // Get line number
             int restoreTime = -1;
-            if (scan.hasNextInt())
-            {
+            if (scan.hasNextInt()) {
                 restoreTime = scan.nextInt();
             }
 
@@ -397,17 +396,21 @@ public class DocumentManager
             }
             else
             {
-                // Restore document
+                // Get the document handle
                 Document DOC = (Document) this.findDocumentInstance(DOC_NAME);
-                boolean restored = this.restoreDocument(DOC, restoreTime);
 
-                // Record log
-                if (!restored)
+                // Only allow to restore if the request restore time is after the document creation time
+                Log docLog = DOC.getLogList();
+                final int DOC_CREATED = docLog.readLogTime(0);
+                if (restoreTime < DOC_CREATED)
                 {
                     resultString = "Restore contents. Failed to restore contents.";
                 }
                 else
                 {
+                    // Restore the document
+                    this.restoreDocument(DOC, restoreTime);
+
                     // Record document log
                     DOC.recordLog(LOG_PACKAGE);
 
@@ -609,7 +612,7 @@ public class DocumentManager
     Parameter:
     DOC- Handle to document.
     */
-    private boolean restoreDocument(final Document DOC, final int RESTORE_TIME)
+    private void restoreDocument(final Document DOC, final int RESTORE_TIME)
     {
         // Local variable dictionary
         boolean doneRestore = false;
@@ -709,8 +712,12 @@ public class DocumentManager
                                 time = scan.nextInt();
                             }
 
-                            // Restore the document
-                            this.restoreDocument(DOC, time);
+                            // Restore the document if and only if the restore time is valid,
+                            // That is, you cannot restore to the current time of the command.
+                            if (time != TIME)
+                            {
+                                this.restoreDocument(DOC, time);
+                            }
                         }
                         break;
 
@@ -722,9 +729,6 @@ public class DocumentManager
                 }
             }
         }
-
-        // Return flag
-        return doneRestore;
     }
 
 }
