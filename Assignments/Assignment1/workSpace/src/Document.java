@@ -238,7 +238,11 @@ public class Document extends Item
         docContents += this.docName + "\n";
 
         // Get document contents
-        docContents += this.docContents.printString();
+        for (int counter = 0; counter < this.docContents.getLength(); counter++)
+        {
+            // Get line number and the contents
+            docContents += "[" + counter + "] " + this.docContents.peekIndex(counter).printString() + "\n";
+        }
 
         // Return the document contents
         return docContents;
