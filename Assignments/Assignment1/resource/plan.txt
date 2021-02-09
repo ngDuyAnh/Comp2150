@@ -45,7 +45,7 @@ CREATE [doc name] [userid]
 Name of a document is at most 80 non-whitespace characters.
 
 APPEND [doc name] [userid] [content]
-    Append content to a signle line at the end of the doc.
+    Append content to a single line at the end of the doc.
     Outcomes not found, fail, success.
     Not found if the user is not in the system or the document does not exists.
         No further action occurs.
@@ -123,6 +123,47 @@ Unit testing...
 
 
 Fields string method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+WikiManager
+    UserManager
+        Track of users
+    DictionaryManager
+        Track documents
+
+
+
+
 
 
 
