@@ -28,7 +28,7 @@ class UserManagerTest
 
         // Assert
         assertEquals(userManager.findUser(ARGUMENTS1), true);
-        assertEquals(userManager.findUser(ARGUMENTS2), true);
+        assertEquals(userManager.findUser(ARGUMENTS2), false);
         assertEquals(userManager.findUser(ARGUMENTS3), false);
 
         // Test create duplicate user
