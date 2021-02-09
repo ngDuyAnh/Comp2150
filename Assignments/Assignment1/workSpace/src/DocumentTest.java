@@ -15,9 +15,9 @@ class DocumentTest
         final String CONTENT3 = "Third line.";
         final String EXPECTED =
                 DOCUMENT_NAME + "\n" +
-                CONTENT1 + "\n" +
-                CONTENT2 + "\n" +
-                CONTENT3 + "\n";
+                "[0] " + CONTENT1 + "\n" +
+                "[1] " + CONTENT2 + "\n" +
+                "[2] " + CONTENT3 + "\n";
 
         // Test
         Document testDoc = new Document(DOCUMENT_NAME);
@@ -42,9 +42,9 @@ class DocumentTest
         final String REPLACE3 = "Third replace.";
         final String EXPECTED =
                 DOCUMENT_NAME + "\n" +
-                REPLACE1 + "\n" +
-                REPLACE2 + "\n" +
-                REPLACE3 + "\n";
+                "[0] " + REPLACE1 + "\n" +
+                "[1] " + REPLACE2 + "\n" +
+                "[2] " + REPLACE3 + "\n";
 
         // Test
         Document testDoc = new Document(DOCUMENT_NAME);
@@ -69,8 +69,8 @@ class DocumentTest
         final String CONTENT3 = "Third line.";
         final String EXPECTED =
                 DOCUMENT_NAME + "\n" +
-                CONTENT1 + "\n" +
-                CONTENT2 + "\n";
+                "[0] " + CONTENT1 + "\n" +
+                "[1] " + CONTENT2 + "\n";
 
         // Test
         Document testDoc = new Document(DOCUMENT_NAME);
