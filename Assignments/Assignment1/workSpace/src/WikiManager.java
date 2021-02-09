@@ -184,7 +184,7 @@ public class WikiManager
         // Get the line to process
         scan = new Scanner(COMMAND_LINE); // Read the command line
         final String COMMAND = scan.next().trim();
-        final String ARGUMENTS = scan.nextLine().trim();
+        final String ARGUMENTS = scan.hasNext() ? scan.nextLine().trim() : "";
 
         // Do not process if it is a comment
         boolean isCommand = true;
@@ -373,7 +373,7 @@ public class WikiManager
     */
     private String restoreDocument(final LogPackage LOG_PACKAGE)
     {
-        return this.restoreDocument(LOG_PACKAGE);
+        return this.documentManager.restoreDocument(LOG_PACKAGE);
     }
 
 
@@ -395,7 +395,7 @@ public class WikiManager
     */
     private String deleteContentsDocument(final LogPackage LOG_PACKAGE)
     {
-        return this.deleteContentsDocument(LOG_PACKAGE);
+        return documentManager.deleteContents(LOG_PACKAGE);
     }
 
 
