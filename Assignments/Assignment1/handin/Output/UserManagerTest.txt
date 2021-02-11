@@ -1,0 +1,20 @@
+Confirm. User1 registered.
+Confirm. User2 registered.
+Confirm. User3 registered.
+Confirm. User1 registered.
+Confirm. User2 registered.
+Confirm. User3 registered.
+Confirm. User1 registered.
+The username does not meet the requirements.
+The username does not meet the requirements.
+Confirm. User1 registered.
+Confirm. User2 registered.
+Confirm. User3 registered.
+User2
+CREATEUSER User2
+COMMAND1 ARG1
+COMMAND2 ARG2
+COMMAND3 ARG3
+
+
+Process finished with exit code 0

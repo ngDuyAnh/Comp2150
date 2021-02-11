@@ -1,0 +1,45 @@
+Input file: sample_data.txt
+USER mike
+Confirm. mike registered.
+
+CREATE Object_Oriented_Programming mike
+Confirm. Object_Oriented_Programming created.
+
+CREATE Operating_System mike
+Confirm. Operating_System created.
+
+CREATE Graph_Theory ali
+Create document. User does not exist.
+
+USER ali
+Confirm. ali registered.
+
+APPEND Object_Oriented_Programming mike OO programming is awesome.
+Append contents. Successfully append contents.
+
+APPEND Object_Oriented_Programming ali I love OO programing.
+Append contents. Successfully append contents.
+
+DELETE Object_Oriented_Programming mike 1
+Delete contents. Able contents remove.
+
+USERREPORT mike
+mike
+USER mike
+CREATE Object_Oriented_Programming mike
+CREATE Operating_System mike
+APPEND Object_Oriented_Programming mike OO programming is awesome.
+DELETE Object_Oriented_Programming mike 1
+
+
+USERREPORT ali
+ali
+USER ali
+APPEND Object_Oriented_Programming ali I love OO programing.
+
+
+QUIT
+BYE.
+
+
+Process finished with exit code 0

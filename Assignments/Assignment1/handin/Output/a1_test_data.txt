@@ -1,0 +1,231 @@
+Input file: a1_test_data.txt
+#This is the beginning of the file
+
+
+USER mike
+Confirm. mike registered.
+
+CREATE Object_Oriented_Programming mike
+Confirm. Object_Oriented_Programming created.
+
+CREATE Operating_System mike
+Confirm. Operating_System created.
+
+CREATE Graph_Theory ali
+Create document. User does not exist.
+
+APPEND Object_Oriented_Programming mike OO programming is awesome.
+Append contents. Successfully append contents.
+
+APPEND Graph_Theory ali I love graph theory
+Append contents. Document does not exist.
+
+APPEND Object_Oriented_Programming mike I love OO programing.
+Append contents. Successfully append contents.
+
+#Pointers are really important in object oriented programing
+
+
+APPEND Object_Oriented_Programming mike everyone likes pointers in Cpp
+Append contents. Successfully append contents.
+
+PRINT Graph_Theory
+Document contents. Document not found.
+
+DELETE Graph_Theory mike 0
+Delete contents. Document does not exist.
+
+DELETE Object_Oriented_Programming mike 5
+Delete contents. Failed contents remove.
+
+USER ali
+Confirm. ali registered.
+
+CREATE Graph_Theory ali
+Confirm. Graph_Theory created.
+
+APPEND Human_Computer_Interaction john HCI is awesome.
+Append contents. Document does not exist.
+
+USER mike
+Duplicated. User already exist.
+
+CREATE Human_Computer_Interaction john
+Create document. User does not exist.
+
+APPEND Human_Computer_Interaction ali HCI is awesome.
+Append contents. Document does not exist.
+
+RESTORE mike Graph_Theory 5
+Restore contents. Failed to restore contents.
+
+REPLACE Object_Oriented_Programming mike 2 Pointers are useful in Cpp
+Replace contents. Successful contents replace.
+
+REPLACE Graph_Theory ali 1 I love graph theory
+Replace contents. Failed contents replace.
+
+APPEND Graph_Theory ali    graph theory is an interesting course
+Append contents. Successfully append contents.
+
+DELETE Graph_Theory john 0
+Delete contents. User does not exist.
+
+RESTORE mike History_of_programming_languages 10
+Restore contents. Document does not exist.
+
+RESTORE John Graph_Theory 12
+Restore contents. User does not exist.
+
+PRINT Automata_Theory
+Document contents. Document not found.
+
+CREATE Object_Oriented_Programming mike
+Create document. Document already exist.
+
+#user id = John
+
+
+USER john
+Confirm. john registered.
+
+RESTORE ali Graph_Theory 15
+Restore contents. Successfully restore contents.
+
+DELETE Java_Programming_language mike 20
+Delete contents. Document does not exist.
+
+PRINT Graph_Theory ali
+Document contents. Too few or too many arguments.
+
+CREATE Graph_Theory ali
+Create document. Document already exist.
+
+DELETE Java_Programming_language mike 2
+Delete contents. Document does not exist.
+
+DELETE Graph_Theory ali 1
+Delete contents. Failed contents remove.
+
+DELETE Graph_Theory ali 0
+Delete contents. Failed contents remove.
+
+DELETE Graph_Theory ali 0
+Delete contents. Failed contents remove.
+
+RESTORE ali Graph_Theory 32
+Restore contents. Successfully restore contents.
+
+RESTORE mike Object_Oriented_Programming 18
+Restore contents. Successfully restore contents.
+
+RESTORE mike Object_Oriented_Programming 25
+Restore contents. Successfully restore contents.
+
+PRINT Automata_Theory
+Document contents. Document not found.
+
+PRINT Object_Oriented_Programming
+Object_Oriented_Programming
+[0] OO programming is awesome.
+[1] I love OO programing.
+[2] Pointers are useful in Cpp
+
+
+PRINT Human_Computer_Interaction
+Document contents. Document not found.
+
+PRINT Graph_Theory
+Graph_Theory
+
+
+PRINT Operating_System
+Operating_System
+
+
+HISTORY Automata_Theory
+History document. Document not found.
+
+HISTORY Object_Oriented_Programming
+Object_Oriented_Programming
+RESTORE mike Object_Oriented_Programming 25
+RESTORE mike Object_Oriented_Programming 18
+REPLACE Object_Oriented_Programming mike 2 Pointers are useful in Cpp
+APPEND Object_Oriented_Programming mike everyone likes pointers in Cpp
+APPEND Object_Oriented_Programming mike I love OO programing.
+APPEND Object_Oriented_Programming mike OO programming is awesome.
+CREATE Object_Oriented_Programming mike
+
+
+HISTORY Human_Computer_Interaction
+History document. Document not found.
+
+HISTORY Graph_Theory
+Graph_Theory
+RESTORE ali Graph_Theory 32
+RESTORE ali Graph_Theory 15
+APPEND Graph_Theory ali    graph theory is an interesting course
+CREATE Graph_Theory ali
+
+
+HISTORY Operating_System
+Operating_System
+CREATE Operating_System mike
+
+
+USERREPORT andrea
+User not found.
+
+USERREPORT ali
+ali
+USER ali
+CREATE Graph_Theory ali
+APPEND Graph_Theory ali    graph theory is an interesting course
+RESTORE ali Graph_Theory 15
+RESTORE ali Graph_Theory 32
+
+
+USERREPORT mike
+mike
+USER mike
+CREATE Object_Oriented_Programming mike
+CREATE Operating_System mike
+APPEND Object_Oriented_Programming mike OO programming is awesome.
+APPEND Object_Oriented_Programming mike I love OO programing.
+APPEND Object_Oriented_Programming mike everyone likes pointers in Cpp
+REPLACE Object_Oriented_Programming mike 2 Pointers are useful in Cpp
+RESTORE mike Object_Oriented_Programming 18
+RESTORE mike Object_Oriented_Programming 25
+
+
+USERREPORT mary
+User not found.
+
+USERREPORT john
+john
+USER john
+
+
+CREATE Discrete_Math mike
+Confirm. Discrete_Math created.
+
+APPEND Discrete_Math mike    Discrete math is the study of math that is discreet
+Append contents. Successfully append contents.
+
+#fix typo
+
+
+REPLACE Discrete_Math michael 0 Discrete math is the study of math that is discrete
+Replace contents. User does not exist.
+
+REPLACE Discrete_Math mike 1    Discrete math is the study of math that is discrete
+Replace contents. Failed contents replace.
+
+#end of file
+
+
+QUIT
+BYE.
+
+
+Process finished with exit code 0

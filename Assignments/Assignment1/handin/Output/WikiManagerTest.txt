@@ -1,0 +1,26 @@
+TestDocument
+RESTORE UserExist TestDocument 21
+DELETE TestDocument UserExist 2
+REPLACE TestDocument UserExist 0 Replace1.
+APPEND TestDocument UserExist Line3.
+APPEND TestDocument UserExist Line2.
+APPEND TestDocument UserExist Line1.
+CREATE TestDocument UserExist
+
+UserExist
+USER UserExist
+CREATE TestDocument UserExist
+APPEND TestDocument UserExist Line1.
+APPEND TestDocument UserExist Line2.
+APPEND TestDocument UserExist Line3.
+REPLACE TestDocument UserExist 0 Replace1.
+DELETE TestDocument UserExist 2
+RESTORE UserExist TestDocument 21
+
+TestDocument
+[0] Replace1.
+[1] Line2.
+[2] Line3.
+
+
+Process finished with exit code 0
