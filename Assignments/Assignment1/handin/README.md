@@ -12,5 +12,10 @@ There is a zip file that you can use IntelliJ to view.
 All test files tested.
 
 All output files from test and provided data will be in the output folder.
+
+Data files:
+	sample_data.txt
+	sample.txt
+	a1_test_data.txt
 ```
 
