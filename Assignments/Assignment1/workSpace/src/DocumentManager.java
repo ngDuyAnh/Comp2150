@@ -448,7 +448,7 @@ public class DocumentManager
         final String[] ARGUMENTS_TOKENS = LOG_PACKAGE.getArguments().trim().split("\\s+");
 
         // Get the history of the document
-        if (ARGUMENTS_TOKENS.length == 1 && !ARGUMENTS_TOKENS[0].isBlank())
+        if (ARGUMENTS_TOKENS.length == 1 && !ARGUMENTS_TOKENS[0].equals(""))
         {
             // Get the document name
             final String DOC_NAME = (LOG_PACKAGE.getArguments().trim().split("\\s+"))[0];
