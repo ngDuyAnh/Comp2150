@@ -14,10 +14,15 @@ length - The number of data the queue is holding.
 
 Public method:
 Queue() - Constructor to create an instance of queue.
-enqueue() - Push the datum to the back of the queue.
 dequeue() - Pop the datum from the front of the queue. 
         Datum will get remove as the result of pop.
 getLength() - Get the number of data in the queue.
+
+Public virtual method:
+enqueue() - Push the datum to the back of the queue.
+        This method is virtual to enable the ability to 
+        overwrite for the PriorityQueue that will extend 
+        from this class.
 */
 
 // Forward declaration
