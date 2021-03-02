@@ -21,6 +21,7 @@ setNext() - Set the next node pointer.
 setPrev() - Set the previous node pointer.
 */
 
+// Forward declaration
 class ListItem;
 
 class Node {
