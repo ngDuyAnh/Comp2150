@@ -24,7 +24,8 @@ setPrev() - Set the previous node pointer.
 // Forward declaration
 class ListItem;
 
-class Node {
+class Node
+{
 private:
     // Private member
     const ListItem* DATUM;    // Pointer to the datum
@@ -40,4 +41,4 @@ public:
     Node* getPrev(); // Get the previous node pointer
     void setNext(const Node* NEXT); // Set the next node pointer
     void setPrev(const Node* PREV); // Set the previous node pointer
-}; // class Node
+};
