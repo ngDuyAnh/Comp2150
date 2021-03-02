@@ -41,9 +41,25 @@ ListItem* Queue::dequeue()
     // Remove the node
     this->dummyHead.setNext(REMOVE_NODE->getNext());
     REMOVE_NODE->getNext()->setPrev(this->dummyHead);
+	
+	// Update the number of data
+	this->length--;
 
     // Return the datum pop
     return DATUM;
+}
+
+
+
+/* getLength()
+Get the number of data in the queue.
+
+Return:
+Number of data in the queue.
+*/
+int getLength()
+{
+	return this->length;
 }
 
 
@@ -66,4 +82,7 @@ void Queue::enqueue(const ListItem* const DATUM)
     insertNode->setPrev(this->dummyTail.getPrev());
     insertNode->setNext(this.dummyTail);
     this->dummyTail.setPrev(insertNode);
+	
+	// Update the number of data
+	this->length++;
 }
