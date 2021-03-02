@@ -27,8 +27,8 @@ class ListItem;
 class Queue
 {
 private:
-    Node dummyHead; // The dummy head of the linked list
-    Node dummyTail; // The dummy tail of the linked list
+    Node dummyHead(nullptr); // The dummy head of the linked list
+    Node dummyTail(nullptr); // The dummy tail of the linked list
     int length = 0; // The number of data in the queue
 
 public:
