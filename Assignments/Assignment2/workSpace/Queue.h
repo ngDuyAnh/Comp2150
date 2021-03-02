@@ -7,7 +7,7 @@ class Queue
 This will be the queue ADT.
 It will build in the basic of doubly linked list.
 
-Private member:
+Protected member:
 dummyHead - The dummy head of the linked list.
 dummyTail - The dummy tail of the linked list.
 length - The number of data the queue is holding.
@@ -31,8 +31,8 @@ class ListItem;
 
 class Queue
 {
-private:
-    // Private member
+protected:
+    // Protected member
     Node dummyHead(nullptr); // The dummy head of the linked list
     Node dummyTail(nullptr); // The dummy tail of the linked list
     int length = 0; // The number of data in the queue
