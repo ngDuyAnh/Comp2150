@@ -33,6 +33,7 @@ private:
     Node* prevNode = nullptr; // Pointer to the previous node
 
 public:
+    // Public method
     Node(const ListItem* DATUM); // Constructor to create an instance of node
     Node(const ListItem* DATUM, const Node* NEXT);
     Node(const ListItem* DATUM, const Node* NEXT, const Node* PREV);
