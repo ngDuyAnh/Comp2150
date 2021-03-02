@@ -37,6 +37,6 @@ public:
     ListItem* getDatum(); // Get the datum the node holds
     Node* getNext(); // Get the next node pointer
     Node* getPrev(); // Get the previous node pointer
-    void setNext(const Node *NEXT); // Set the next pointer
-    void setPrev(const Node *PREV); // Set the previous pointer
+    void setNext(const Node* NEXT); // Set the next node pointer
+    void setPrev(const Node* PREV); // Set the previous node pointer
 }; // class Node
