@@ -56,7 +56,7 @@ Push the datum into the back of the queue.
 Parameter:
 DATUM - Datum to push into the queue.
 */
-void Queue::enqueue(const ListItem* DATUM)
+void Queue::enqueue(const ListItem* const DATUM)
 {
     // Local variable dictionary
     Node* const insertNode = new Node(DATUM); // The node to insert

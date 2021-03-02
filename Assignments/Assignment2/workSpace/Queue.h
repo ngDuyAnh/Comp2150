@@ -44,5 +44,5 @@ public:
     int getLength(); // Get the number of data in the queue
 	
 	// Public virtual method
-	virtual void enqueue(const ListItem* DATUM); // Push the datum into the back of the queue
+	virtual void enqueue(const ListItem* const DATUM); // Push the datum into the back of the queue
 };
