@@ -33,7 +33,7 @@ private:
 
 public:
     Queue(); // Constructor to create an instance of queue
-    void enqueue(const ListItem* DATUM); // Push the datum into the back of the queue
+    virtual void enqueue(const ListItem* DATUM); // Push the datum into the back of the queue
     ListItem* dequeue(); // Get and remove the datum at the front of the queue
     int getLength(); // Get the number of data in the queue
 };
