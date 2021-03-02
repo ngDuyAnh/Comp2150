@@ -27,13 +27,17 @@ class ListItem;
 class Queue
 {
 private:
+    // Private member
     Node dummyHead(nullptr); // The dummy head of the linked list
     Node dummyTail(nullptr); // The dummy tail of the linked list
     int length = 0; // The number of data in the queue
 
 public:
+    // Public method
     Queue(); // Constructor to create an instance of queue
-    virtual void enqueue(const ListItem* DATUM); // Push the datum into the back of the queue
     ListItem* dequeue(); // Get and remove the datum at the front of the queue
     int getLength(); // Get the number of data in the queue
+	
+	// Public virtual method
+	virtual void enqueue(const ListItem* DATUM); // Push the datum into the back of the queue
 };
