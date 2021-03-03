@@ -14,9 +14,10 @@ eventTime - The time for the event to be execute.
 eventTag - The type of event.
 eventProcess - Pointer to the process.
 
-
 Public method:
 Event() - constructor to create an instance of Event.
+
+Public override method:
 getValue() - The the value to compare in 
 */
 
@@ -58,17 +59,9 @@ public:
 
     // Public method
     Event(const int EVENT_TIME, const EventType EVENT_TAG, const Process* const PROCESS); // Constructor
-<<<<<<< HEAD
-            // to create an instance of Event
-
-    // Public override method
-    int getValue(const ListItem* const OTHER) override; // Get the value 
-            // to be able to compare
-=======
                     // to create an instance of Event
 
     // Public override method
     int getValue(const ListItem* const OTHER) override; // Get the value 
                     // to be able to compare
->>>>>>> cbe90f40515df92ddcc18ed2f0288109ec090e31
 };
