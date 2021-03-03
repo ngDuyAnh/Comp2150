@@ -17,8 +17,7 @@ eventProcess - Pointer to the process.
 
 Public method:
 Event() - constructor to create an instance of Event.
-getValue() - The the value to compare in compareTo().
-        For class Event, it is the event time.
+getValue() - The the value to compare in 
 */
 
 // Forward declaration
@@ -59,9 +58,9 @@ public:
 
     // Public method
     Event(const int EVENT_TIME, const EventType EVENT_TAG, const Process* const PROCESS); // Constructor
-            // to create an instance of Event
+                    // to create an instance of Event
 
     // Public override method
     int getValue(const ListItem* const OTHER) override; // Get the value 
-            // to be able to compare
+                    // to be able to compare
 };
