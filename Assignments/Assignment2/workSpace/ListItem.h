@@ -17,6 +17,9 @@ compareTo() - Compare with other instance for sorting.
 class ListItem
 {
 public:
+    // Public method
+    int compareTo(const ListItem* const OTHER); // Compare value
+
     // Public pure virtual method
-    virtual int compareTo(ListItem *other) = 0; // Compare value
+    virtual int getValue() = 0; // Value to compare to
 };
