@@ -25,7 +25,7 @@ processHistory - Track of all the processes got processed.
         arrival time.
 eventsQueue - Track of simulation events.
         This priority queue will organize the events with 
-        the time the event can be execute.
+        the time of when the event can be execute.
 
 Private method:
 arrival() - Get the next event to process and get the next 
