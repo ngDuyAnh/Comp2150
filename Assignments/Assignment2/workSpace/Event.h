@@ -65,13 +65,8 @@ public:
     // Public method
     Event(const int EVENT_TIME, const EventType EVENT_TAG, const Process* const PROCESS); // Constructor
             // to create an instance of Event
-<<<<<<< HEAD
 
     // Public override method
     int getValue(const ListItem* const OTHER) override; // Get the value 
             // to be able to compare
-=======
-    int compareTo(const ListItem* const OTHER) override; // Compare the time of the current event to 
-                                                                // another ListItem
->>>>>>> b3fb43a9871f1c3606206c2b03190380ad3d9ba1
 };
