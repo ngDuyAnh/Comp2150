@@ -14,6 +14,7 @@ processQueue - The queue to track of the processes need to be
         process.
 
 Public method:
+clear() - Clear the queue of the processing unit.
 enqueueProcess() - Push the process require processing to the queue.
 dequeueProcess() - Remove and return the head process from the queue.
 
@@ -26,11 +27,11 @@ class ProcessingUnit
 {
 private:
     // Private member
-    const PriorityQueue processQueue; // Queue to track of processes 
-                                              // need to be process
+    PriorityQueue*  = nullptr; // Queue to track of processes need to be process
 
 public:
     // Public method
+    void clear(); // Clear the queue of the processing unit
     void enqueueProcess(const Process* const PROCESS); // Push the process to processing queue
     Process* dequeueProcess(); // Pop the head process and return it from the queue
 
