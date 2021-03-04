@@ -16,12 +16,30 @@ Constructor to create an instance of queue.
 */
 Queue::Queue()
 {
+    // Create dummy node
+    this->dummyHead = new Node(nullptr);
+    this->dummyTail = new Node(nullptr);
+
     // Setup the dummy node
-    this->dummyHead.setNext(this->dummyTail);
-    this->dummyTail.setPrev(this->dummyHead);
+    this->dummyHead->setPrev(nullptr);
+    this->dummyHead->setNext(this->dummyTail);
+    this->dummyTail->setPrev(this->dummyHead);
+    this->dummyTail->setNext(nullptr);
 
     // The queue is empty
     this->length = 0;
+}
+
+
+
+/* ~Queue()
+Destructor to delete and release memory of an instance of queue.
+*/
+Queue::~Queue()
+{
+    // Release dummy node memory
+    delete this->dummyHead;
+    delete this->dummyTail;
 }
 
 
@@ -35,18 +53,18 @@ Return the removed front datum of the queue.
 ListItem* Queue::dequeue()
 {
     // Local variable dictionary
-    const Node* const REMOVE_NODE = this->dummyHead.getNext(); // The node to remove
-    const ListItem* const DATUM = REMOVE_NODE->getDatum(); // Store the datum to return
+    Node* const removeNode = this->dummyHead->getNext(); // The node to remove
+    const ListItem* const DATUM = removeNode->getDatum(); // Store the datum to return
 
     // Remove the node
-    this->dummyHead.setNext(REMOVE_NODE->getNext());
-    REMOVE_NODE->getNext()->setPrev(this->dummyHead);
+    this->dummyHead->setNext(removeNode->getNext());
+    removeNode->getNext()->setPrev(this->dummyHead);
 	
 	// Update the number of data
 	this->length--;
 
     // Return the datum pop
-    return DATUM;
+    return const_cast<ListItem*>(DATUM);
 }
 
 
@@ -57,7 +75,7 @@ Get the number of data in the queue.
 Return:
 Number of data in the queue.
 */
-int getLength()
+int Queue::getLength()
 {
 	return this->length;
 }
@@ -78,10 +96,10 @@ void Queue::enqueue(const ListItem* const DATUM)
     Node* const insertNode = new Node(DATUM); // The node to insert
 
     // Insert, push, the node to the end of the queue
-    this->dummyTail.getPrev().setNext(insertNode);
-    insertNode->setPrev(this->dummyTail.getPrev());
-    insertNode->setNext(this.dummyTail);
-    this->dummyTail.setPrev(insertNode);
+    this->dummyTail->getPrev()->setNext(insertNode);
+    insertNode->setPrev(this->dummyTail->getPrev());
+    insertNode->setNext(this->dummyTail);
+    this->dummyTail->setPrev(insertNode);
 	
 	// Update the number of data
 	this->length++;

@@ -14,6 +14,7 @@ length - The number of data the queue is holding.
 
 Public method:
 Queue() - Constructor to create an instance of queue.
+~Queue() - Destructor to delete and release memory of an instance of queue
 dequeue() - Pop the datum from the front of the queue. 
         Datum will get remove as the result of pop.
 getLength() - Get the number of data in the queue.
@@ -33,13 +34,14 @@ class Queue
 {
 protected:
     // Protected member
-    Node dummyHead(nullptr); // The dummy head of the linked list
-    Node dummyTail(nullptr); // The dummy tail of the linked list
+    Node* dummyHead = nullptr; // The dummy head of the linked list
+    Node* dummyTail = nullptr; // The dummy tail of the linked list
     int length = 0; // The number of data in the queue
 
 public:
     // Public method
-    Queue(); // Constructor to create an instance of queue
+    Queue();  // Constructor to create an instance of queue
+    ~Queue(); // Destructor to delete and release memory of an instance of queue
     ListItem* dequeue(); // Get and remove the datum at the front of the queue
     int getLength(); // Get the number of data in the queue
 	

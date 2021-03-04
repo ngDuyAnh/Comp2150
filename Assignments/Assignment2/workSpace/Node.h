@@ -28,18 +28,18 @@ class Node
 {
 private:
     // Private member
-    const ListItem* DATUM;    // Pointer to the datum
+    const ListItem* const DATUM;    // Pointer to the datum
     Node* nextNode = nullptr; // Pointer to the next node
     Node* prevNode = nullptr; // Pointer to the previous node
 
 public:
     // Public method
-    Node(const ListItem* DATUM); // Constructor to create an instance of node
-    Node(const ListItem* DATUM, const Node* NEXT);
-    Node(const ListItem* DATUM, const Node* NEXT, const Node* PREV);
+    Node(const ListItem* const DATUM); // Constructor to create an instance of node
+    Node(const ListItem* const DATUM, Node* const next);
+    Node(const ListItem* const DATUM, Node* const next, Node* const prev);
     ListItem* getDatum(); // Get the datum the node holds
     Node* getNext(); // Get the next node pointer
     Node* getPrev(); // Get the previous node pointer
-    void setNext(const Node* NEXT); // Set the next node pointer
-    void setPrev(const Node* PREV); // Set the previous node pointer
+    void setNext(Node* const next); // Set the next node pointer
+    void setPrev(Node* const prev); // Set the previous node pointer
 };
