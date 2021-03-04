@@ -193,8 +193,8 @@ private:
     // Private member
     const ProcessingUnit CPU_UNIT; // Representation handle to the CPU
     const ProcessingUnit IO_UNIT;   // Representation handle to the IO
-    Queue processHistory; // History of processes got processed
-    PriorityQueue eventsQueue; // Queue holds comming events of the simulation
+    PriorityQueue* processHistory; // History of processes got processed
+    PriorityQueue* eventsQueue; // Queue holds comming events of the simulation
 
     // Private method
 

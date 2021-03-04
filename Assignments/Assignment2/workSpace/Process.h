@@ -14,6 +14,7 @@ PROCESS_ARRIVAL - The process arrival time.
 processExit - The process exit time.
 processWait - The amount of time the process has to wait 
         to get process.
+processBurstString - 
 
 Public method:
 Process() - Constructor to create an instance of process.
