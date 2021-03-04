@@ -24,44 +24,43 @@ getValue() - The the value to compare in
 // Forward declaration
 class Process;
 
+// Data type
+
+/* enum EventType
+Tag for the type of events.
+
+Enumerator:
+PROCESS_ARRIVAL - The arrival of a process waiting to be process.
+PROCESS_EXIST - Done processing the process.
+PROCESS_START_CPU - Process enter CPU processing.
+PROCESS_COMPLETE_CPU - Process done CPU processing.
+PROCESS_TIMEOUT_CPU - Process reaches the limit of CPU resource.
+PROCESS_START_IO - Process enter IO processing.
+PROCESS_COMPLETE_IO - Process done IO processing.
+*/
+enum class EventType
+{
+    EMPTY = 0, 
+    PROCESS_ARRIVAL, 
+    PROCESS_EXIST, 
+    PROCESS_START_CPU, 
+    PROCESS_COMPLETE_CPU, 
+    PROCESS_TIMEOUT_CPU, 
+    PROCESS_START_IO, 
+    PROCESS_COMPLETE_IO
+};
+
 class Event: public ListItem {
 private:
     int eventTime = -1;           // The time for event to be execute
-    EventType eventTag = nullptr; // The type of event
+    EventType eventTag = EventType::EMPTY; // The type of event
     Process *process = nullptr;   // Pointer to the process
 
 public:
-
-    // Public data type
-
-    /* enum EventType
-    Tag for the type of events.
-
-    Enumerator:
-    PROCESS_ARRIVAL - The arrival of a process waiting to be process.
-    PROCESS_EXIST - Done processing the process.
-    PROCESS_START_CPU - Process enter CPU processing.
-    PROCESS_COMPLETE_CPU - Process done CPU processing.
-    PROCESS_TIMEOUT_CPU - Process reaches the limit of CPU resource.
-    PROCESS_START_IO - Process enter IO processing.
-    PROCESS_COMPLETE_IO - Process done IO processing.
-    */
-    enum EventType
-    {
-        PROCESS_ARRIVAL = 0, 
-        PROCESS_EXIST, 
-        PROCESS_START_CPU, 
-        PROCESS_COMPLETE_CPU, 
-        PROCESS_TIMEOUT_CPU, 
-        PROCESS_START_IO, 
-        PROCESS_COMPLETE_IO
-    };
-
     // Public method
-    Event(const int EVENT_TIME, const EventType EVENT_TAG, const Process* const PROCESS); // Constructor
-                    // to create an instance of Event
+    Event(const int EVENT_TIME, const EventType EVENT_TAG, 
+            Process* const process); // Constructor to create an instance of Event
 
     // Public override method
-    int getValue(const ListItem* const OTHER) override; // Get the value 
-                    // to be able to compare
+    int getValue() override; // Get the value to be able to compare
 };

@@ -27,6 +27,15 @@ eventsQueue - Track of simulation events.
         This priority queue will organize the events with 
         the time of when the event can be execute.
 
+Private data type:
+class Event - Represents an event to be simulate.
+class ArrivalEvent - Represents an arrival of a process event of a process.
+class StartCPUEvent - Represents a start CPU processing event of a process.
+class CompleteCPUEvent - Represents a complete CPU event of a process.
+class ExitProcessEvent - Represents an exit process event. Process done processing.
+class StartIOEvent - Represents a start IO processing event of a process.
+class CompleteIOEvent - Represents a complete IO event of a process.
+
 Private method:
 arrival() - Get the next event to process and get the next 
         event from input file.
@@ -160,7 +169,7 @@ private:
     This represents the start CPU event of a process.
     The next event is the process complete CPU processing or timeout.
 
-    Public override methodL
+    Public override method:
     handleEvent() - Handle the start CPU event.
             The next event is complete CPU process or timeout.
     */
@@ -172,12 +181,66 @@ private:
 
 
 
+    /* class CompleteCPUEvent
+    This represents the complete processing CPU event of a process.
+    The next event is process exits if there are no more process or request 
+            the next process from either CPU or IO.
+
+    Public override method:
+    handleEvent() - Handle the complete CPU event.
+            The next event is process exits or start the next CPU or IO.
+    */
+    class CompleteCPUEvent : public Event
+    {
+    public:
+        void handleEvent() override; // Handle the complete CPU event
+    };
 
 
 
+    /* class ExitProcessEvent
+    This represents the exit process event.
+    This is when the process is done all processing.
+    The exist event will pop the process out of the processing and store it 
+            to history for stats.
+
+    Public override method:
+    handleEvent() - Handle the process exits event.
+    */
+    class ExitProcessEvent : public Event
+    {
+    public:
+        void handleEvent() override; // Handle the process exits event
+    };
 
 
 
+    /* class StartIOEvent
+    This represents the start IO event of a process.
+    The next event is the process complete CPU processing.
+
+    Public override method:
+    handleEvent() - Handle the start IO event.
+            The next event is compelte IO process.
+    */
+    class StartIOEvent : public Event
+    {
+    public:
+        void handleEvent() override; // Handle the start IO event
+    };
+
+
+
+    /* class CompleteIOEvent
+    This represents the complete processing IO event of a process.
+    The next event is process exits if there is no more process or request 
+            the next process of either CPU or IO.
+    */
+    class CompleteIOEvent : public Event
+    {
+    public:
+        void handleEvent() override; // Handle the complete IO event
+    };
 
 
 
@@ -187,8 +250,6 @@ private:
 
 
    
-    class StartCPUEvent : public Event;
-    class CompleteCPUEvent : public Event;
     
     // Private member
     const ProcessingUnit CPU_UNIT; // Representation handle to the CPU

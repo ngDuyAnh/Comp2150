@@ -18,11 +18,11 @@ EVENT_TIME - The time of the event to be execute.
 EVENT_TAG - The type of event to handle.
 PROCESS - The process under the event.
 */
-Event::Event(const int EVENT_TIME, const EventType EVENT_TAG, const Process* const PROCESS)
+Event::Event(const int EVENT_TIME, const EventType EVENT_TAG, Process* const process)
 {
     this->eventTime = EVENT_TIME;
     this->eventTag = EVENT_TAG;
-    this->process = PROCESS;
+    this->process = process;
 }
 
 
@@ -38,5 +38,5 @@ Return the event execute time.
 */
 int Event::getValue()
 {
-    return this->eventTIme;
+    return this->eventTime;
 }
