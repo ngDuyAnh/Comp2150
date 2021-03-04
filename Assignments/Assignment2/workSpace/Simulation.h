@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ListItem.h"
+
 /*
 Duy Anh Nguyen 7892957
 March 1, 2021
@@ -18,8 +20,6 @@ CPU_UNIT - Representation handle to the CPU.
 IO_UNIT - Representation handle to the IO.
         This will help us calculate the amount of time it will 
         take to processing a given process.
-cpuQueue - Process queue waiting to be process by the CPU.
-ioQueue - Process queue waiting to be process by the IO.
 processHistory - Track of all the processes got processed.
         This priority queue will organize the history with 
         arrival time.
@@ -66,11 +66,130 @@ runSimulation() - Activate the simulation. This is the kick start
 summary() - Print the summary of the simulation to standard output.
 */
 
-// Forward dec;aration
+// Forward declaration
+class Process;
+
+// Data type
+
+/* enum EventType
+Tag for the type of events.
+
+Enumerator:
+PROCESS_ARRIVAL - The arrival of a process waiting to be process.
+PROCESS_EXIST - Done processing the process.
+PROCESS_START_CPU - Process enter CPU processing.
+PROCESS_COMPLETE_CPU - Process done CPU processing.
+PROCESS_TIMEOUT_CPU - Process reaches the limit of CPU resource.
+PROCESS_START_IO - Process enter IO processing.
+PROCESS_COMPLETE_IO - Process done IO processing.
+*/
+enum class EventType
+{
+    EMPTY = 0,
+    PROCESS_ARRIVAL,
+    PROCESS_EXIST,
+    PROCESS_START_CPU,
+    PROCESS_COMPLETE_CPU,
+    PROCESS_TIMEOUT_CPU,
+    PROCESS_START_IO,
+    PROCESS_COMPLETE_IO
+};
 
 class Simulation
 {
 private:
+
+    // Private data type
+
+    /* class Event
+    This represents an event waiting to be execute.
+
+    Private member:
+    eventTime - The time for the event to be execute.
+    eventTag - The type of event.
+    eventProcess - Pointer to the process.
+
+    Public method:
+    Event() - constructor to create an instance of Event.
+
+    Public override method:
+    getValue() - The value use in compareTo() method.
+            For event, this value will be the eventTime member.
+
+    Public pure virtual method:
+    handleEvent() - Handle the current event request.
+    */
+    class Event : public ListItem
+    {
+    private:
+        int eventTime = -1;                    // The time for event to be execute
+        EventType eventTag = EventType::EMPTY; // The type of event
+        Process* process = nullptr;            // Pointer to the process
+
+    public:
+        // Public method
+        Event(const int EVENT_TIME, const EventType EVENT_TAG,
+            Process* const process); // Constructor to create an instance of Event
+
+        // Public override method
+        int getValue() override; // Get the value to be able to compare
+
+        // Public pure virtual method
+        virtual void handleEvent() = 0; // Handle the evemt execute
+    };
+
+
+
+    /* class ArrivalEvent
+    This represents the arrival event of a process.
+    The next event is the process enter CPU or IO for processing.
+
+    Public override method:
+    handleEvent() - Handle the arrival event.
+            The next event is start processing CPU or IO.
+    */
+    class ArrivalEvent : public Event
+    {
+    public:
+        void handleEvent() override; // Handle the arrival event
+    };
+
+
+
+    /* class StartCPUEvent
+    This represents the start CPU event of a process.
+    The next event is the process complete CPU processing or timeout.
+
+    Public override methodL
+    handleEvent() - Handle the start CPU event.
+            The next event is complete CPU process or timeout.
+    */
+    class StartCPUEvent : public Event
+    {
+    public:
+        void handleEvent() override; // Handle  the start CPU event
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    class StartCPUEvent : public Event;
+    class CompleteCPUEvent : public Event;
+    
     // Private member
     const ProcessingUnit CPU_UNIT; // Representation handle to the CPU
     const ProcessingUnit IO_UNIT;   // Representation handle to the IO
