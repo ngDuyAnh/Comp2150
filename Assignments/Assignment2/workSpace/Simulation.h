@@ -13,20 +13,6 @@ It will have representation handle to the CPU and IO to process.
 Private static member:
 processCount - Track count of the number of process created.
 
-Private member:
-CPU_UNIT - Representation handle to the CPU.
-        This will help us calculate the amount of time it will 
-        take to processing a given process.
-IO_UNIT - Representation handle to the IO.
-        This will help us calculate the amount of time it will 
-        take to processing a given process.
-processHistory - Track of all the processes got processed.
-        This priority queue will organize the history with 
-        arrival time.
-eventsQueue - Track of simulation events.
-        This priority queue will organize the events with 
-        the time of when the event can be execute.
-
 Private data type:
 class Event - Represents an event to be simulate.
 class ArrivalEvent - Represents an arrival of a process event of a process.
@@ -35,6 +21,20 @@ class CompleteCPUEvent - Represents a complete CPU event of a process.
 class ExitProcessEvent - Represents an exit process event. Process done processing.
 class StartIOEvent - Represents a start IO processing event of a process.
 class CompleteIOEvent - Represents a complete IO event of a process.
+
+Private member:
+CPU_UNIT - Representation handle to the CPU.
+        This will help us calculate the amount of time it will
+        take to processing a given process.
+IO_UNIT - Representation handle to the IO.
+        This will help us calculate the amount of time it will
+        take to processing a given process.
+processHistory - Track of all the processes got processed.
+        This priority queue will organize the history with
+        arrival time.
+eventsQueue - Track of simulation events.
+        This priority queue will organize the events with
+        the time of when the event can be execute.
 
 Private method:
 arrival() - Get the next event to process and get the next 
@@ -77,32 +77,6 @@ summary() - Print the summary of the simulation to standard output.
 
 // Forward declaration
 class Process;
-
-// Data type
-
-/* enum EventType
-Tag for the type of events.
-
-Enumerator:
-PROCESS_ARRIVAL - The arrival of a process waiting to be process.
-PROCESS_EXIST - Done processing the process.
-PROCESS_START_CPU - Process enter CPU processing.
-PROCESS_COMPLETE_CPU - Process done CPU processing.
-PROCESS_TIMEOUT_CPU - Process reaches the limit of CPU resource.
-PROCESS_START_IO - Process enter IO processing.
-PROCESS_COMPLETE_IO - Process done IO processing.
-*/
-enum class EventType
-{
-    EMPTY = 0,
-    PROCESS_ARRIVAL,
-    PROCESS_EXIST,
-    PROCESS_START_CPU,
-    PROCESS_COMPLETE_CPU,
-    PROCESS_TIMEOUT_CPU,
-    PROCESS_START_IO,
-    PROCESS_COMPLETE_IO
-};
 
 class Simulation
 {
@@ -243,13 +217,6 @@ private:
     };
 
 
-
-
-
-
-
-
-   
     
     // Private member
     const ProcessingUnit CPU_UNIT; // Representation handle to the CPU
@@ -258,6 +225,11 @@ private:
     PriorityQueue* eventsQueue; // Queue holds comming events of the simulation
 
     // Private method
+    void processArrival(); // Get the next process and create the arrival event for it
+    void processExit();    // Process is done processing, handle it and put it in history
+    void startCPU();       // Process execute on CPU
+    void completeCPU();    // Process complete CPU time and ready to be it to next event
+    void TimeoutCPU(); 
 
     /* arrival()
     Get the next event to process and get the next event from input file.
