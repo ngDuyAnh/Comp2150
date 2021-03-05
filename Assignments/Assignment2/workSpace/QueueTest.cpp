@@ -4,7 +4,7 @@
 using namespace std;
 
 // Macro
-#define MAX_INSERT 100
+#define MAX_INSERT 10000000
 
 int main()
 {

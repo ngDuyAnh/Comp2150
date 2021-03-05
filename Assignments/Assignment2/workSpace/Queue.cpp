@@ -59,6 +59,9 @@ ListItem* Queue::dequeue()
     // Remove the node
     this->dummyHead->setNext(removeNode->getNext());
     removeNode->getNext()->setPrev(this->dummyHead);
+
+    // Release memory of the removed nove
+    delete removeNode;
 	
 	// Update the number of data
 	this->length--;
