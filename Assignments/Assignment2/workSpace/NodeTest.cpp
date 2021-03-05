@@ -19,6 +19,9 @@ int main()
 	assert((int)testNode->getNext() == 1);
 	assert((int)testNode->getPrev() == 2);
 
+    // Release node memory
+	delete testNode;
+	
 	// Return
 	cout << "Program ends sucessfully." << endl;
 	return 0;
