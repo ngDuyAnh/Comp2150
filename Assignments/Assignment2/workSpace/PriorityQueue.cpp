@@ -1,4 +1,6 @@
 #include "PriorityQueue.h"
+#include "Node.h"
+#include "ListItem.h"
 
 /*
 Duy Anh Nguyen 7892957
@@ -23,15 +25,15 @@ void PriorityQueue::enqueue(const ListItem* const DATUM)
     bool foundInsert = false; // Found the place to insert
 
     // Search for the right position to insert the node
-    Node* reference = this->dummyHead;
+    Node* reference = Queue::dummyHead;
     for (int counter = 0; counter < this->getLength() && !foundInsert; counter++)
     {
         // Go next node and get the datum to check
         reference = reference->getNext();
-        const ListItem* const NODE_DATUM = reference->getDatum() && !foundInsert;
+        const ListItem* const NODE_DATUM = reference->getDatum();
 
         // Check if can insert before
-        if (DATUM->compareTo(NODE_DATUM) == -1) // Less than
+        if (((ListItem* const)DATUM)->compareTo((ListItem* const)NODE_DATUM) == -1) // Less than
         {
             foundInsert = true;
         }
@@ -40,7 +42,7 @@ void PriorityQueue::enqueue(const ListItem* const DATUM)
     // Insert the node
     if (foundInsert == false) // Insert tail, this is greater than all in queue value
     {
-        Queue::enqueue(DATUM)
+        Queue::enqueue(DATUM);
     }
     else
     {
@@ -48,6 +50,7 @@ void PriorityQueue::enqueue(const ListItem* const DATUM)
         Node* const insertNode = new Node(DATUM, reference, reference->getPrev());
 
         // Change the reference node link
+        reference->getPrev()->setNext(insertNode);
         reference->setPrev(insertNode);
         
         // Update the number of data

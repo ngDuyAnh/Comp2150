@@ -37,6 +37,20 @@ Destructor to delete and release memory of an instance of queue.
 */
 Queue::~Queue()
 {
+    // Release memory of data
+    Node* reference = this->dummyHead->getNext();
+    for (int counter = 0; counter < this->getLength(); counter++)
+    {
+        // Get the next node
+        Node* const nextNode = reference->getNext();
+
+        // Release memory of the current node
+        delete reference;
+
+        // Go to the next node
+        reference = nextNode;
+    }
+    
     // Release dummy node memory
     delete this->dummyHead;
     delete this->dummyTail;

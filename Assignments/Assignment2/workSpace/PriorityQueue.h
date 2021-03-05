@@ -15,9 +15,9 @@ Public override method:
 enqueue() - Push the datum and order it in the queue.
 */
 
-class Queue : public Queue
+class PriorityQueue : public Queue
 {
 public:
     // Public override method
     void enqueue(const ListItem* const DATUM) override; // Push the datum to the queue
-}
+};

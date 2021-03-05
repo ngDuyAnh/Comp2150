@@ -33,6 +33,9 @@ int main()
 		// Check
 		assert(DATUM == counter);
 	}
+	
+	// Release memory
+	delete testQueue;
 
 	// Return
 	cout << "Program ends sucessfully." << endl;
