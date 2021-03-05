@@ -10,15 +10,18 @@ This will be the parent class for data type that can be whole by
 There is a virtual method compareTo() to help compare value for 
         sorting in the LinkedList.
 
-Public pure virtual method:
+Public method:
 compareTo() - Compare with other instance for sorting.
+
+Public pure virtual method:
+getValue() - Get the value for compareTo() method.
 */
 
 class ListItem
 {
 public:
     // Public method
-    int compareTo(const ListItem* const OTHER); // Compare value
+    int compareTo(ListItem* const other); // Compare value
 
     // Public pure virtual method
     virtual int getValue() = 0; // Value to compare to
