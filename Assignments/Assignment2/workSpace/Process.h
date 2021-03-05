@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ListItem.h"
+
 /*
 Duy Anh Nguyen 7892957
 March 3, 2021
@@ -23,9 +25,12 @@ setProcessExit() - Set the time the process exit.
 addProcessWait() - Add process waiting time to be process.
 printProcessInfo() - Print the process information to the 
         standard output.
+
+Public override method:
+getValue() - Get the value for compareTo() method.
 */
 
-class Process
+class Process : public ListItem
 {
 private:
     // Private member
@@ -40,4 +45,7 @@ public:
     void setProcessExit(const int EXIT_TIME);   // Set the time the process exit processing
     void addProcessWait(const int AMOUNT_TIME); // Add an amount of time the process wait
     void printProcessInfo();                    // Print the process information to std output
-}
+
+    // Public override method
+    int getValue() override; // Get the value for compareTo() method.
+};
