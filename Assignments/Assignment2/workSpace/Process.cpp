@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include "Process.h"
+#include "Queue.h"
 using namespace std;
 
 /*
@@ -13,7 +14,7 @@ class PriorityQueue
 // Public method
 
 /* Process()
-Constructor to crate an instance of process.
+Constructor to create an instance of process.
 
 Parameter:
 ID_NUMBER - Process ID number.
@@ -26,6 +27,17 @@ Process::Process(const int ID_NUMBER, const int ARRIVAL_TIME)
     this->PROCESS_ARRIVAL = ARRIVAL_TIME;
     this->processExit = -1;
     this->processWait = 0;
+    this->processingQueue = new Queue();
+}
+
+
+
+/* ~Process()
+Destructor to release memory.
+*/
+Process::~Process()
+{
+    delete this->processingQueue;
 }
 
 
@@ -66,6 +78,40 @@ void Process::printProcessInfo()
     cout << setw(10) << this->PROCESS_ARRIVAL;
     cout << setw(10) << this->processExit;
     cout << setw(10) << this->processWait;
+}
+
+
+
+/* getCurrentProcessingLength()
+Get the current request for processing.
+
+Return:
+The next processing request.
+*/
+int Process::getCurrentProcessingLength()
+{
+    return this->processingQueue->peekHead()->getValue();
+}
+
+
+
+/* getNextProcessingLength()
+Remove the current processing, get and return the next processing.
+
+Return:
+Next processing length.
+*/
+int Process::getNextProcessingLength()
+{
+    // Remove the current processing
+    ListItem* currentProcessing = this->processingQueue->dequeue();
+    delete currentProcessing;
+
+    // Get the next processing
+    ListItem* nextProcessing = this->processingQueue->peekHead();
+
+    // Return the next processing
+    return nextProcessing->getValue();
 }
 
 
