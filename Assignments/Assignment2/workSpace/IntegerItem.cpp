@@ -7,6 +7,21 @@ IntegerItem.cpp
 class IntegerItem
 */
 
+// Public method
+/* setValue()
+Set new datum value.
+
+Parameter:
+VALUE - Value to set datum.
+
+*/
+void IntegerItem::setValue(const int VALUE)
+{
+    this->datum = VALUE;
+}
+
+
+
 // Public override method
 
 /* getValue()

@@ -11,6 +11,9 @@ This will be the hold an integer for the queue.
 Private member:
 datum - The integer datum.
 
+Public method:
+setValue() - Set a new value.
+
 Public override method:
 getValue() - Return the integer value.
 */
@@ -22,6 +25,9 @@ private:
     int datum = -1; // The integer datum
 
 public:
+    // Public method
+    void setValue(const int VALUE); // Set a mew value
+
     // Public override method
     int getValue() override; // Get the integer value
 };
