@@ -17,6 +17,7 @@ Queue() - Constructor to create an instance of queue.
 ~Queue() - Destructor to delete and release memory of an instance of queue
 dequeue() - Pop the datum from the front of the queue. 
         Datum will get remove as the result of pop.
+peekHead() - Get the first datum.
 getLength() - Get the number of data in the queue.
 
 Public virtual method:
@@ -43,6 +44,7 @@ public:
     Queue();  // Constructor to create an instance of queue
     ~Queue(); // Destructor to delete and release memory of an instance of queue
     ListItem* dequeue(); // Get and remove the datum at the front of the queue
+    ListItem* peekHead(); // Get the first datum at the front of the queue
     int getLength(); // Get the number of data in the queue
 	
 	// Public virtual method

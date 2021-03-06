@@ -86,6 +86,19 @@ ListItem* Queue::dequeue()
 
 
 
+/* peekHead()
+Get the first datum at the front of the queue.
+
+Return:
+First datum.
+*/
+ListItem* Queue::peekHead()
+{
+    return const_cast<ListItem*>(this->dummyHead->getNext()->getDatum());
+}
+
+
+
 /* getLength()
 Get the number of data in the queue.
 
