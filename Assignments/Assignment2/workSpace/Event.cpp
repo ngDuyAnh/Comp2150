@@ -17,8 +17,9 @@ simulation - The simulation the event is for.
 EVENT_TIME - The time of the event to be execute.
 process - The process under the event.
 */
-Simulation::Event::Event(Simulation* simulation, const int EVENT_TIME, Process* const process)
+Simulation::Event::Event(Simulation* const simulation, const int EVENT_TIME, Process* const process)
 {
+    this->simulation = simulation;
     this->eventTime = EVENT_TIME;
     this->process = process;
 }
