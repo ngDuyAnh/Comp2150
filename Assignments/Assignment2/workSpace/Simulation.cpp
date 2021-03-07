@@ -107,14 +107,20 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
                 }
 
                 // Create an arrival event for this process
-                ArrivalEvent* processArrivalEvent = new ArrivalEvent(processArrivalTime, process);
+                ArrivalEvent* processArrivalEvent = new ArrivalEvent(this, processArrivalTime, process);
 
                 // Put the event into queue for process
                 this->eventsQueue->enqueue(processArrivalEvent);
             }
 
+            // Get the coming event and process
+            Event* comingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
 
+            // Perform the event action
+            comingEvent->handleEvent();
 
+            // Release the handled event memory
+            delete comingEvent;
         }
     }
 

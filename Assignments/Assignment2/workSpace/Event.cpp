@@ -1,5 +1,4 @@
-#include "Event.h"
-#include "Process.h"
+#include "Simulation.h"
 
 /*
 Duy Anh Nguyen 7892957
@@ -14,14 +13,13 @@ class Event
 Constructor to create an instance of Event.
 
 Parameter:
+simulation - The simulation the event is for.
 EVENT_TIME - The time of the event to be execute.
-EVENT_TAG - The type of event to handle.
-PROCESS - The process under the event.
+process - The process under the event.
 */
-Event::Event(const int EVENT_TIME, const EventType EVENT_TAG, Process* const process)
+Simulation::Event::Event(Simulation* simulation, const int EVENT_TIME, Process* const process)
 {
     this->eventTime = EVENT_TIME;
-    this->eventTag = EVENT_TAG;
     this->process = process;
 }
 
@@ -36,7 +34,7 @@ For event, it is the event time.
 Return:
 Return the event execute time.
 */
-int Event::getValue()
+int Simulation::Event::getValue()
 {
     return this->eventTime;
 }

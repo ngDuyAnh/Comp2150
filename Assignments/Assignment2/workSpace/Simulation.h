@@ -104,12 +104,13 @@ private:
     class Event : public ListItem
     {
     private:
-        int eventTime = -1;                    // The time for event to be execute
-        Process* process = nullptr;            // Pointer to the process
+        Simulation* simulation = nullptr; // Pointer to the simulation
+        int eventTime = -1;               // The time for event to be execute
+        Process* process = nullptr;       // Pointer to the process
 
     public:
         // Public method
-        Event(const int EVENT_TIME, Process* const process); // Constructor to create an instance of Event
+        Event(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance of Event
 
         // Public override method
         int getValue() override; // Get the value to be able to compare
@@ -135,7 +136,7 @@ private:
     {
     public:
         // Public method
-        ArrivalEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        ArrivalEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the arrival event
@@ -158,7 +159,7 @@ private:
     {
     public:
         // Public method
-        StartCPUEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        StartCPUEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle  the start CPU event
@@ -182,7 +183,7 @@ private:
     {
     public:
         // Public method
-        CompleteCPUEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        CompleteCPUEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the complete CPU event
@@ -206,7 +207,7 @@ private:
     {
     public:
         // Public method
-        ExitProcessEvent(const int EVENT_TIME, Process* const process); // Constructor to create instance
+        ExitProcessEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create instance
 
         // Public override method
         void handleEvent() override; // Handle the process exits event
@@ -229,7 +230,7 @@ private:
     {
     public:
         // Public method
-        StartIOEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        StartIOEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the start IO event
@@ -254,7 +255,7 @@ private:
     {
     public:
         // Public method
-        CompleteIOEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        CompleteIOEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the complete IO event
