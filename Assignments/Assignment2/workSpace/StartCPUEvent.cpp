@@ -55,13 +55,13 @@ Handle the start CPU event.
 void Simulation::StartCPUEvent::handleEvent()
 {
     // Local variable dictionary
-    int eventEndTime = -1; // The time done processing this event
+    int eventTime = -1; // The time done processing this event
 
     // Determine the time done processing
     if (this->process->getCurrentProcessingLength() < this->simulation->cpuUnit->getRestrictiveTime())
     {
         // Time done processing
-        eventEndTime = this->getValue() + this->process->getCurrentProcessingLength();
+        eventTime = this->getValue() + this->process->getCurrentProcessingLength();
 
         // Schedule done processing event and enqueue it to the event queue
         Simulation::CompleteCPUEvent::newCompleteCPUEvent(this->simulation, eventTime, this->process);
@@ -69,7 +69,7 @@ void Simulation::StartCPUEvent::handleEvent()
     else // Timeout
     {
         // Time till timeout
-        eventEndTime = this->getValue() + this->simulation->cpuUnit->getRestrictiveTime();
+        eventTime = this->getValue() + this->simulation->cpuUnit->getRestrictiveTime();
 
         // Schedule done processing event and enqueue it to the event queue
         Simulation::CPUTimeoutEvent::newCPUTimeoutEvent(this->simulation, eventTime, this->process);
