@@ -16,6 +16,7 @@ class Event - Represents an event to be simulate.
 class ArrivalEvent - Represents an arrival of a process event of a process.
 class StartCPUEvent - Represents a start CPU processing event of a process.
 class CompleteCPUEvent - Represents a complete CPU event of a process.
+class CPUTimeoutEvent - Represents a timeout CPU event of a process.
 class ExitProcessEvent - Represents an exit process event. Process done processing.
 class StartIOEvent - Represents a start IO processing event of a process.
 class CompleteIOEvent - Represents a complete IO event of a process.
@@ -168,8 +169,40 @@ private:
     class CompleteCPUEvent : public Event
     {
     public:
+        // Public static method
+        static void newCompleteCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Create new event and enqueue to the event queue.
+
         // Public method
         CompleteCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
+
+        // Public override method
+        void handleEvent() override; // Handle the complete CPU event
+    };
+
+
+
+    /* class CPUTimeoutEvent
+    Represents a timeout CPU event of a process.
+    The next event is start CPU again to get more time to complete process.
+
+    Public static method:
+    newCPUTimeoutEvent() - Create new event and enqueue to the event queue.
+
+    Public method:
+    CPUTimeoutEvent() - Constructor to create instance.
+
+    Public override method:
+    handleEvent() - Handle the complete CPU event.
+            The next event is process exits or start the next CPU or IO.
+    */
+    class CPUTimeoutEvent : public Event
+    {
+    public:
+        // Public static method
+        static void newCPUTimeoutEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Create new event and enqueue to the event queue.
+
+        // Public method
+        CPUTimeoutEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the complete CPU event
