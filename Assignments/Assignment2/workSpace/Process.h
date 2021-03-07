@@ -10,6 +10,9 @@ class Process
 This class represents a process waiting to be process 
         by processing units.
 
+Private static member:
+processCount - Track count of the number of process created.
+
 Private member:
 PROCESS_NUMBER - The process ID number.
 PROCESS_ARRIVAL - The process arrival time.
@@ -23,9 +26,11 @@ Process() - Constructor to create an instance of process.
         It will take the process ID number and arrival time.
 ~Process() - Destructor to release memory.
 setProcessExit() - Set the time the process exit.
-addProcessWait() - Add process waiting time to be process.
+addProcessWaitTime() - Add process waiting time to be process.
 printProcessInfo() - Print the process information to the 
         standard output.
+addToProcessingQueue() - Add the processing need to be done to the 
+        processing queue.
 getCurrentProcessing() - Get the current request for processing.
 getNextProcessing() - Get the next processing request.
 doneProcessing() - The processing queue is empty.
@@ -36,10 +41,14 @@ getValue() - Get the value for compareTo() method.
 */
 
 // Forward declaration
+class IntegerItem;
 
 class Process : public ListItem
 {
 private:
+    // Private static member
+    static int processCount;
+
     // Private member
     int PROCESS_NUMBER;    // The process number
     int PROCESS_ARRIVAL;   // The process arrival time
@@ -50,11 +59,13 @@ private:
 
 public:
     // Public method
-    Process(const int ID_NUMBER, const int ARRIVAL_TIME); // Constructor to create an instance
+    Process(const int ARRIVAL_TIME); // Constructor to create an instance
     ~Process(); // Destructor to release instance memory
     void setProcessExit(const int EXIT_TIME);   // Set the time the process exit processing
-    void addProcessWait(const int AMOUNT_TIME); // Add an amount of time the process wait
+    void addProcessWaitTime(const int AMOUNT_TIME); // Add an amount of time the process wait
     void printProcessInfo();                    // Print the process information to std output
+    void addToProcessingQueue(IntegerItem* processingRequest); // Add the processing need to be done 
+                                                                       // to the queue
     int getCurrentProcessingLength(); // Get the current request for processing
     int getNextProcessingLength();    // Remove the current processing, get and return the next processing
     bool doneProcessing();      // All processing required is done

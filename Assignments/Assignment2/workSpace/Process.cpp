@@ -2,6 +2,7 @@
 #include <iomanip>
 #include "Process.h"
 #include "Queue.h"
+#include "IntegerItem.h"
 using namespace std;
 
 /*
@@ -10,6 +11,9 @@ March 2, 2021
 PriorityQueue.cpp
 class PriorityQueue
 */
+
+// Private static member
+int Process::processCount = 1;
 
 // Public method
 
@@ -21,13 +25,16 @@ ID_NUMBER - Process ID number.
 ARRIVAL_TIME - The time the process arrival and request 
         process.
 */
-Process::Process(const int ID_NUMBER, const int ARRIVAL_TIME)
+Process::Process(const int ARRIVAL_TIME)
 {
-    this->PROCESS_NUMBER = ID_NUMBER;
+    this->PROCESS_NUMBER = Process::processCount;
     this->PROCESS_ARRIVAL = ARRIVAL_TIME;
     this->processExit = -1;
     this->processWait = 0;
     this->processingQueue = new Queue();
+
+    // Update process count
+    Process::processCount++;
 }
 
 
@@ -61,7 +68,7 @@ Add an amount of time the process is waiting to get process.
 Parameter:
 AMOUNT_TIME - The amount of time the process is waiting to get process.
 */
-void Process::addProcessWait(const int AMOUNT_TIME)
+void Process::addProcessWaitTime(const int AMOUNT_TIME)
 {
     this->processWait += AMOUNT_TIME;
 }
@@ -78,6 +85,19 @@ void Process::printProcessInfo()
     cout << setw(10) << this->PROCESS_ARRIVAL;
     cout << setw(10) << this->processExit;
     cout << setw(10) << this->processWait;
+}
+
+
+
+/* addToProcessingQueue()
+Add the processing need to be done to the queue.
+
+Parameter:
+processingRequest - Processing request to be done.
+*/
+void Process::addToProcessingQueue(IntegerItem* const processingRequest)
+{
+    this->processingQueue->enqueue(dynamic_cast<ListItem*>(processingRequest));
 }
 
 
@@ -112,6 +132,19 @@ int Process::getNextProcessingLength()
 
     // Return the next processing
     return nextProcessing->getValue();
+}
+
+
+
+/* doneProcessing()
+Flag indicate if process done all the required processing.
+
+Return:
+Bool indicate if the process has done all the required processing.
+*/
+bool Process::doneProcessing()
+{
+    return static_cast<bool>(this->processingQueue->getLength() == 0);
 }
 
 
