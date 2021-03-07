@@ -104,6 +104,23 @@ void Process::addToProcessingQueue(const int PROCESSING_REQUEST)
 
 
 
+/* setCurrentProcessingLength()
+Set the current processing length request.
+
+Parameter:
+VALUE - The value to set the new processing length.
+*/
+void Process::setCurrentProcessingLenght(const int VALUE)
+{
+    // Get the current processing length container
+    IntegerItem* const currentLength = dynamic_cast<IntegerItem*>(this->processingQueue->peekHead());
+
+    // Set the new value
+    currentLength->setValue(VALUE);
+}
+
+
+
 /* getCurrentProcessingLength()
 Get the current request for processing.
 

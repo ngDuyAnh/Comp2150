@@ -66,6 +66,7 @@ public:
     void printProcessInfo();                    // Print the process information to std output
     void addToProcessingQueue(const int PROCESSING_REQUEST); // Add the processing need to be done 
                                                                        // to the queue
+    void setCurrentProcessingLenght(const int VALUE); // Set the current processing length request
     int getCurrentProcessingLength(); // Get the current request for processing
     int getNextProcessingLength();    // Remove the current processing, get and return the next processing
     bool doneProcessing();      // All processing required is done
