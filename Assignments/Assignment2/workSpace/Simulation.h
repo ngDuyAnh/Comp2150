@@ -10,9 +10,6 @@ class Simulation
 This class will simulate the process events.
 It will have representation handle to the CPU and IO to process.
 
-Private static member:
-processCount - Track count of the number of process created.
-
 Private data type:
 class Event - Represents an event to be simulate.
 class ArrivalEvent - Represents an arrival of a process event of a process.
@@ -68,7 +65,7 @@ completeIO() - Process complete IO time and ready for next event.
                 schedule CPU event.
 
 Public:
-Simulation() - Constructor to create an instance of the simulation.
+~Simulation() - Deestructor to release memory of an instance.
 runSimulation() - Activate the simulation. This is the kick start 
         switch to run the simulation. It will take in a file name 
         parameter for simulation input.
@@ -77,6 +74,9 @@ summary() - Print the summary of the simulation to standard output.
 
 // Forward declaration
 class Process;
+class PriorityQueue;
+class CPU;
+class IO;
 
 class Simulation
 {
@@ -89,7 +89,6 @@ private:
 
     Private member:
     eventTime - The time for the event to be execute.
-    eventTag - The type of event.
     eventProcess - Pointer to the process.
 
     Public method:
@@ -106,13 +105,11 @@ private:
     {
     private:
         int eventTime = -1;                    // The time for event to be execute
-        EventType eventTag = EventType::EMPTY; // The type of event
         Process* process = nullptr;            // Pointer to the process
 
     public:
         // Public method
-        Event(const int EVENT_TIME, const EventType EVENT_TAG,
-            Process* const process); // Constructor to create an instance of Event
+        Event(const int EVENT_TIME, Process* const process); // Constructor to create an instance of Event
 
         // Public override method
         int getValue() override; // Get the value to be able to compare
@@ -127,6 +124,9 @@ private:
     This represents the arrival event of a process.
     The next event is the process enter CPU or IO for processing.
 
+    Public method:
+    ArrivalEvent() - Constructor to create an instance.
+
     Public override method:
     handleEvent() - Handle the arrival event.
             The next event is start processing CPU or IO.
@@ -134,6 +134,10 @@ private:
     class ArrivalEvent : public Event
     {
     public:
+        // Public method
+        ArrivalEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+
+        // Public override method
         void handleEvent() override; // Handle the arrival event
     };
 
@@ -143,6 +147,9 @@ private:
     This represents the start CPU event of a process.
     The next event is the process complete CPU processing or timeout.
 
+    Public method:
+    StartCPUEvent() - Constructor to create instance.
+
     Public override method:
     handleEvent() - Handle the start CPU event.
             The next event is complete CPU process or timeout.
@@ -150,6 +157,10 @@ private:
     class StartCPUEvent : public Event
     {
     public:
+        // Public method
+        StartCPUEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+
+        // Public override method
         void handleEvent() override; // Handle  the start CPU event
     };
 
@@ -160,6 +171,9 @@ private:
     The next event is process exits if there are no more process or request 
             the next process from either CPU or IO.
 
+    Public method:
+    CompleteCPUEvent() - Constructor to create instance.
+
     Public override method:
     handleEvent() - Handle the complete CPU event.
             The next event is process exits or start the next CPU or IO.
@@ -167,6 +181,10 @@ private:
     class CompleteCPUEvent : public Event
     {
     public:
+        // Public method
+        CompleteCPUEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+
+        // Public override method
         void handleEvent() override; // Handle the complete CPU event
     };
 
@@ -178,12 +196,19 @@ private:
     The exist event will pop the process out of the processing and store it 
             to history for stats.
 
+    Public method:
+    ExitProcessEvent() - Constructor to create instance.
+
     Public override method:
     handleEvent() - Handle the process exits event.
     */
     class ExitProcessEvent : public Event
     {
     public:
+        // Public method
+        ExitProcessEvent(const int EVENT_TIME, Process* const process); // Constructor to create instance
+
+        // Public override method
         void handleEvent() override; // Handle the process exits event
     };
 
@@ -193,6 +218,9 @@ private:
     This represents the start IO event of a process.
     The next event is the process complete CPU processing.
 
+    Public method:
+    StartIOEvent() - Constructor to create an instance.
+
     Public override method:
     handleEvent() - Handle the start IO event.
             The next event is compelte IO process.
@@ -200,6 +228,10 @@ private:
     class StartIOEvent : public Event
     {
     public:
+        // Public method
+        StartIOEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+
+        // Public override method
         void handleEvent() override; // Handle the start IO event
     };
 
@@ -209,44 +241,36 @@ private:
     This represents the complete processing IO event of a process.
     The next event is process exits if there is no more process or request 
             the next process of either CPU or IO.
+
+    Public method:
+    CompleteIOEvent() - Constructor to create an instnace.
+
+    Public override method:
+    handleEvent() - Handle the complete IO event.
+            The next event is start CPU if have or exit if no more 
+            processing is require.
     */
     class CompleteIOEvent : public Event
     {
     public:
+        // Public method
+        CompleteIOEvent(const int EVENT_TIME, Process* const process); // Constructor to create an instance
+
+        // Public override method
         void handleEvent() override; // Handle the complete IO event
     };
 
 
     
     // Private member
-    const ProcessingUnit CPU_UNIT; // Representation handle to the CPU
-    const ProcessingUnit IO_UNIT;   // Representation handle to the IO
-    PriorityQueue* processHistory; // History of processes got processed
-    PriorityQueue* eventsQueue; // Queue holds comming events of the simulation
-
-    // Private method
-    void processArrival(); // Get the next process and create the arrival event for it
-    void processExit();    // Process is done processing, handle it and put it in history
-    void startCPU();       // Process execute on CPU
-    void completeCPU();    // Process complete CPU time and ready to be it to next event
-    void TimeoutCPU(); 
-
-    /* arrival()
-    Get the next event to process and get the next event from input file.
-    */
-
-    /* departure()
-    Process is done processing.
-    Remove it from the processing queue.
-    */
-
-
-
+    CPU* cpuUnit = nullptr; // Representation handle to the CPU
+    IO* ioUnit = nullptr;   // Representation handle to the IO
+    PriorityQueue* processHistory = nullptr; // History of processes got processed
+    PriorityQueue* eventsQueue = nullptr;    // Queue holds comming events of the simulation
 
 public:
     // Public method
-	Simulation();  // Default constructor to create an instance
     ~Simulation(); // Default destructor to delete the instance
-	void runSimulation(char *fileName); // Activate the simulation
+	void runSimulation(const char * INPUT_FILE_NAME); // Activate the simulation
 	void summary(); // Print the summary of the simulation
 };
