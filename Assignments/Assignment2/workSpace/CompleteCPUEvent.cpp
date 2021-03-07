@@ -12,7 +12,13 @@ class CompleteCPUEvent
 
 // Public static method
 
-/*
+/* newCompleteCPUEvent()
+Create new event and enqueue to the event queue.
+
+Parameter:
+simulation - The simulation the event is under.
+EVENT_TIME- The time the event gets execute.
+process - The process the event is handle.
 */
 void Simulation::CompleteCPUEvent::newCompleteCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process)
 {
