@@ -8,6 +8,20 @@ class IntegerItem
 */
 
 // Public method
+
+/* IntegerItem()
+Constructor to create an instance.
+
+Parameter:
+DATUM - The number that this container of integer will hold.
+*/
+IntegerItem::IntegerItem(const int DATUM)
+{
+    this->datum = DATUM;
+}
+
+
+
 /* setValue()
 Set new datum value.
 

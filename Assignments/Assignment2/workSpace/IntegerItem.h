@@ -12,6 +12,7 @@ Private member:
 datum - The integer datum.
 
 Public method:
+IntegerItem() - Constructor to create an instance.
 setValue() - Set a new value.
 
 Public override method:
@@ -26,6 +27,7 @@ private:
 
 public:
     // Public method
+    IntegerItem(const int DATUM); // Constructor to create an instance
     void setValue(const int VALUE); // Set a mew value
 
     // Public override method
