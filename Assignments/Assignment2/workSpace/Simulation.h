@@ -1,5 +1,6 @@
 #pragma once
 
+#include "PriorityQueue.h"
 #include "ListItem.h"
 
 /*
@@ -33,37 +34,6 @@ eventsQueue - Track of simulation events.
         This priority queue will organize the events with
         the time of when the event can be execute.
 
-Private method:
-arrival() - Get the next event to process and get the next 
-        event from input file.
-processExit() - Process is done processing, remove it from the 
-        processing queue. The process will get push into history 
-        queue for final statistics.
-startCPU() - Process execute on CPU.
-        Calculate the simulation and create the even accordingly.
-        The first event is process finish the CPU burst required.
-                An event CompleteCPU is created as a result.
-        The second even is process timeout because it required 
-                more time that what the process allow to give.
-                The TimeoutCPU event is created to put the process 
-                back to the queue for more CPU burst time.
-completeCPU() - Process complete CPU time and ready for next event.
-        If the process is done, no further actions required.
-                The process can call exit.
-        If the process required IO processing, this method will 
-                schedule IO event.
-TimeoutCPU() - When the process is timeout because it required more 
-        processing time that the CPU can give. The process will get push back into the CPU queue for more processing time.
-startIO() - Process execute on IO.
-        Calculate the simulation and create the even accordingly.
-        This process is not time share so it does not get timeout.
-        This will schedule a completeIO event right away.
-completeIO() - Process complete IO time and ready for next event.
-        If the process is done, no further actions required.
-                The process can call exit.
-        If the process required CPU processing, this method will 
-                schedule CPU event.
-
 Public:
 ~Simulation() - Deestructor to release memory of an instance.
 runSimulation() - Activate the simulation. This is the kick start 
@@ -73,6 +43,7 @@ summary() - Print the summary of the simulation to standard output.
 */
 
 // Forward declaration
+class string;
 class Process;
 class PriorityQueue;
 class CPU;
@@ -103,14 +74,14 @@ private:
     */
     class Event : public ListItem
     {
-    private:
+    protected:
         Simulation* simulation = nullptr; // Pointer to the simulation
         int eventTime = -1;               // The time for event to be execute
         Process* process = nullptr;       // Pointer to the process
 
     public:
         // Public method
-        Event(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance of Event
+        Event(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance of Event
 
         // Public override method
         int getValue() override; // Get the value to be able to compare
@@ -124,6 +95,9 @@ private:
     /* class ArrivalEvent
     This represents the arrival event of a process.
     The next event is the process enter CPU or IO for processing.
+    
+    Public static method:
+    newArrivalEvent() - Create new event and enqueue to the the event queue.
 
     Public method:
     ArrivalEvent() - Constructor to create an instance.
@@ -135,8 +109,11 @@ private:
     class ArrivalEvent : public Event
     {
     public:
+        // Public static method
+        static void newArrivalEvent(Simulation* const simulation, string processLine); // Create new event and enqueue it to the event queue
+
         // Public method
-        ArrivalEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        ArrivalEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the arrival event
@@ -148,6 +125,9 @@ private:
     This represents the start CPU event of a process.
     The next event is the process complete CPU processing or timeout.
 
+    Public static method:
+    newStartCPUEvent() - Create new event and enqueue to the event queue.
+
     Public method:
     StartCPUEvent() - Constructor to create instance.
 
@@ -158,8 +138,11 @@ private:
     class StartCPUEvent : public Event
     {
     public:
+        // Public static method
+        static void newStartCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Create new event and enqueue it to the event queue
+
         // Public method
-        StartCPUEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        StartCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle  the start CPU event
@@ -172,6 +155,9 @@ private:
     The next event is process exits if there are no more process or request 
             the next process from either CPU or IO.
 
+    Public static method:
+    newCompleteCPUEvent() - Create new event and enqueue to the event queue.
+
     Public method:
     CompleteCPUEvent() - Constructor to create instance.
 
@@ -183,7 +169,7 @@ private:
     {
     public:
         // Public method
-        CompleteCPUEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        CompleteCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the complete CPU event
@@ -207,7 +193,7 @@ private:
     {
     public:
         // Public method
-        ExitProcessEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create instance
+        ExitProcessEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create instance
 
         // Public override method
         void handleEvent() override; // Handle the process exits event
@@ -219,6 +205,9 @@ private:
     This represents the start IO event of a process.
     The next event is the process complete CPU processing.
 
+    Public static method:
+    newStartIOEvent() - Create new event and enqueue it to the event queue.
+
     Public method:
     StartIOEvent() - Constructor to create an instance.
 
@@ -229,8 +218,11 @@ private:
     class StartIOEvent : public Event
     {
     public:
+        // Public static method
+        static void newStartIOEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Create new event and enqueue it to the event queue
+
         // Public method
-        StartIOEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        StartIOEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the start IO event
@@ -255,7 +247,7 @@ private:
     {
     public:
         // Public method
-        CompleteIOEvent(Simulation* simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
+        CompleteIOEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
         // Public override method
         void handleEvent() override; // Handle the complete IO event
