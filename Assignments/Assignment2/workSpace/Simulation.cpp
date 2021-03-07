@@ -6,7 +6,9 @@
 #include "CPU.h"
 #include "IO.h"
 #include "Process.h"
-using namespace std;
+using std::ifstream;
+using std::istringstream;
+using std::string;
 
 /*
 Duy Anh Nguyen 7892957
@@ -62,18 +64,13 @@ INOUT_FILE_NAME - The input file name to stimulate the simulation.
 void Simulation::runSimulation(const char* INPUT_FILE_NAME)
 {
     // Local variable dictionary
-    bool simulation = true; // Simulation in process flag
     ifstream readFile(INPUT_FILE_NAME); // Read file input
-    istringstream readLine; // Read line input
-    string line; // The file line read
 
     // Process input file
     if (readFile.is_open())
     {
         // Read the CPU restriction
-        getline(readFile, line);
         int cpuRestriction = 0;
-        readLine.str(line);
         readFile >> cpuRestriction;
 
         // Intialize the processing units
@@ -87,30 +84,14 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
             if (!readFile.eof())
             {
                 // Local variable dictionary
+                string line; // The file line read
                 int processArrivalTime = -1;
 
                 // Get the line and setup for process
                 getline(readFile, line);
-                readLine.str(line);
 
-                // Get the arrival time
-                readLine >> processArrivalTime;
-
-                // Create the process
-                Process* process = new Process(processArrivalTime);
-
-                // Enqueue process requests
-                int processRequest = 0;
-                while (readLine >> processRequest)
-                {
-                    process->addToProcessingQueue(processRequest);
-                }
-
-                // Create an arrival event for this process
-                ArrivalEvent* processArrivalEvent = new ArrivalEvent(this, processArrivalTime, process);
-
-                // Put the event into queue for process
-                this->eventsQueue->enqueue(processArrivalEvent);
+                // Create new arrival event for simulation
+                Simulation::ArrivalEvent::newArrivalEvent(this, line);
             }
 
             // Get the coming event and process
