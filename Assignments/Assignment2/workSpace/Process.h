@@ -64,7 +64,7 @@ public:
     void setProcessExit(const int EXIT_TIME);   // Set the time the process exit processing
     void addProcessWaitTime(const int AMOUNT_TIME); // Add an amount of time the process wait
     void printProcessInfo();                    // Print the process information to std output
-    void addToProcessingQueue(IntegerItem* processingRequest); // Add the processing need to be done 
+    void addToProcessingQueue(const int PROCESSING_REQUEST); // Add the processing need to be done 
                                                                        // to the queue
     int getCurrentProcessingLength(); // Get the current request for processing
     int getNextProcessingLength();    // Remove the current processing, get and return the next processing

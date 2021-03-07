@@ -93,11 +93,13 @@ void Process::printProcessInfo()
 Add the processing need to be done to the queue.
 
 Parameter:
-processingRequest - Processing request to be done.
+PROCESSING_REQUEST - Processing request to be done.
 */
-void Process::addToProcessingQueue(IntegerItem* const processingRequest)
+void Process::addToProcessingQueue(const int PROCESSING_REQUEST)
 {
-    this->processingQueue->enqueue(dynamic_cast<ListItem*>(processingRequest));
+    // Create integer container to add to queue
+    IntegerItem* const addToQueue = new IntegerItem(PROCESSING_REQUEST);
+    this->processingQueue->enqueue(dynamic_cast<ListItem*>(addToQueue));
 }
 
 
