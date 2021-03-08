@@ -44,10 +44,7 @@ process - The process the event is handle.
 */
 Simulation::StartCPUEvent::StartCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process) : Simulation::Event::Event(simulation, EVENT_TIME, process)
 {
-    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
-    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
-    std::cout << "begins CPU burst.";
-    std::cout << std::endl;
+    
 }
 
 
@@ -61,6 +58,12 @@ void Simulation::StartCPUEvent::handleEvent()
 {
     // Local variable dictionary
     int eventTime = -1; // The time done processing this event
+
+    // Print message
+    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
+    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
+    std::cout << "begins CPU burst.";
+    std::cout << std::endl;
 
     // Determine the time done processing
     if (this->process->getCurrentProcessingLength() < this->simulation->cpuUnit->getRestrictiveTime())

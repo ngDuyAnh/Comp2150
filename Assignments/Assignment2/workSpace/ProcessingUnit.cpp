@@ -16,3 +16,13 @@ int ProcessingUnit::getTimeAvailable()
 {
     return this->timeAvailable;
 }
+
+
+
+/* setTime()
+Set time to processing unit
+*/
+void ProcessingUnit::setTime(const int TIME)
+{
+    this->timeAvailable = TIME;
+}

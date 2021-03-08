@@ -63,10 +63,7 @@ process - The process the event is handle.
 */
 Simulation::ArrivalEvent::ArrivalEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process) : Simulation::Event::Event(simulation, EVENT_TIME, process)
 {
-    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
-    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
-    std::cout << "arrives in system.";
-    std::cout << std::endl;
+
 }
 
 
@@ -81,6 +78,22 @@ void Simulation::ArrivalEvent::handleEvent()
     // Local variable dictionary
     int eventTime = -1; // The event execute time
     int processProcessingLength = this->process->getCurrentProcessingLength(); // The processing information
+
+    // Print message
+    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
+    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
+    std::cout << "arrives in system.";
+    std::cout << std::endl;
+
+    // Set the time if the CPU and IO are behind in time, it means that they are free
+    if (this->simulation->cpuUnit->getTimeAvailable() < this->getValue())
+    {
+        this->simulation->cpuUnit->setTime(this->getValue());
+    }
+    if (this->simulation->ioUnit->getTimeAvailable() < this->getValue())
+    {
+        this->simulation->ioUnit->setTime(this->getValue());
+    }
 
     // Determine if the process needs to put into CPU or IO
     if (processProcessingLength > 0) // CPU

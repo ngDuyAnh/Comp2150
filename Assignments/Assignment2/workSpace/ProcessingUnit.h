@@ -14,6 +14,7 @@ timeAvailable - The time the processing unit is available to accept another proc
 
 Public method:
 getTimeAvailable() - Get the time the processing unit will be available.
+setTime() - Set time to processing unit
 
 Public pure virtual method:
 scheduleProcessingTime() - Schedule a time to process.
@@ -31,6 +32,7 @@ protected:
 public:
     // Public method
     int getTimeAvailable(); // Get the time the processing unit will be available
+    void setTime(const int TIME); // Add time to processing unit
 
     // Public pure virtual method
     virtual int scheduleProcessingTime(Process* const process) = 0; // Schedule a time to process

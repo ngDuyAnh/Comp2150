@@ -45,10 +45,7 @@ process - The process the event is handle.
 */
 Simulation::StartIOEvent::StartIOEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process) : Simulation::Event::Event(simulation, EVENT_TIME, process)
 {
-    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
-    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
-    std::cout << "begins IO burst.";
-    std::cout << std::endl;
+
 }
 
 
@@ -62,6 +59,12 @@ void Simulation::StartIOEvent::handleEvent()
 {
     // Local variable dictionary
     int eventTime = -1; // The time to execute the next event
+
+    // Print message
+    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
+    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
+    std::cout << "begins IO burst.";
+    std::cout << std::endl;
 
     // Calculate the time done processing
     eventTime = this->getValue() + this->process->getCurrentProcessingLength();

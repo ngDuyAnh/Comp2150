@@ -63,6 +63,12 @@ void Simulation::CompleteCPUEvent::handleEvent()
     // Local variable dictionary
     int eventTime = -1; // The time to execute the next event
 
+    // Print message
+    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
+    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
+    std::cout << "completes CPU burst.";
+    std::cout << std::endl;
+
     // Determine if the process is done or need to go to IO and process
     if (this->process->doneProcessing()) // Process exit
     {

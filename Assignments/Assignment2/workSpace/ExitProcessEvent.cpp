@@ -43,10 +43,7 @@ process - The process the event is handle.
 */
 Simulation::ExitProcessEvent::ExitProcessEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process) : Simulation::Event::Event(simulation, EVENT_TIME, process)
 {
-    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
-    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
-    std::cout << "Process done, exit.";
-    std::cout << std::endl;
+    
 }
 
 
@@ -58,6 +55,12 @@ Handle the complete CPU event.
 */
 void Simulation::ExitProcessEvent::handleEvent()
 {
+    // Print message
+    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
+    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
+    std::cout << "Process done, exit.";
+    std::cout << std::endl;
+
     // Set the stats exit time
     this->process->setProcessExit(this->getValue());
 

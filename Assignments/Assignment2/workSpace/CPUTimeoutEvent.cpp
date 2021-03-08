@@ -44,10 +44,7 @@ process - The process the event is handle.
 */
 Simulation::CPUTimeoutEvent::CPUTimeoutEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process) : Simulation::Event::Event(simulation, EVENT_TIME, process)
 {
-    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
-    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
-    std::cout << "timeout CPU burst.";
-    std::cout << std::endl;
+    
 }
 
 
@@ -61,6 +58,12 @@ void Simulation::CPUTimeoutEvent::handleEvent()
 {
     // Local variable dictionary
     int eventTime = -1; // The time to execute the next event
+
+    // Print message
+    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
+    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
+    std::cout << "timeout CPU burst.";
+    std::cout << std::endl;
 
     // Calculate the new processing time need
     const int CURRENT_REQUEST_TIME = this->process->getCurrentProcessingLength();
