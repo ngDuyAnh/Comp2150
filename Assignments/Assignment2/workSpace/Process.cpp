@@ -81,10 +81,10 @@ Print the process information to std output.
 */
 void Process::printProcessInfo()
 {
-    cout << setw(10) << this->PROCESS_NUMBER;
-    cout << setw(10) << this->PROCESS_ARRIVAL;
-    cout << setw(10) << this->processExit;
-    cout << setw(10) << this->processWait;
+    cout << setw(9) << this->PROCESS_NUMBER;
+    cout << setw(9) << this->PROCESS_ARRIVAL;
+    cout << setw(9) << this->processExit;
+    cout << setw(9) << this->processWait;
 }
 
 

@@ -1,7 +1,9 @@
 #pragma once
 
+#include <string>
 #include "PriorityQueue.h"
 #include "ListItem.h"
+using std::string;
 
 /*
 Duy Anh Nguyen 7892957
@@ -44,7 +46,6 @@ summary() - Print the summary of the simulation to standard output.
 */
 
 // Forward declaration
-class string;
 class Process;
 class PriorityQueue;
 class CPU;

@@ -1,3 +1,5 @@
+#include <iostream>
+#include <iomanip>
 #include "Simulation.h"
 #include "IO.h"
 #include "Process.h"

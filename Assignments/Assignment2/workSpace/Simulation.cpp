@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -8,6 +9,7 @@
 #include "IO.h"
 #include "Process.h"
 using std::cout;
+using std::endl;
 using std::ifstream;
 using std::istringstream;
 using std::string;
@@ -93,7 +95,7 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
                 getline(readFile, line);
 
                 // Create new arrival event for simulation
-                Simulation::ArrivalEvent::newArrivalEvent(this, line);
+                ArrivalEvent::newArrivalEvent(this, line);
             }
 
             // Get the coming event and process
@@ -106,7 +108,11 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
             delete comingEvent;
         }
     }
+    cout << "... All processes complete." << endl << endl;
 
+    // Release memory use in running simulation
+    delete this->cpuUnit;
+    delete this->ioUnit;
 }
 
 
@@ -116,5 +122,22 @@ Print the summary of the simulation.
 */
 void Simulation::summary()
 {
+    // Print the processes stats
+    cout << "Final summary." << endl;
+    cout << std::setw(9) << "Process#";
+    cout << std::setw(9) << "Arrival";
+    cout << std::setw(9) << "Exit";
+    cout << std::setw(9) << "Wait";
+    cout << endl;
+    while (this->processHistory->getLength())
+    {
+        // Get the process from history queue
+        Process* const process = dynamic_cast<Process*>(this->processHistory->dequeue());
 
+        // Print the stats of the process
+        process->printProcessInfo();
+
+        // Release memory of the process
+        delete process;
+    }
 }

@@ -42,6 +42,7 @@ getValue() - Get the value for compareTo() method.
 
 // Forward declaration
 class IntegerItem;
+class Queue;
 
 class Process : public ListItem
 {
