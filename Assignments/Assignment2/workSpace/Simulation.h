@@ -195,7 +195,7 @@ private:
     handleEvent() - Handle the complete CPU event.
             The next event is process exits or start the next CPU or IO.
     */
-    class CPUTimeoutEvent : public Event
+    class StartIOEvent : public Event
     {
     public:
         // Public static method
@@ -274,6 +274,9 @@ private:
     The next event is process exits if there is no more process or request 
             the next process of either CPU or IO.
 
+    Public static method:
+    newCompleteIOEvent() - Create new event and enqueue it to the event queue.
+
     Public method:
     CompleteIOEvent() - Constructor to create an instnace.
 
@@ -285,6 +288,9 @@ private:
     class CompleteIOEvent : public Event
     {
     public:
+        // Public static method
+        static void newCompleteIOEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Create new event and enqueue it to the event queue
+
         // Public method
         CompleteIOEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance
 
