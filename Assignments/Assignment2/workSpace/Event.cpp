@@ -1,4 +1,8 @@
+#include <iostream>
+#include <iomanip>
 #include "Simulation.h"
+#include "Process.h"
+using std::cout;
 
 /*
 Duy Anh Nguyen 7892957

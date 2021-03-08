@@ -1,3 +1,5 @@
+#include <iostream>
+#include <iomanip>
 #include "Simulation.h"
 #include "CPU.h"
 #include "IO.h"
@@ -43,7 +45,9 @@ process - The process the event is handle.
 */
 Simulation::CompleteCPUEvent::CompleteCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process) : Simulation::Event::Event(simulation, EVENT_TIME, process)
 {
-
+    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
+    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
+    std::cout << "completes CPU burst.";
 }
 
 

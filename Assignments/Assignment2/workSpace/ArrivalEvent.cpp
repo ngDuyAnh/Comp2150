@@ -1,3 +1,5 @@
+#include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <string>
 #include "Simulation.h"
@@ -61,12 +63,14 @@ process - The process the event is handle.
 */
 Simulation::ArrivalEvent::ArrivalEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process) : Simulation::Event::Event(simulation, EVENT_TIME, process)
 {
-    
+    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
+    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
+    std::cout << "arrives in system."
 }
 
 
 
-// Public pure virtual method
+// Public override method
 
 /* handleEvent()
 Handle the arrival event.
