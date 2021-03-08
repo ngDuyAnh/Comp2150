@@ -76,5 +76,9 @@ void Simulation::CompleteIOEvent::handleEvent()
 
         // Create start IO event and enqueue it to the simulation
         Simulation::StartCPUEvent::newStartCPUEvent(this->simulation, eventTime, this->process);
+
+        // Update the process wait time
+        const int PROCESS_WAIT = eventTime - this->getValue(); // Wait is processing time - current time
+        this->process->addProcessWaitTime(PROCESS_WAIT);
     }
 }

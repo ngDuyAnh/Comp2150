@@ -70,6 +70,9 @@ private:
     getValue() - The value use in compareTo() method.
             For event, this value will be the eventTime member.
 
+    Public virtual method:
+    printEventInfo() - Print the event information to the std output.
+
     Public pure virtual method:
     handleEvent() - Handle the current event request.
     */
@@ -86,6 +89,9 @@ private:
 
         // Public override method
         int getValue() override; // Get the value to be able to compare
+
+        // Public virtual method
+        virtual void printEventInfo(); // Print the event information to the std output
 
         // Public pure virtual method
         virtual void handleEvent() = 0; // Handle the evemt execute
@@ -195,7 +201,7 @@ private:
     handleEvent() - Handle the complete CPU event.
             The next event is process exits or start the next CPU or IO.
     */
-    class StartIOEvent : public Event
+    class CPUTimeoutEvent : public Event
     {
     public:
         // Public static method

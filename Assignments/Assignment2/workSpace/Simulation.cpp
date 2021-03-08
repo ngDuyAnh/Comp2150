@@ -1,3 +1,4 @@
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -6,6 +7,7 @@
 #include "CPU.h"
 #include "IO.h"
 #include "Process.h"
+using std::cout;
 using std::ifstream;
 using std::istringstream;
 using std::string;
