@@ -216,6 +216,9 @@ private:
     The exist event will pop the process out of the processing and store it 
             to history for stats.
 
+    Public static method:
+    newExitProcessEvent() - Create new event and enqueue to the event queue.
+
     Public method:
     ExitProcessEvent() - Constructor to create instance.
 
@@ -225,6 +228,9 @@ private:
     class ExitProcessEvent : public Event
     {
     public:
+        // Public static method
+        static void newExitProcessEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Create new event and enqueue to the event queue.
+
         // Public method
         ExitProcessEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create instance
 
