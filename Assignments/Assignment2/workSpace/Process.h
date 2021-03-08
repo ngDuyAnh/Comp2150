@@ -33,8 +33,7 @@ addToProcessingQueue() - Add the processing need to be done to the
         processing queue.
 getCurrentProcessing() - Get the current request for processing.
 getNextProcessing() - Get the next processing request.
-doneProcessing() - The processing queue is empty.
-        There is nothing to process left.
+getQueueLength() - Number of processing require.
 
 Public override method:
 getValue() - Get the value for compareTo() method.
@@ -70,7 +69,7 @@ public:
     void setCurrentProcessingLenght(const int VALUE); // Set the current processing length request
     int getCurrentProcessingLength(); // Get the current request for processing
     int getNextProcessingLength();    // Remove the current processing, get and return the next processing
-    bool doneProcessing();      // All processing required is done
+    int getQueueLength();      // Number of processing require
 
     // Public override method
     int getValue() override; // Get the value for compareTo() method.

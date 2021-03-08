@@ -66,7 +66,7 @@ void Simulation::StartCPUEvent::handleEvent()
     std::cout << std::endl;
 
     // Determine the time done processing
-    if (this->process->getCurrentProcessingLength() < this->simulation->cpuUnit->getRestrictiveTime())
+    if (this->process->getCurrentProcessingLength() <= this->simulation->cpuUnit->getRestrictiveTime())
     {
         // Time done processing
         eventTime = this->getValue() + this->process->getCurrentProcessingLength();

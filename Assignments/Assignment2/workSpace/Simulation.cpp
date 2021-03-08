@@ -23,6 +23,17 @@ class Simulation
 
 // Public method
 
+/* Simulation()
+Constructor to create an instance.
+*/
+Simulation::Simulation()
+{
+    this->processHistory = new PriorityQueue();
+    this->eventsQueue = new PriorityQueue();
+}
+
+
+
 /* ~Simualtion()
 Destruction to release memory of an instance.
 */
@@ -80,11 +91,22 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
         // Intialize the processing units
         this->cpuUnit = new CPU(cpuRestriction);
         this->ioUnit = new IO();
-        this->eventsQueue = new PriorityQueue();
 
         // Simulate
         while (this->eventsQueue->getLength() != 0 || !readFile.eof())
         {
+            // Get the coming event and process
+            if (this->eventsQueue->getLength())
+            {
+                Event* comingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
+
+                // Perform the event action
+                comingEvent->handleEvent();
+
+                // Release the handled event memory
+                delete comingEvent;
+            }
+
             // Read file and create a process
             if (!readFile.eof())
             {
@@ -101,21 +123,8 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
                     ArrivalEvent::newArrivalEvent(this, line);
                 }
             }
-
-            // Get the coming event and process
-            if (this->eventsQueue->getLength())
-            {
-                Event* comingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
-
-                // Perform the event action
-                comingEvent->handleEvent();
-
-                // Release the handled event memory
-                delete comingEvent;
-            }
         }
     }
-    cout << "... All processes complete." << endl << endl;
 
     // Release memory use in running simulation
     delete this->cpuUnit;
@@ -130,7 +139,6 @@ Print the summary of the simulation.
 void Simulation::summary()
 {
     // Print the processes stats
-    cout << "Final summary." << endl;
     cout << std::setw(9) << "Process#";
     cout << std::setw(9) << "Arrival";
     cout << std::setw(9) << "Exit";
@@ -143,6 +151,7 @@ void Simulation::summary()
 
         // Print the stats of the process
         process->printProcessInfo();
+        cout << endl;
 
         // Release memory of the process
         delete process;

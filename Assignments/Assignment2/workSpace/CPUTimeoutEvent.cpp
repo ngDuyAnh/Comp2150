@@ -73,7 +73,8 @@ void Simulation::CPUTimeoutEvent::handleEvent()
     this->process->setCurrentProcessingLenght(NEW_REQUEST_TIME);
 
     // Enqueue to the event queue to start CPU
-    Simulation::StartCPUEvent::newStartCPUEvent(this->simulation, this->getValue(), this->process);
+    eventTime = this->simulation->cpuUnit->scheduleProcessingTime(this->process);
+    Simulation::StartCPUEvent::newStartCPUEvent(this->simulation, eventTime, this->process);
 
     // Update the process wait time
     const int PROCESS_WAIT = eventTime - this->getValue(); // Wait is processing time - current time

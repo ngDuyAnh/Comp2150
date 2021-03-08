@@ -45,10 +45,7 @@ process - The process the event is handle.
 */
 Simulation::CompleteCPUEvent::CompleteCPUEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process) : Simulation::Event::Event(simulation, EVENT_TIME, process)
 {
-    std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
-    std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
-    std::cout << "completes CPU burst.";
-    std::cout << std::endl;
+
 }
 
 
@@ -69,8 +66,14 @@ void Simulation::CompleteCPUEvent::handleEvent()
     std::cout << "completes CPU burst.";
     std::cout << std::endl;
 
+    // Set the time if the CPU and IO are behind in time, it means that they are free
+    if (this->simulation->ioUnit->getTimeAvailable() < this->getValue())
+    {
+        this->simulation->ioUnit->setTime(this->getValue());
+    }
+
     // Determine if the process is done or need to go to IO and process
-    if (this->process->doneProcessing()) // Process exit
+    if (this->process->getQueueLength() == 1) // The last one is done
     {
         // The process is done
         eventTime = this->getValue(); // Current time

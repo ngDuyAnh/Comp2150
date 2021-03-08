@@ -159,9 +159,9 @@ Flag indicate if process done all the required processing.
 Return:
 Bool indicate if the process has done all the required processing.
 */
-bool Process::doneProcessing()
+int Process::getQueueLength()
 {
-    return static_cast<bool>(this->processingQueue->getLength() == 0);
+    return this->processingQueue->getLength();
 }
 
 

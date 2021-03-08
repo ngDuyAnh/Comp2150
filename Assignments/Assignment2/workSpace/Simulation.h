@@ -38,6 +38,7 @@ eventsQueue - Track of simulation events.
         the time of when the event can be execute.
 
 Public:
+Simulation() - Constructor to create an instance.
 ~Simulation() - Deestructor to release memory of an instance.
 runSimulation() - Activate the simulation. This is the kick start 
         switch to run the simulation. It will take in a file name 
@@ -309,6 +310,7 @@ private:
 
 public:
     // Public method
+    Simulation(); // Constructor to create an instance
     ~Simulation(); // Default destructor to delete the instance
 	void runSimulation(const char * INPUT_FILE_NAME); // Activate the simulation
 	void summary(); // Print the summary of the simulation

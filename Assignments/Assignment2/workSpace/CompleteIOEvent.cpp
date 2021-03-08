@@ -64,9 +64,15 @@ void Simulation::CompleteIOEvent::handleEvent()
     std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
     std::cout << "completes IO burst.";
     std::cout << std::endl;
-
+    
+    // Set the time if the CPU and IO are behind in time, it means that they are free
+    if (this->simulation->cpuUnit->getTimeAvailable() < this->getValue())
+    {
+        this->simulation->cpuUnit->setTime(this->getValue());
+    }
+    
     // Process is done or have CPU burst
-    if (this->process->doneProcessing()) // Process exit
+    if (this->process->getQueueLength() == 1) // THe last one is done
     {
         // The process is done
         eventTime = this->getValue(); // Current time

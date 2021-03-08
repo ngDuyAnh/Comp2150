@@ -67,7 +67,7 @@ void Simulation::StartIOEvent::handleEvent()
     std::cout << std::endl;
 
     // Calculate the time done processing
-    eventTime = this->getValue() + this->process->getCurrentProcessingLength();
+    eventTime = this->getValue() + (this->process->getCurrentProcessingLength() * -1);
 
     // Schedule complete IO event
     Simulation::CompleteIOEvent::newCompleteIOEvent(this->simulation, eventTime, this->process);
