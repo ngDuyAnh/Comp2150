@@ -25,10 +25,8 @@ ID_NUMBER - Process ID number.
 ARRIVAL_TIME - The time the process arrival and request 
         process.
 */
-Process::Process(const int ARRIVAL_TIME)
+Process::Process(const int ARRIVAL_TIME) : PROCESS_NUMBER(Process::processCount), PROCESS_ARRIVAL(ARRIVAL_TIME)
 {
-    this->PROCESS_NUMBER = Process::processCount;
-    this->PROCESS_ARRIVAL = ARRIVAL_TIME;
     this->processExit = -1;
     this->processWait = 0;
     this->processingQueue = new Queue();

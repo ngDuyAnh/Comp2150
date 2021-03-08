@@ -47,6 +47,7 @@ Simulation::CompleteIOEvent::CompleteIOEvent(Simulation* const simulation, const
     std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
     std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
     std::cout << "completes IO burst.";
+    std::cout << std::endl;
 }
 
 

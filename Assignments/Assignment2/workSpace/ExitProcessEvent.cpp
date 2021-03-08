@@ -46,6 +46,7 @@ Simulation::ExitProcessEvent::ExitProcessEvent(Simulation* const simulation, con
     std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
     std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
     std::cout << "Process done, exit.";
+    std::cout << std::endl;
 }
 
 
@@ -57,6 +58,9 @@ Handle the complete CPU event.
 */
 void Simulation::ExitProcessEvent::handleEvent()
 {
+    // Set the stats exit time
+    this->process->setProcessExit(this->getValue());
+
     // Put the process into the process history queue to save stats
     this->simulation->processHistory->enqueue(this->process);
 }

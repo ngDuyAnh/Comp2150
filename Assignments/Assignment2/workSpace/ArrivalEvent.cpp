@@ -66,6 +66,7 @@ Simulation::ArrivalEvent::ArrivalEvent(Simulation* const simulation, const int E
     std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
     std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
     std::cout << "arrives in system.";
+    std::cout << std::endl;
 }
 
 

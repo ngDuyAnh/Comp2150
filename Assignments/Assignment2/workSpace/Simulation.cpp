@@ -80,6 +80,7 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
         // Intialize the processing units
         this->cpuUnit = new CPU(cpuRestriction);
         this->ioUnit = new IO();
+        this->eventsQueue = new PriorityQueue();
 
         // Simulate
         while (this->eventsQueue->getLength() != 0 || !readFile.eof())
@@ -95,17 +96,23 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
                 getline(readFile, line);
 
                 // Create new arrival event for simulation
-                ArrivalEvent::newArrivalEvent(this, line);
+                if (!line.empty())
+                {
+                    ArrivalEvent::newArrivalEvent(this, line);
+                }
             }
 
             // Get the coming event and process
-            Event* comingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
+            if (this->eventsQueue->getLength())
+            {
+                Event* comingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
 
-            // Perform the event action
-            comingEvent->handleEvent();
+                // Perform the event action
+                comingEvent->handleEvent();
 
-            // Release the handled event memory
-            delete comingEvent;
+                // Release the handled event memory
+                delete comingEvent;
+            }
         }
     }
     cout << "... All processes complete." << endl << endl;

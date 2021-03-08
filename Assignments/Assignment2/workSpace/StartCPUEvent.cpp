@@ -47,6 +47,7 @@ Simulation::StartCPUEvent::StartCPUEvent(Simulation* const simulation, const int
     std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
     std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
     std::cout << "begins CPU burst.";
+    std::cout << std::endl;
 }
 
 

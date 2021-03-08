@@ -48,6 +48,7 @@ Simulation::CompleteCPUEvent::CompleteCPUEvent(Simulation* const simulation, con
     std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
     std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
     std::cout << "completes CPU burst.";
+    std::cout << std::endl;
 }
 
 

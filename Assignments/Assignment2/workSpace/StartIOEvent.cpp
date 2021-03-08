@@ -48,6 +48,7 @@ Simulation::StartIOEvent::StartIOEvent(Simulation* const simulation, const int E
     std::cout << "Time " << std::setw(3) << this->eventTime << ": ";
     std::cout << "Process " << std::setw(3) << this->process->getValue() << " ";
     std::cout << "begins IO burst.";
+    std::cout << std::endl;
 }
 
 
