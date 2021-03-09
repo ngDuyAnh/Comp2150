@@ -28,7 +28,7 @@ void Simulation::StartIOEvent::newStartIOEvent(Simulation* const simulation, con
     StartIOEvent* const startIOEvent = new Simulation::StartIOEvent(simulation, EVENT_TIME, process);
 
     // Put the event into  event queue in simulation
-    simulation->eventsQueue->enqueue(startIOEvent);
+    simulation->ioUnit->pQueue->enqueue(startIOEvent);
 }
 
 

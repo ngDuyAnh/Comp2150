@@ -2,6 +2,7 @@
 #include <iomanip>
 #include "Simulation.h"
 #include "CPU.h"
+#include "IO.h"
 #include "Process.h"
 
 /*
@@ -27,7 +28,7 @@ void Simulation::CompleteIOEvent::newCompleteIOEvent(Simulation* const simulatio
     CompleteIOEvent* const completeIOEvent = new Simulation::CompleteIOEvent(simulation, EVENT_TIME, process);
 
     // Put the event into event queue in simulation
-    simulation->eventsQueue->enqueue(completeIOEvent);
+    simulation->ioUnit->pQueue->enqueue(completeIOEvent);
 }
 
 

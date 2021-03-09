@@ -17,7 +17,7 @@ Parameter:
 MAX_SHARE_TIME - The max restriction time the CPU can perform on 
         a process.
 */
-CPU::CPU(const int MAX_SHARE_TIME) : RESTRICTIVE_TIME(MAX_SHARE_TIME)
+CPU::CPU(const int MAX_SHARE_TIME) : ProcessingUnit::ProcessingUnit(), RESTRICTIVE_TIME(MAX_SHARE_TIME)
 {
 
 }

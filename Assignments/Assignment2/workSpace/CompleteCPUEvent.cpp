@@ -28,7 +28,7 @@ void Simulation::CompleteCPUEvent::newCompleteCPUEvent(Simulation* const simulat
     CompleteCPUEvent* const completeCPUEvent = new Simulation::CompleteCPUEvent(simulation, EVENT_TIME, process);
 
     // Put the event into event queue in simulation
-    simulation->eventsQueue->enqueue(completeCPUEvent);
+    simulation->cpuUnit->pQueue->enqueue(completeCPUEvent);
 }
 
 

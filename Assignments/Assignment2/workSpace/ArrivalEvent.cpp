@@ -25,7 +25,7 @@ Parameter:
 simulation - The simulation the event occurs.
 processLine - The line to be process to make an arrival event.
 */
-void Simulation::ArrivalEvent::newArrivalEvent(Simulation* const simulation, string processLine)
+Simulation::ArrivalEvent* Simulation::ArrivalEvent::newArrivalEvent(Simulation* const simulation, string processLine)
 {
     // Local variable dictionary
     istringstream readLine(processLine); // Read line input
@@ -46,7 +46,9 @@ void Simulation::ArrivalEvent::newArrivalEvent(Simulation* const simulation, str
 
     // Put the event into queue for process
     ArrivalEvent* processArrivalEvent = new Simulation::ArrivalEvent(simulation, processArrivalTime, process);
-    simulation->eventsQueue->enqueue(processArrivalEvent);
+    
+    // Return the event
+    return processArrivalEvent;
 }
 
 

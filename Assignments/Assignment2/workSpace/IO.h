@@ -10,6 +10,9 @@ class IO
 This class represents the IO processing unit.
 This processing unit does not have restrictive time-share.
 
+Public method:
+IO() - Constructor to create an instance.
+
 Public override method:
 scheduleProcessingTime() - Schedule a time to process.
 */
@@ -17,6 +20,9 @@ scheduleProcessingTime() - Schedule a time to process.
 class IO : public ProcessingUnit
 {
 public:
+    // Public method
+    IO(); // Constructor to create an instance.
+
     // Public override method
     int scheduleProcessingTime(Process* const process) override; // Schedule a time to process
 };

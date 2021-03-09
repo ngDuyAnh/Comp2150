@@ -93,22 +93,16 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
         this->ioUnit = new IO();
 
         // Simulate
-        while (this->eventsQueue->getLength() != 0 || !readFile.eof())
+        ArrivalEvent* nextEvent = nullptr; // The comming arrival event
+        while (this->eventsQueue->getLength() != 0
+            || this->cpuUnit->pQueue->getLength() != 0 || this->ioUnit->pQueue->getLength() 
+            || !readFile.eof())
         {
-            // Get the coming event and process
-            if (this->eventsQueue->getLength())
-            {
-                Event* comingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
-
-                // Perform the event action
-                comingEvent->handleEvent();
-
-                // Release the handled event memory
-                delete comingEvent;
-            }
+            // Local variable dictionary
+            Event* processingEvent = nullptr; // The event to be process
 
             // Read file and create a process
-            if (!readFile.eof())
+            if (!readFile.eof() && nextEvent == nullptr)
             {
                 // Local variable dictionary
                 string line; // The file line read
@@ -120,8 +114,40 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
                 // Create new arrival event for simulation
                 if (!line.empty())
                 {
-                    ArrivalEvent::newArrivalEvent(this, line);
+                    nextEvent = ArrivalEvent::newArrivalEvent(this, line);
                 }
+            }
+            else if (nextEvent && (this->eventsQueue->getLength() == 0 || nextEvent->getValue() <= this->eventsQueue->peekHead()->getValue()))
+            {
+                this->eventsQueue->enqueue(nextEvent);
+
+                // Set the next event pointer to null
+                nextEvent = nullptr;
+            }
+            // Process the coming event
+            else if ((this->eventsQueue->getLength() && this->cpuUnit->pQueue->getLength() == 0 && this->ioUnit->pQueue->getLength() == 0) 
+                || (this->eventsQueue->getLength() && ((this->cpuUnit->pQueue->getLength() && this->eventsQueue->peekHead()->getValue() <= this->cpuUnit->pQueue->peekHead()->getValue()) || 
+                    (this->ioUnit->pQueue->getLength() && this->eventsQueue->peekHead()->getValue() <= this->ioUnit->pQueue->peekHead()->getValue()))))
+            {
+                processingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
+            }
+            else if (this->cpuUnit->pQueue->getLength()
+                && (this->ioUnit->pQueue->getLength() == 0 || this->cpuUnit->pQueue->peekHead()->getValue() < this->ioUnit->pQueue->peekHead()->getValue()))
+            {
+                processingEvent = dynamic_cast<Event*>(this->cpuUnit->pQueue->dequeue());
+            }
+            else if (this->ioUnit->pQueue->getLength())
+            {
+                processingEvent = dynamic_cast<Event*>(this->ioUnit->pQueue->dequeue());
+            }
+
+            // Process the event
+            if (processingEvent != nullptr)
+            {
+                processingEvent->handleEvent();
+
+                // Release the handled event memory
+                delete processingEvent;
             }
         }
     }

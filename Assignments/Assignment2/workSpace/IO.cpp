@@ -10,6 +10,18 @@ class IO
 
 // Public method
 
+/* IO()
+Constructor to create an instance.
+*/
+IO::IO() : ProcessingUnit::ProcessingUnit()
+{
+
+}
+
+
+
+// Public override method
+
 /* scheduleProcessingTime()
 Schedule a time to process.
 

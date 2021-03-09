@@ -113,7 +113,7 @@ private:
     {
     public:
         // Public static method
-        static void newArrivalEvent(Simulation* const simulation, string processLine); // Create new event and enqueue it to the event queue
+        static ArrivalEvent* newArrivalEvent(Simulation* const simulation, string processLine); // Create new event and enqueue it to the event queue
 
         // Public method
         ArrivalEvent(Simulation* const simulation, const int EVENT_TIME, Process* const process); // Constructor to create an instance

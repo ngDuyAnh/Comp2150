@@ -27,7 +27,7 @@ void Simulation::StartCPUEvent::newStartCPUEvent(Simulation* const simulation, c
     StartCPUEvent* const startCPUEvent = new Simulation::StartCPUEvent(simulation, EVENT_TIME, process);
 
     // Put the event into event queue in simulation
-    simulation->eventsQueue->enqueue(startCPUEvent);
+    simulation->cpuUnit->pQueue->enqueue(startCPUEvent);
 }
 
 

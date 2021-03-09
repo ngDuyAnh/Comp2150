@@ -1,4 +1,5 @@
 #include "ProcessingUnit.h"
+#include "PriorityQueue.h"
 
 /*
 Duy Anh Nguyen 7892957
@@ -8,6 +9,26 @@ class ProcessingUnit
 */
 
 // Public method
+
+/* ProcessingUnit()
+Constructor to initialize member.
+*/
+ProcessingUnit::ProcessingUnit()
+{
+    this->pQueue = new PriorityQueue();
+}
+
+
+
+/* ~ProcessingUnit()
+Destructor to release memory.
+*/
+ProcessingUnit::~ProcessingUnit()
+{
+    delete this->pQueue;
+}
+
+
 
 /* getTimeAvailable()
 Get the time the processing unit it available to process.
