@@ -124,15 +124,34 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
                 // Set the next event pointer to null
                 nextEvent = nullptr;
             }
+
             // Process the coming event
-            else if ((this->eventsQueue->getLength() && this->cpuUnit->pQueue->getLength() == 0 && this->ioUnit->pQueue->getLength() == 0) 
-                || (this->eventsQueue->getLength() && ((this->cpuUnit->pQueue->getLength() && this->eventsQueue->peekHead()->getValue() <= this->cpuUnit->pQueue->peekHead()->getValue()) || 
-                    (this->ioUnit->pQueue->getLength() && this->eventsQueue->peekHead()->getValue() <= this->ioUnit->pQueue->peekHead()->getValue()))))
+            else if (this->eventsQueue->getLength() && this->cpuUnit->pQueue->getLength() == 0 && this->ioUnit->pQueue->getLength() == 0) // Kick start the simulation
             {
                 processingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
             }
-            else if (this->cpuUnit->pQueue->getLength()
-                && (this->ioUnit->pQueue->getLength() == 0 || this->cpuUnit->pQueue->peekHead()->getValue() < this->ioUnit->pQueue->peekHead()->getValue()))
+            else if ((this->eventsQueue->getLength() && this->cpuUnit->pQueue->getLength() && this->ioUnit->pQueue->getLength() == 0)
+                && this->eventsQueue->peekHead()->getValue() <= this->cpuUnit->pQueue->peekHead()->getValue()) // Only Event and CPU
+            {
+                processingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
+            }
+            else if ((this->eventsQueue->getLength() && this->cpuUnit->pQueue->getLength() == 0 && this->ioUnit->pQueue->getLength())
+                && this->eventsQueue->peekHead()->getValue() <= this->ioUnit->pQueue->peekHead()->getValue()) // Only Event and IO
+            {
+                processingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
+            }
+            else if ((this->eventsQueue->getLength() && this->cpuUnit->pQueue->getLength() && this->ioUnit->pQueue->getLength())
+                && this->eventsQueue->peekHead()->getValue() <= this->cpuUnit->pQueue->peekHead()->getValue()
+                && this->eventsQueue->peekHead()->getValue() <= this->ioUnit->pQueue->peekHead()->getValue()) // Event, CPU, and IO
+            {
+                processingEvent = dynamic_cast<Event*>(this->eventsQueue->dequeue());
+            }
+            else if (this->cpuUnit->pQueue->getLength() && this->ioUnit->pQueue->getLength() == 0) // CPU only
+            {
+                processingEvent = dynamic_cast<Event*>(this->cpuUnit->pQueue->dequeue());
+            }
+            else if ((this->cpuUnit->pQueue->getLength() && this->ioUnit->pQueue->getLength())
+                && this->cpuUnit->pQueue->peekHead()->getValue() <= this->ioUnit->pQueue->peekHead()->getValue()) // CPU and IO
             {
                 processingEvent = dynamic_cast<Event*>(this->cpuUnit->pQueue->dequeue());
             }
