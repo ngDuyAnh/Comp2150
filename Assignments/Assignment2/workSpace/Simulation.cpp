@@ -106,7 +106,6 @@ void Simulation::runSimulation(const char* INPUT_FILE_NAME)
             {
                 // Local variable dictionary
                 string line; // The file line read
-                int processArrivalTime = -1;
 
                 // Get the line and setup for process
                 getline(readFile, line);

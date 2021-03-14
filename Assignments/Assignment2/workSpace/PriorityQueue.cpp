@@ -1,5 +1,4 @@
 #include "PriorityQueue.h"
-#include "Node.h"
 #include "ListItem.h"
 
 /*
@@ -8,6 +7,26 @@ March 2, 2021
 PriorityQueue.cpp
 class PriorityQueue
 */
+
+// Public method
+
+/* PriorityQueue()
+Constructor to create instance.
+*/
+PriorityQueue::PriorityQueue() : Queue::Queue()
+{
+
+}
+
+/* ~PriorityQueue()
+Destructor to release memory.
+*/
+PriorityQueue::~PriorityQueue()
+{
+
+}
+
+
 
 // Public override method
 

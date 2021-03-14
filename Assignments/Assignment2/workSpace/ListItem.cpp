@@ -9,6 +9,16 @@ class ListItem
 
 // Public method
 
+/* ~ListItem()
+Destructor to release memory.
+*/
+ListItem::~ListItem()
+{
+
+}
+
+
+
 /* compareTo()
 Compare value of two instance.
 	-1 means that the current instance value is smaller.

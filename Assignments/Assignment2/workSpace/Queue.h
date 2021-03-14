@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Node.h"
+
 /*
 Duy Anh Nguyen 7892957
 Queue.h
@@ -42,7 +44,7 @@ protected:
 public:
     // Public method
     Queue();  // Constructor to create an instance of queue
-    ~Queue(); // Destructor to delete and release memory of an instance of queue
+    virtual ~Queue(); // Destructor to delete and release memory of an instance of queue
     ListItem* dequeue(); // Get and remove the datum at the front of the queue
     ListItem* peekHead(); // Get the first datum at the front of the queue
     int getLength(); // Get the number of data in the queue

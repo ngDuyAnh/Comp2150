@@ -42,7 +42,7 @@ protected:
 public:
     // Public method
     ProcessingUnit(); // Constructor to initialze member
-    ~ProcessingUnit(); // Destructor to release memory
+    virtual ~ProcessingUnit(); // Destructor to release memory
     int getTimeAvailable(); // Get the time the processing unit will be available
     void setTime(const int TIME); // Add time to processing unit
 

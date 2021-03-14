@@ -21,6 +21,7 @@ class ListItem
 {
 public:
     // Public method
+    virtual ~ListItem(); // Destructor to release memory
     int compareTo(ListItem* const other); // Compare value
 
     // Public pure virtual method
