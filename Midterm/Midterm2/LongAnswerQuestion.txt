@@ -1,0 +1,126 @@
+
+Server.h
+______________________________________________________
+#pragma once
+
+class string;
+
+class Server
+{
+private:
+    // Private member
+	const string* const URL; // The url of the server
+	bool running = false;  // Server status
+	
+protected:
+    // Protected method
+	bool isRunning(); // The the status of the server
+
+public:
+    // Public method
+	Server(const string* const SERVER_URL); // Constructor to initialize the instance
+	char* getURL();                       // Get the URL
+	void start();                         // Start the server
+	void stop();                          // Stop the server
+	virtual bool connect(const string* const USER_ID) = 0; // Connect a user to server
+};
+
+______________________________________________________
+Server.cpp
+_____________________________________________________________________________
+#include <string>
+#include "Server.h"
+using namespace std;
+
+Server::Server(const string* const SERVER_URL) : URL(SERVER_URL)
+{
+    this->running = false;
+}
+
+bool Server::isRunning()
+{
+    return this->running;
+}
+
+char* Server::getURL()
+{
+    return this->URL;
+}
+
+void Server::start()
+{
+    this->running = true;
+}
+
+void Server::stop()
+{
+    this->running = false;
+}
+
+______________________________________________________________________________________
+WebServer.h
+_____________________________________________________________________________________
+#pragma once
+
+class List;
+class string;
+
+class WebServer : public Server
+{
+private:
+    // Private member
+	List* userList = null;
+
+public:
+    // Public method
+	WebServer(const string* const SERVER_URL);
+	bool connect(const string* const USER_ID) override;
+}
+
+_____________________________________________________________________________________
+WebServer.cpp
+_____________________________________________________________________________________
+#include <string>
+#include "Server.h"
+#include "List.h"
+using namespace std;
+
+WebServer::WebServer(const string* const SERVER_URL) : Server::Server(SERVER_URL)
+{
+    this->userList = new List();
+}
+
+bool WebServer::connect(const string* const USER_ID)
+{
+    // Local variable dictionary
+	bool userConnect = false; // Flag if the user is connect to server
+	
+	// Connect the user to the server
+	if (Server::isRunning())
+	{
+	    // Check if the user already connected to the server
+		if (this->userList->contains(USER_ID))
+		{
+		    // Connect the user to the server
+			this->userList->insert(USER_ID);
+			userConnect = true;
+		}
+	}
+	
+	// Return the user connect status
+	return userConnect;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
