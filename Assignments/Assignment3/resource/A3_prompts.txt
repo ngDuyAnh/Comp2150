@@ -1,5 +1,5 @@
 
-List of prompts for A4 - whodunnit: use the following prompts for your A4 solution.
+List of prompts for A3 - whodunnit: use the following prompts for your A3 solution.
  - In all of these prompts, information in <angle brackets> is information from variables. <idx> is the player index.
  - In the event of any discrepancies between this document and any demos, this document is correct.
  - This list does not include all prompts shown in the main method.
