@@ -1,0 +1,100 @@
+
+Two classes for game players.
+	Human player.
+	Computer player.
+		These two player classes will use IPlayer interface.
+	! cannot modify the interface.
+	
+class Model
+	manages all the players of the game, all cards and turn of the board.
+	
+main()
+    main will ask how many computer opponents are desired before starting the work of the model.
+	create players, cards, and model.
+	call model to start the game.
+	
+Game should allow one human player to play against a group of computer players.
+	This can be static code.
+
+! Number of cards is not fixed.
+Final submition should set 5-8 cards per category for three categories.
+
+class Card
+	weapon
+	suspect or location
+	value
+
+class Guess
+	holds 3 cards.
+	boolean guess is a suggestion or an accusation.
+		Accusation is the final guess of the game for a player.
+		If correct, win the game. Otherwise, eliminated.
+
+Constructor to initialize the fields. Only getter method and no setter method.
+
+Model
+	Stores the players, cards, and runs the game.
+	Give all player a number between 0 to n-1. n is the total number of players.
+	This is the arrangement of the player around the table.
+	(i + 1) % n, player's turn
+	
+	Shuffle and distribute all the cards to players as well as holding the three answer cards.
+	
+	Model receive info from the main method.
+	All the player and card receive from the main method.
+	
+	All game initialization in the model.
+	
+	Model is responsible to choose the answer for the game.
+		Perpetrator, location, and weapon.
+	
+	Model distribute cards to the players.
+		It is ok if someplayer reveice one more card than the other players.
+	!All cards get combined, shuffled, and distribute. The cards are in random order.
+	
+Players
+	IPlayer inferface.
+		setup() - receives five parameters.
+			Number of players in the game, index of current player, list of all the suspects, 
+				list of all locations, list of all weapons.
+		
+		setCard() - Player has been dealt a particulat card.
+		
+		getIndex() - Return the index of the player. The player's number.
+		
+		canAnswer() - The current player is responsible for answering that guess if possible.
+			Player return a card that the player has in thair hand or null. Null means player cannot answer.
+			
+		getGuess() - the current player's turn.
+			Return the player's guess for that turn.
+			Guess can be suggession or accusation.
+			
+		receiveInfo() - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
