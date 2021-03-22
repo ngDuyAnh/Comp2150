@@ -69,32 +69,33 @@ Players
 			Return the player's guess for that turn.
 			Guess can be suggession or accusation.
 			
-		receiveInfo() - 
+		receiveInfo() - Current player made a guess and the previous play has one of the cards of the guess.
+			Null if cannot answer any information about the current player previous guess.
+			This method is called after a call to getGuess() by currently player.
+			
+Junit test Computer Player.
+	1) Bi cardsm canAnswer() would return null.
+	2) Exactly one card, can answer return that card.
+	3) More than one card, return one of the card.
+	4) computer given all but n cards and n > 2.
+		Call getGuess() should return a guess that does not contain any of the cards that the player 
+		has been given. Intial guess from computer player mus tconsist of cards it does not have.
+	5) Computer given all but 3 cards from the set of cards. A call to getGuess() should return 
+		the correct accusation.
+	6) Computer given all but four cards from the set of cards, a call to getGuess() 
+		should not return an accusation.
+		receiveInfo() is called with one of the four cards, then the next call getGuess() should 
+		return the correct accusation.
+	7) Human player is given same cards. canAnswer() is called with a guess that includes one or more of the cards 
+		the player has.
+		Human player cannot give a card that they do not have in their hand, validation in your implementation.
+		
+1-7 tests should be a separate method. Must use assertions to establish the statements above.
+No output should be produced other than output from the assertions.
+Name each method as testX with X from 1 to 7 for verification.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Data structure.
+	can use ArrayLists to store the information aas illutrated in the interface.
+	Collections.shuffle() for shuffling arraylist of cards.
+		
+Junit test: https://www.youtube.com/watch?v=o5pE7L2tVV8&ab_channel=BrianFraser
