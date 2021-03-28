@@ -7,7 +7,14 @@ Two classes for game players.
 	
 class Model
 	manages all the players of the game, all cards and turn of the board.
-	
+
+
+
+
+
+
+
+
 main()
     main will ask how many computer opponents are desired before starting the work of the model.
 	create players, cards, and model.
@@ -19,9 +26,17 @@ Game should allow one human player to play against a group of computer players.
 ! Number of cards is not fixed.
 Final submition should set 5-8 cards per category for three categories.
 
+
+
+
+
+
+
+
+
+
 class Card
-	weapon
-	suspect or location
+	weapon, suspect, or location
 	value
 
 class Guess
