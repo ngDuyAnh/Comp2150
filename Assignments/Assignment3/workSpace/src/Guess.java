@@ -88,4 +88,15 @@ public class Guess
         return this.locationCard;
     }
 
+    /* getAccusation()
+    Get the guess accusation flag.
+
+    Return:
+    Guess accusation flag.
+    */
+    public boolean getAccusation()
+    {
+        return this.accusation;
+    }
+
 }
