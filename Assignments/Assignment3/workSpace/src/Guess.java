@@ -47,9 +47,10 @@ public class Guess
     */
     public Guess(Card weapon, Card suspect, Card location, boolean isAccusation)
     {
-        // Check if the cards are correct
-
-        // Package the guess cards
+        // Initialize the guess cards
+        this.weaponCard = weapon;
+        this.suspectCard = suspect;
+        this.locationCard = location;
 
         // Set flag if this guess is an accusation
         this.accusation = isAccusation;
