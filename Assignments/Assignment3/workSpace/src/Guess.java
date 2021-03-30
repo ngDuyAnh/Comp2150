@@ -23,6 +23,7 @@ getSuspectCard() - Get the guess suspect card.
 getLocationCard() - Get the guess location card.
 getAccusation() - Get the guess flag if it is an
     accusation.
+toString() - String of the guess.
 */
 
 public class Guess
@@ -98,6 +99,21 @@ public class Guess
     public boolean getAccusation()
     {
         return this.accusation;
+    }
+
+    /* toString()
+    String of the guess.
+
+    Return:
+    String that is the content of the guess.
+    */
+    public String toString()
+    {
+        return this.getSuspectCard() +
+                " in " +
+                this.getLocationCard() +
+                " with the " +
+                this.getWeaponCard();
     }
 
 }
