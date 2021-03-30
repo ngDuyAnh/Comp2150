@@ -157,6 +157,7 @@ public class Model
             {
                 // Pass the answer to the player
                 player.receiveInfo(this.players.get(answerPlayerIndex), answerCard);
+                System.out.println("Player " + answerPlayerIndex + " answered.");
 
                 // The player guess has been answered
                 answered = true;

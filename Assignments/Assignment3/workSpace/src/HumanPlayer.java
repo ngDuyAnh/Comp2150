@@ -178,7 +178,7 @@ public class HumanPlayer implements IPlayer
 
         // Answer the other player guess if possible
         System.out.println("Player " + ip.getIndex() + " asked you about " + g.toString());
-        if (answerableCards.size() == 0)
+        if (answerableCards.isEmpty())
         {
             System.out.println(", but you couldn't answer.");
         }
@@ -210,7 +210,7 @@ public class HumanPlayer implements IPlayer
     public Guess getGuess()
     {
         // Local variable dictionary
-        Card guessWeapon = null, guessSuspect = null, guessLocation = null; // The player guess index
+        Card guessWeapon = null, guessSuspect = null, guessLocation = null; // The player guess
         boolean isAccusation = false;                                       // The guess is an accusation
         Scanner input = new Scanner(System.in);                             // Get the player input
 
