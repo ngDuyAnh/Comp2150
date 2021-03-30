@@ -14,6 +14,7 @@ allGameWeaponCards - All the weapon cards in the game.
 allGameSuspectCards - All the suspect cards in the game.
 allGameLocationCards - All the location cards in the game.
 cards - The cards the player is holding.
+inGame - Flag the player is still in the game.
 
 Public static method:
 getCard() - Print the list of available option of cards
@@ -22,6 +23,8 @@ getCard() - Print the list of available option of cards
 
 Public method:
 HumanPlayer() - Constructor to create and initialize instance.
+getInGame() - Return the flag if the player is still in the game.
+setInGame() - Set the status if the player is still in the game.
 
 Public override implement method:
 setUp() - Setup the player for the game.
@@ -41,7 +44,7 @@ public class HumanPlayer implements IPlayer
     private ArrayList<Card> allGameSuspectCards = null;  // All the suspect cards in the game
     private ArrayList<Card> allGameLocationCards = null; // All the location cards in the game
     private ArrayList<Card> cards = null;                // The cards the player is holding
-
+    private boolean inGame = false;                       // Flag the player is still in the game
 
     // Public static method
 
@@ -99,6 +102,29 @@ public class HumanPlayer implements IPlayer
         this.allGameSuspectCards = new ArrayList<Card>();
         this.allGameLocationCards = new ArrayList<Card>();
         this.cards = new ArrayList<Card>();
+        this.inGame = true;
+    }
+
+    /* getInGame()
+    Return the flag if the player is still in the game.
+
+    Return:
+    If the player it still in the game.
+    */
+    public boolean getInGame()
+    {
+        return this.inGame;
+    }
+
+    /* setInGame()
+    Set the status if the player is still in the game.
+
+    Parameter:
+    inGame - Set the status if the player is in the game.
+    */
+    public void setInGame(boolean inGame)
+    {
+        this.inGame = inGame;
     }
 
 
