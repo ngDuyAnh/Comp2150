@@ -33,7 +33,8 @@ getGuess() - Get the player guess for the next player.
 receiveInfo() - The response after a suggestion guess.
 */
 
-public class HumanPlayer implements IPlayer {
+public class HumanPlayer implements IPlayer
+{
     // Private member
     private int index = -1;                              // The player index in the game
     private int numPlayers = -1;                         // The number of players in the game
