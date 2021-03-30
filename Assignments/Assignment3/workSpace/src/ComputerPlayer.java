@@ -28,10 +28,6 @@ getIndex() - Get the player index in the game.
 canAnswer() - The user to answer another player suggestion.
 getGuess() - Get the player guess for the next player.
 receiveInfo() - The response after a suggestion guess.
-
-
-
-
 */
 
 public class ComputerPlayer implements IPlayer
