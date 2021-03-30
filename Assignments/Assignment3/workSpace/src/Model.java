@@ -49,8 +49,9 @@ public class Model
     public Model(int numPlayers, ArrayList<Card> weaponCards, ArrayList<Card> suspectCards, ArrayList<Card> locationCards)
     {
         this.players = new ArrayList<IPlayer>();
-
-
+        this.weaponCards = new ArrayList<Card>();
+        this.suspectCards = new ArrayList<Card>();
+        this.locationCards = new ArrayList<Card>();
     }
 
     /* setupPlayers()
@@ -90,11 +91,6 @@ public class Model
      */
     public void setupCards(ArrayList<Card> weaponCards, ArrayList<Card> suspectCards, ArrayList<Card> locationCards)
     {
-        // Create the container
-        this.weaponCards = new ArrayList<Card>();
-        this.suspectCards = new ArrayList<Card>();
-        this.locationCards = new ArrayList<Card>();
-
         // Copy the cards content
         this.weaponCards.addAll(weaponCards);
         this.suspectCards.addAll(suspectCards);
@@ -172,6 +168,9 @@ public class Model
         {
             player.receiveInfo(null, null);
         }
+
+        // If the guess is a accusation
+
     }
 
     /* accusation()

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 /*
@@ -96,6 +95,9 @@ public class HumanPlayer implements IPlayer
     */
     public HumanPlayer()
     {
+        this.allGameWeaponCards = new ArrayList<Card>();
+        this.allGameSuspectCards = new ArrayList<Card>();
+        this.allGameLocationCards = new ArrayList<Card>();
         this.cards = new ArrayList<Card>();
     }
 
@@ -116,9 +118,9 @@ public class HumanPlayer implements IPlayer
     public void setUp(int numPlayers, int index, ArrayList<Card> ppl, ArrayList<Card> places, ArrayList<Card> weapons) {
         this.index = index;
         this.numPlayers = numPlayers;
-        this.allGameWeaponCards = weapons;
-        this.allGameSuspectCards = ppl;
-        this.allGameLocationCards = places;
+        this.allGameWeaponCards.addAll(weapons);
+        this.allGameSuspectCards.addAll(ppl);
+        this.allGameLocationCards.addAll(places);
     }
 
     /* setCard()
