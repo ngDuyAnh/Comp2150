@@ -73,7 +73,7 @@ public class HumanPlayer implements IPlayer {
         index = playerInput.nextInt();
         while (index < 0 || index >= cardList.size())
         {
-            System.out.println("Invalid input.");
+            System.out.println("Not valid. Try again.");
             index = playerInput.nextInt();
         }
 
