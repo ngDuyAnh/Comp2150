@@ -109,11 +109,11 @@ public class Guess
     */
     public String toString()
     {
-        return this.getSuspectCard() +
+        return this.getSuspectCard().getValue() +
                 " in " +
-                this.getLocationCard() +
+                this.getLocationCard().getValue() +
                 " with the " +
-                this.getWeaponCard();
+                this.getWeaponCard().getValue();
     }
 
 }

@@ -72,18 +72,17 @@ public class HumanPlayer implements IPlayer
         }
 
         // Get the player answer card
-        index = playerInput.nextInt();
-        while (index < 0 || index >= cardList.size())
+        do
         {
-            System.out.println("Not valid. Try again.");
+            while (!playerInput.hasNextInt())
+            {
+                playerInput.next();
+            }
             index = playerInput.nextInt();
-        }
+        } while (index == -1 || index < 0 || index >= cardList.size());
 
         // Get the card choose
         card = cardList.get(index);
-
-        // Close the scanner and release resource
-        playerInput.close();
 
         // Return the card player chose
         return card;
@@ -117,7 +116,8 @@ public class HumanPlayer implements IPlayer
     weapons - All the weapon cards in the game.
     */
     @Override
-    public void setUp(int numPlayers, int index, ArrayList<Card> ppl, ArrayList<Card> places, ArrayList<Card> weapons) {
+    public void setUp(int numPlayers, int index, ArrayList<Card> ppl, ArrayList<Card> places, ArrayList<Card> weapons)
+    {
         this.index = index;
         this.numPlayers = numPlayers;
         this.allGameWeaponCards.addAll(weapons);
@@ -179,7 +179,7 @@ public class HumanPlayer implements IPlayer
         }
 
         // Answer the other player guess if possible
-        System.out.println("Player " + ip.getIndex() + " asked you about " + g.toString());
+        System.out.print("Player " + ip.getIndex() + " asked you about " + g.toString());
         if (answerableCards.isEmpty())
         {
             System.out.println(", but you couldn't answer.");
@@ -241,9 +241,6 @@ public class HumanPlayer implements IPlayer
             accusationInput = input.nextLine().trim();
         }
         isAccusation = accusationInput.equalsIgnoreCase("Y");
-
-        // Close the scanner to release resource
-        input.close();
 
         // Return the guess
         return new Guess(guessWeapon, guessSuspect, guessLocation, isAccusation);

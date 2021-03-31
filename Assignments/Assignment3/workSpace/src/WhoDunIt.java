@@ -46,9 +46,18 @@ public class WhoDunIt
 
         // Get the number computer opponent in the game
         System.out.println("How many computer opponents would you like?");
-        numPlayers = input.nextInt();
+        do
+        {
+            while (!input.hasNextInt())
+            {
+                input.next();
+            }
+            numPlayers = input.nextInt();
+            numPlayers++;
+        } while (numPlayers == -1 || numPlayers < 2);
 
         // Setup the cards for the game
+        System.out.println("Setting up players...");
         WhoDunIt.setupSuspectCards();
         WhoDunIt.setupLocationCards();
         WhoDunIt.setupWeaponCards();
@@ -58,6 +67,9 @@ public class WhoDunIt
 
         // Simulate the game
         game.simulateGame(numPlayers, WhoDunIt.weaponCards, WhoDunIt.suspectCards, WhoDunIt.locationCards);
+
+        // Release resource
+        input.close();
     }
 
 
