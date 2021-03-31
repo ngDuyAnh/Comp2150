@@ -13,7 +13,6 @@ weaponCards - All the weapon cards in the game.
 suspectCards - All the suspect cards in the game.
 locationCards - All the location cards in the game.
 
-
 Public static method:
 main() - The main method as an entry to the game.
 
@@ -56,11 +55,9 @@ public class WhoDunIt
 
         // Setup the game
         game = new Model();
-        game.setupPlayers(numPlayers);
-        game.setupCards(WhoDunIt.weaponCards, WhoDunIt.suspectCards, WhoDunIt.locationCards);
 
         // Simulate the game
-        game.simulateGame();
+        game.simulateGame(numPlayers, WhoDunIt.weaponCards, WhoDunIt.suspectCards, WhoDunIt.locationCards);
     }
 
 
