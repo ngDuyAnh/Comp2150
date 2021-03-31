@@ -59,10 +59,8 @@ public class WhoDunIt
         game.setupPlayers(numPlayers);
         game.setupCards(WhoDunIt.weaponCards, WhoDunIt.suspectCards, WhoDunIt.locationCards);
 
-        // Player take turn to play the game
-        int index = 0; // The player index take turn to play the game
-
-
+        // Simulate the game
+        game.simulateGame();
     }
 
 
