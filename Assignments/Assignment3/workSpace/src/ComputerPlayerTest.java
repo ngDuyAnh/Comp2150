@@ -236,5 +236,5 @@ class ComputerPlayerTest
         // Player should not have
         assertEquals(this.players.get(1).canAnswer(guess, this.players.get(0)), null);
     }
-    
+
 }
