@@ -88,16 +88,31 @@ public class Model
         System.out.println("Dealing cards...");
         this.dealtCards();
 
+        // All players in the game
+        boolean[] playerOut = new boolean[this.players.size()];
+
         // Simulate the game
         System.out.println("Playing...");
         playerIndex = 0;
         while (!this.winnerFound)
         {
+            // Local variable dictionary
+            boolean playerInGame = true; // The player is still in the game
+
             // Simulate the player turn
-            boolean playerInGame = this.playerTurn(playerIndex % this.players.size());
+            if (playerOut[(playerIndex % this.players.size())] == false)
+            {
+                playerInGame = this.playerTurn(playerIndex % this.players.size());
+            }
 
             // Go to next player
-            if (playerInGame && !this.winnerFound)
+            if (!playerInGame && !this.winnerFound)
+            {
+                playerOut[(playerIndex % this.players.size())] = true;
+            }
+
+            // Next player turn
+            if (!this.winnerFound)
             {
                 playerIndex++;
             }
@@ -143,8 +158,6 @@ public class Model
             }
             else
             {
-                // Remove the player from the game
-                this.players.remove(playerIndex);
                 playerInGame = false;
             }
         }
