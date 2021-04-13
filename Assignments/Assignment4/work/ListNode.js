@@ -31,7 +31,7 @@ class ListNode
     // Public method
 
     /* constructor()
-    Constructor to crate and initialize an instance.
+    Constructor to create and initialize an instance.
 
     Parameter:
     DATUM - The datum the node holds.
@@ -100,7 +100,7 @@ class ListNode
     */
     setNextNode(NEXT)
     {
-        if (arguments > 1)
+        if (arguments.length > 1)
         {
             throw "Too many arguments";
         }
@@ -126,7 +126,7 @@ class ListNode
     */
     setPrevNode(PREV)
     {
-        if (arguments > 1)
+        if (arguments.length > 1)
         {
             throw "Too many arguments";
         }
@@ -136,7 +136,7 @@ class ListNode
         }
         else
         {
-            this.#nextNode = PREV;
+            this.#prevNode = PREV;
         }
     }
 

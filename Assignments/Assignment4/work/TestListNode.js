@@ -1,12 +1,11 @@
-let assert = require("assert");
 let ListNode = require("./ListNode.js");
 
 // Global test variable
 let datum = 1;
-let failNode;
-let node0;
-let node1;
-let node2;
+let failNode = null;
+let node0 = null;
+let node1 = null;
+let node2 = null;
 
 
 // Test function
@@ -24,7 +23,7 @@ function testListNodeConstructor()
     catch (e)
     {
     }
-    console.assert(failNode === undefined, "Constructor with 4 arguments should be work.");
+    console.assert(failNode === null, "Constructor with 4 arguments should not work.");
 
     // Initialize test nodes
     try
