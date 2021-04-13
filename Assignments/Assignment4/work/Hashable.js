@@ -56,6 +56,17 @@ class Hashable
         }
     }
 
+    /* key()
+    Getter method to get the value of the key.
+
+    Return:
+    The key.
+    */
+    get key()
+    {
+        return this.#key;
+    }
+
     /* hashVal()
     The value to be use for hash.
 
