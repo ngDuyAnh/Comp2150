@@ -3,19 +3,23 @@ let Hashable = require("./Hashable.js");
 /*
 Duy Anh Nguyen 7892957
 April 13, 2021
-IntHash.js
-class IntHash
-Wrap class of integer key.
+StringHash.js
+class StringHash
+
+Wrap class of string key.
 
 Public method:
 constructor() - Constructor to create and initialize an instance.
 
 Public override method:
-hashVal() - Getter method to get value to be use for hash.
-equals() - Compare the wrap key if they are the same.
+hashVal() - Getter method to get the value to be use for hash.
+equals() - Compare the wra[ leu if they are the same.
 */
 
-class IntHash extends Hashable
+// Constant variable
+const PRIME_NUMBER = 3; // The prime number use to create the hash value.
+
+class StringHash extends Hashable
 {
     // Public method
 
@@ -41,7 +45,7 @@ class IntHash extends Hashable
         {
             throw new Error("Too few arguments");
         }
-        else if (Number.isInteger(KEY))
+        else if (typeof(KEY) === "string" || KEY instanceof String)
         {
             super(KEY);
         }
@@ -57,12 +61,33 @@ class IntHash extends Hashable
     /* hashVal()
     Getter method to get value to be use for hash.
 
+    Throws:
+    "Failed to generate hash value" - Fail to generate hash value.
+
     Return:
     Hash value that is the key.
     */
     hashVal()
     {
-        return super.key;
+        // Local variable dictionary
+        let hashValResult = undefined;
+
+        // Generate the hash value
+        let length = super.key.length;
+        for (let counter = 0; counter < length; counter++)
+        {
+            hashValResult +=
+                    super.key.charCodeAt(counter) * Math.pow(PRIME_NUMBER, length - 1 - counter);
+        }
+
+        // Failed to create hash value
+        if (hashValResult === undefined)
+        {
+            throw new Error("Failed to generate hash value");
+        }
+
+        // Return the hash value
+        return hashValResult;
     }
 
     /* equals()
@@ -90,7 +115,7 @@ class IntHash extends Hashable
         {
             throw new Error("Too few arguments");
         }
-        else if (OTHER instanceof IntHash)
+        else if (!(OTHER instanceof StringHash))
         {
             throw new Error("Invalid type");
         }
@@ -106,4 +131,4 @@ class IntHash extends Hashable
 }
 
 // Export
-module.exports = IntHash;
+module.exports = StringHash;
