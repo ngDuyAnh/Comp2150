@@ -100,7 +100,7 @@ class LinkedList
         {
             throw new Error("Too few arguments");
         }
-        else if (typeof(INDEX) != "number")
+        else if (!Number.isInteger(INDEX))
         {
             throw new Error("Invalid type");
         }
@@ -183,7 +183,7 @@ class LinkedList
         {
             throw new Error("Too few arguments");
         }
-        else if (typeof(INDEX) != "number")
+        else if (!Number.isInteger(INDEX))
         {
             throw new Error("Invalid type");
         }
@@ -278,7 +278,7 @@ class LinkedList
         {
             throw new Error("Too few arguments");
         }
-        else if (typeof(INDEX) != "number")
+        else if (!Number.isInteger(INDEX))
         {
             throw new Error("Invalid type");
         }
