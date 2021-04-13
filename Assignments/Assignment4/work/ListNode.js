@@ -45,7 +45,7 @@ class ListNode
     {
         if (arguments.length > 3)
         {
-            throw "Too many arguments";
+            throw new Error("Too many arguments");
         }
         else
         {
@@ -102,11 +102,11 @@ class ListNode
     {
         if (arguments.length > 1)
         {
-            throw "Too many arguments";
+            throw new Error("Too many arguments");
         }
         else if (!(NEXT instanceof ListNode))
         {
-            throw "Invalid type"
+            throw new Error("Invalid type");
         }
         else
         {
@@ -128,11 +128,11 @@ class ListNode
     {
         if (arguments.length > 1)
         {
-            throw "Too many arguments";
+            throw new Error("Too many arguments");
         }
         else if (!(PREV instanceof ListNode))
         {
-            throw "Invalid type"
+            throw new Error("Invalid type");
         }
         else
         {

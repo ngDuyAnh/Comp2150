@@ -23,7 +23,7 @@ peekHead() - Get the first datum in the linked list but do not remove.
 peekTail() - Get the last datum in the linked list but do not remove.
 peekIndex() - Get the datum at given index in the linked list but do
         not remove.
-isEmpty() - Return boolean flag if the linked list is empty.
+isEmpty() - Return a boolean flag if the linked list is empty.
 getLength() - Return the number of data the linked list holds.
 */
 
@@ -94,25 +94,25 @@ class LinkedList
     {
         if (arguments.length > 2)
         {
-            throw "Too many arguments";
+            throw new Error("Too many arguments");
         }
         else if (arguments.length < 2)
         {
-            throw "Too few arguments";
+            throw new Error("Too few arguments");
         }
         else if (typeof(INDEX) != "number")
         {
-            throw "Invalid type";
+            throw new Error("Invalid type");
         }
         else
         {
             if (INDEX < 0)
             {
-                throw "Index less than 0";
+                throw new Error("Index less than 0");
             }
             else if (INDEX > this.#length)
             {
-                throw "Index out of bounds";
+                throw new Error("Index out of bounds");
             }
             else
             {
@@ -177,25 +177,25 @@ class LinkedList
         // Get the datum at given index
         if (arguments.length > 1)
         {
-            throw "Too many arguments";
+            throw new Error("Too many arguments");
         }
         else if (arguments.length < 1)
         {
-            throw "Too few arguments";
+            throw new Error("Too few arguments");
         }
         else if (typeof(INDEX) != "number")
         {
-            throw "Invalid type";
+            throw new Error("Invalid type");
         }
         else if (!this.isEmpty())
         {
             if (INDEX < 0)
             {
-                throw "Index less than 0";
+                throw new Error("Index less than 0");
             }
             else if (INDEX >= this.#length)
             {
-                throw "Index out of bounds";
+                throw new Error("Index out of bounds");
             }
             else
             {
@@ -272,25 +272,25 @@ class LinkedList
         // Get the datum at given index
         if (arguments.length > 1)
         {
-            throw "Too many arguments";
+            throw new Error("Too many arguments");
         }
         else if (arguments.length < 1)
         {
-            throw "Too few arguments";
+            throw new Error("Too few arguments");
         }
         else if (typeof(INDEX) != "number")
         {
-            throw "Invalid type";
+            throw new Error("Invalid type");
         }
         else if (!this.isEmpty())
         {
             if (INDEX < 0)
             {
-                throw "Index less than 0";
+                throw new Error("Index less than 0");
             }
             else if (INDEX >= this.#length)
             {
-                throw "Index out of bounds";
+                throw new Error("Index out of bounds");
             }
             else
             {
@@ -312,7 +312,7 @@ class LinkedList
 
 
     /* isEmpty()
-    Return boolean flag if the linked list is empty.
+    Return a boolean flag if the linked list is empty.
 
     Return:
     The flag if the linked list is empty.
