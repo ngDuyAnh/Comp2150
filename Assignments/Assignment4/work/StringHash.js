@@ -61,16 +61,13 @@ class StringHash extends Hashable
     /* hashVal()
     Getter method to get value to be use for hash.
 
-    Throws:
-    "Failed to generate hash value" - Fail to generate hash value.
-
     Return:
     Hash value that is the key.
     */
     hashVal()
     {
         // Local variable dictionary
-        let hashValResult = undefined;
+        let hashValResult = 0;
 
         // Generate the hash value
         let length = super.key.length;
@@ -78,12 +75,6 @@ class StringHash extends Hashable
         {
             hashValResult +=
                     super.key.charCodeAt(counter) * Math.pow(PRIME_NUMBER, length - 1 - counter);
-        }
-
-        // Failed to create hash value
-        if (hashValResult === undefined)
-        {
-            throw new Error("Failed to generate hash value");
         }
 
         // Return the hash value
