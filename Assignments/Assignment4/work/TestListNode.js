@@ -6,7 +6,7 @@ let datum = 1;
 let failNode;
 let node0;
 let node1;
-let node2
+let node2;
 
 
 // Test function
