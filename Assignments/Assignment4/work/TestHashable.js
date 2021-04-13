@@ -16,6 +16,6 @@ function main()
     catch (e)
     {
     }
-    console.assert(test == null, "Should not be able to create an instance of Hashable.");
+    console.assert(test === null, "Should not be able to create an instance of Hashable.");
 }
 main();
