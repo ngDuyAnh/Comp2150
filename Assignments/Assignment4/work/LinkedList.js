@@ -332,7 +332,7 @@ class LinkedList
     {
         return this.#length;
     }
-    
+
 }
 
 // Export
