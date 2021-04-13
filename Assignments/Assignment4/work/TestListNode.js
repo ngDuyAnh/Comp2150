@@ -24,7 +24,7 @@ function testListNodeConstructor()
     catch (e)
     {
     }
-    console.assert(failNode == undefined, "Constructor with 4 arguments should be work.");
+    console.assert(failNode === undefined, "Constructor with 4 arguments should be work.");
 
     // Initialize test nodes
     try
@@ -55,14 +55,14 @@ function testListNodeInitializeTestVar()
     console.assert(node0.prevNode == null, "node0 prevNode is not null.");
 
     // Assert node1
-    console.assert(node1.datum == datum, "node0 datum is not datum.");
+    console.assert(node1.datum === datum, "node0 datum is not datum.");
     console.assert(node1.nextNode == null, "node0 nextNode is not null.");
-    console.assert(node1.prevNode == node0, "node0 prevNode is not node0.");
+    console.assert(node1.prevNode === node0, "node0 prevNode is not node0.");
 
     // Assert node1
-    console.assert(node1.datum == datum, "node0 datum is not datum.");
+    console.assert(node1.datum === datum, "node0 datum is not datum.");
     console.assert(node1.nextNode == null, "node0 nextNode is not null.");
-    console.assert(node1.prevNode == node0, "node0 prevNode is not node0.");
+    console.assert(node1.prevNode === node0, "node0 prevNode is not node0.");
 
     // Initialize the test variables
     node0.setNextNode(node1);
@@ -70,9 +70,9 @@ function testListNodeInitializeTestVar()
     node2.setPrevNode(node1);
 
     // Assert
-    console.assert(node0.nextNode == node1, "node0 next is not node1.");
-    console.assert(node1.nextNode == node2, "node1 next is not node2.");
-    console.assert(node2.prevNode == node1, "node2 previous is not node1.");
+    console.assert(node0.nextNode === node1, "node0 next is not node1.");
+    console.assert(node1.nextNode === node2, "node1 next is not node2.");
+    console.assert(node2.prevNode === node1, "node2 previous is not node1.");
 }
 
 
