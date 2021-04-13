@@ -124,7 +124,7 @@ class ListNode
     "Too many arguments" - Given more arguments than the method can take.
     "Invalid type" - The parameter type is incorrect.
     */
-    setNextNode(PREV)
+    setPrevNode(PREV)
     {
         if (arguments > 1)
         {
@@ -139,5 +139,8 @@ class ListNode
             this.#nextNode = PREV;
         }
     }
-    
+
 }
+
+// Export
+module.exports = ListNode;
