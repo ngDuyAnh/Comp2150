@@ -107,7 +107,7 @@ class Hashable
         }
         else
         {
-            if (this.#key === OTHER.#key)
+            if (this.#key === OTHER.key)
             {
                 flag = true;
             }
