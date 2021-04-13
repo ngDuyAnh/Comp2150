@@ -90,7 +90,7 @@ class HashEntry
     */
     get hashValue()
     {
-        this.#key.hashVal();
+        return this.#key.hashVal();
     }
 
 }
