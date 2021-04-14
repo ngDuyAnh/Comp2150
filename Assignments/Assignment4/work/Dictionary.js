@@ -14,6 +14,7 @@ table - The hash table to track data.
 
 Public method:
 constructor() - Constructor to create and initialize an instance.
+keys() - Get all the keys in dictionary.
 put() - Add the key and value pair to the dictionary.
 get() - Get the value with given key.
 contains() - Return a boolean flag if the given key exists in the dictionary.
@@ -62,6 +63,36 @@ class Dictionary
                 this.#table.append(new LinkedList());
             }
         }
+    }
+
+    /* keys()
+    Get all the keys in dictionary.
+
+    Return:
+    Array of all the keys in dictionary.
+    */
+    keys()
+    {
+        // Local variable dictionary
+        let keys = [];
+
+        // Get the keys
+        for (let counter = 0; counter < this.#table.getLength(); counter++)
+        {
+            // Get the index linked list
+            let listIndex = this.#table.peekIndex(counter);
+
+            // Get the keys in the list index
+            for (let count = 0; count < listIndex.getLength(); count++)
+            {
+                // Get the key and value pair
+                let hashEntry = listIndex.peekIndex(count);
+                keys.push(hashEntry.key);
+            }
+        }
+
+        // Return the keys
+        return keys;
     }
 
     /* put()
