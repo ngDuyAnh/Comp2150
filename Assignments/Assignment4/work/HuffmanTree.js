@@ -12,7 +12,6 @@ Private member:
 #rootNode - The root node of the Huffman binary tree.
 
 Public static method:
-buildTree() - Build a tree with given character line.
 combineTree() - Combine two Huffman trees into one.
         New tree will have a new root node that is the sum weight of the sub-trees.
 
@@ -34,14 +33,6 @@ class HuffmanTree
 
 
     // Public static method
-
-    /* buildTree()
-    Build a tree with given character line.
-    */
-    static buildTree(STRING)
-    {
-        return null;
-    }
 
     /* combineTree()
     Combine two Huffman trees into one.
