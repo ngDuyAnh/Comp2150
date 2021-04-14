@@ -56,10 +56,10 @@ class Dictionary
         else
         {
             // Initialize the hash table
-            this.#table = [];
+            this.#table = new LinkedList();
             for (let counter = 0; counter < SIZE; counter++)
             {
-                this.#table.push(new LinkedList());
+                this.#table.append(new LinkedList());
             }
         }
     }
@@ -102,10 +102,10 @@ class Dictionary
             {
                 // Local variable dictionary
                 let hashEntry = new HashEntry(KEY, VALUE); // The hash pair
-                let hashIndex = hashEntry.hashVal % this.#table.length;
+                let hashIndex = KEY.hashVal % this.#table.getLength();
 
                 // Insert the entry into the dictionary
-                this.#table[hashIndex].append(hashEntry);
+                this.#table.peekIndex(hashIndex).append(hashEntry);
             }
         }
     }
@@ -145,11 +145,11 @@ class Dictionary
         else
         {
             // Local variable dictionary
-            let hashIndex = KEY.hashVal % this.#table.length;
+            let hashIndex = KEY.hashVal % this.#table.getLength();
 
             // Find if the key exists in the table and get the value
-            let listIndex = this.#table[hashIndex];
-            for (let counter = 0; counter < listIndex && value === undefined; counter++)
+            let listIndex = this.#table.peekIndex(hashIndex);
+            for (let counter = 0; counter < listIndex.getLength() && value === undefined; counter++)
             {
                 // Get the hash entry
                 let hashEntry = listIndex.peekIndex(counter);
@@ -201,11 +201,12 @@ class Dictionary
         else
         {
             // Local variable dictionary
-            let hashIndex = KEY.hashVal % this.#table.length;
+            let hashIndex = KEY.hashVal % this.#table.getLength();
+            console.log(hashIndex);
 
             // Find if the key exists in the table and get the value
-            let listIndex = this.#table[hashIndex];
-            for (let counter = 0; counter < listIndex && keyFound === false; counter++)
+            let listIndex = this.#table.peekIndex(hashIndex);
+            for (let counter = 0; counter < listIndex.getLength() && keyFound === false; counter++)
             {
                 // Get the hash entry
                 let hashEntry = listIndex.peekIndex(counter);
