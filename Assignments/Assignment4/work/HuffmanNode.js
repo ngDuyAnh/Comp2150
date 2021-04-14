@@ -44,6 +44,8 @@ class HuffmanNode
 
     Throws:
     "Too many arguments" - Given more arguments than the method can take.
+    "Too few arguments" - Given fewer arguments than the method need.
+    "Invalid type" - The parameter type is incorrect.
     */
     constructor(DATUM, WEIGHT, LEFT, RIGHT)
     {
@@ -51,9 +53,17 @@ class HuffmanNode
         {
             throw new Error("Too many arguments");
         }
+        else if (arguments.length < 1)
+        {
+            throw new Error("Too few arguments");
+        }
+        else if (!(typeof(DATUM) === "string" || DATUM instanceof String))
+        {
+            throw new Error("Invalid type");
+        }
         else
         {
-            this.#datum = (DATUM !== undefined) ? DATUM : null;
+            this.#datum = DATUM;
             this.#weight = (WEIGHT !== undefined) ? WEIGHT : 0.0;
             this.#left = (LEFT !== undefined) ? LEFT : null;
             this.#right = (RIGHT !== undefined) ? RIGHT : null;
