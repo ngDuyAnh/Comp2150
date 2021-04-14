@@ -76,7 +76,7 @@ class HuffmanNode
     Return:
     Datum the node holds.
     */
-    get datum()
+    datum()
     {
         return this.#datum;
     }
@@ -87,7 +87,7 @@ class HuffmanNode
     Return:
     Weight of the node.
     */
-    get weight()
+    weight()
     {
         return this.#weight;
     }
@@ -98,7 +98,7 @@ class HuffmanNode
     Return:
     Left node.
     */
-    get left()
+    left()
     {
         return this.#left;
     }
@@ -109,7 +109,7 @@ class HuffmanNode
     Return:
     Right node.
     */
-    get right()
+    right()
     {
         return this.#right;
     }
@@ -146,15 +146,15 @@ class HuffmanNode
         }
         else
         {
-            if (this.weight < OTHER.weight)
+            if (this.#weight < OTHER.#weight)
             {
                 compareResult = -1;
             }
-            else if (this.weight === OTHER.weight)
+            else if (this.#weight === OTHER.#weight)
             {
                 compareResult = 0;
             }
-            else if (this.weight > OTHER.weight)
+            else if (this.#weight > OTHER.#weight)
             {
                 compareResult = 1;
             }
@@ -173,7 +173,7 @@ class HuffmanNode
     */
     isLeaf()
     {
-        return (this.left === null && this.right === null);
+        return (this.left() === null && this.right() === null);
     }
 
 }
