@@ -90,7 +90,7 @@ class IntHash extends Hashable
         {
             throw new Error("Too few arguments");
         }
-        else if (OTHER instanceof IntHash)
+        else if (!(OTHER instanceof IntHash))
         {
             throw new Error("Invalid type");
         }

@@ -61,6 +61,6 @@ function main()
     console.assert(test.value === 1, "The value should be 1.");
 
     // hashValue()
-    console.assert(test.hashVal === 0, "The hash value should be 0.");
+    console.assert(test.hashVal() === 0, "The hash value should be 0.");
 }
 main();

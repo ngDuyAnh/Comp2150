@@ -74,7 +74,7 @@ class Hashable
     "Missing implementation of hashVal() in concrete class" - Abstract class cannot be
             call.
     */
-    get hashVal()
+    hashVal()
     {
         throw new Error("Missing implementation of hashVal() in concrete class");
     }

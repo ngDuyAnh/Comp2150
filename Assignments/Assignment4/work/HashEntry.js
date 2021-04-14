@@ -88,7 +88,7 @@ class HashEntry
     Return:
     The hashing value.
     */
-    get hashVal()
+    hashVal()
     {
         return this.#key.hashVal();
     }
