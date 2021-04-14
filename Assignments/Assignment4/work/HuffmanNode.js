@@ -1,7 +1,7 @@
 
 /*
 Duy Anh Nguyen 7892957
-April 12, 2021
+April 13, 2021
 HuffmanNode.js
 class HuffmanNode
 Node in HuffmanTree.
