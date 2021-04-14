@@ -45,13 +45,13 @@ class StringHash extends Hashable
         {
             throw new Error("Too few arguments");
         }
-        else if (typeof(KEY) === "string" || KEY instanceof String)
+        else if (!(typeof(KEY) === "string" || KEY instanceof String))
         {
-            super(KEY);
+            throw new Error("Invalid type");
         }
         else
         {
-            throw new Error("Invalid type");
+            super(KEY);
         }
     }
 
