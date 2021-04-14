@@ -7,12 +7,12 @@ function main()
     // Constructor
     let left = new HuffmanNode("b", 1.0);
     let right = new HuffmanNode("c");
-    let testNode = new HuffmanNode("a", 0.5, left, right);
+    let testNode = new HuffmanNode(null, 0.5, left, right);
 
     // datum()
     console.assert(left.datum === "b", "Left datum should be null.");
     console.assert(right.datum === "c", "Right datum should be null.");
-    console.assert(testNode.datum === "a", "TestNode datum should be 10.");
+    console.assert(testNode.datum === null, "TestNode datum should be null.");
 
     // weight()
     console.assert(left.weight === 1.0, "Left datum should be 1.0");

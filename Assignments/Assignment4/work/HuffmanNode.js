@@ -57,7 +57,7 @@ class HuffmanNode
         {
             throw new Error("Too few arguments");
         }
-        else if (!(typeof(DATUM) === "string" || DATUM instanceof String))
+        else if (DATUM !== null && !(typeof(DATUM) === "string" || DATUM instanceof String))
         {
             throw new Error("Invalid type");
         }
