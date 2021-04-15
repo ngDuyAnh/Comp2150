@@ -110,7 +110,12 @@ Testing get() method.
 */
 function testDictionaryGet()
 {
-    assert(dictionary.get(key) === value, "The key should match the value.");
+    // Get value that does exist
+    assert(dictionary.get(key).value === value, "The key should match the value.");
+
+    // Get value that does not exist
+    let invalidHash = new StringHash("Does not exist.");
+    console.assert(dictionary.get(invalidHash) === null, "Key does not exist should return null.");
 }
 
 /* testDictionaryContains()
@@ -118,7 +123,12 @@ Testing contains() method.
 */
 function testDictionaryContains()
 {
+    // Given valid key
     assert(dictionary.contains(key) === true, "The dictionary should contain the key.");
+
+    // Given key that does not exist in the dictionary
+    let invalidHash = new StringHash("Does not exist.");
+    assert(dictionary.contains(invalidHash) === false, "The dictionary should not contain the key.");
 }
 
 /* testDictionaryIsEmpty()
@@ -126,7 +136,7 @@ Test isEmpty() method.
 */
 function testDictionaryIsEmpty()
 {
-    asserts(dictionary.isEmpty() === false, "The dictionary should not be empty.");
+    assert(dictionary.isEmpty() === false, "The dictionary should not be empty.");
 }
 
 // Main

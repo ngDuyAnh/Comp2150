@@ -265,9 +265,9 @@ class Dictionary
         let empty = true;
 
         // See if the dictionary has data
-        for (let counter = 0; counter < this.#table.lenght && empty; counter++)
+        for (let counter = 0; counter < this.#table.getLength() && empty; counter++)
         {
-            if (!this.#table[counter].isEmpty())
+            if (!this.#table.peekIndex(counter).isEmpty())
             {
                 empty = false;
             }
