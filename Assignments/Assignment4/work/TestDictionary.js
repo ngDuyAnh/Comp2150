@@ -5,6 +5,7 @@ let StringHash = require("./StringHash.js");
 // Global variable dictionary
 const HASH_TABLE_SIZE = 5;
 let dictionary = null;
+let emptyDictionary = null;
 let key = new StringHash("string");
 let value = 1;
 
@@ -49,6 +50,12 @@ function testDictionaryConstructor()
     // Create a dictionary
     dictionary = new Dictionary(HASH_TABLE_SIZE);
     assert(dictionary != null, "Dictionary with correct parameter did not work.");
+	
+	// Empty dictionary
+	emptyDictionary = new Dictionary(HASH_TABLE_SIZE);
+	
+	// Assert
+	assert(dictionary.isEmpty(), "The dictionary should be empty.");
 }
 
 /* testDictionaryPut()
@@ -103,6 +110,18 @@ function testDictionaryPut()
         pass = true;
     }
     assert(pass, "Should not be able to create an instance with too many parameter.");
+	
+	// Try to put the same element into the dictionary
+    let testFlag = false;
+	try
+    {
+        dictionary.put(key, value);
+    }
+    catch (e)
+    {
+        testFlag = true;
+    }
+    assert(testFlag === true, "Should not be able to insert the same key.");
 }
 
 /* testDictionaryGet()
@@ -116,6 +135,9 @@ function testDictionaryGet()
     // Get value that does not exist
     let invalidHash = new StringHash("Does not exist.");
     console.assert(dictionary.get(invalidHash) === null, "Key does not exist should return null.");
+	
+	// Get from empty dictionary
+	console.assert(emptyDictionary.get(key) === null, "Key does not in empty dictionary exist should return null.");
 }
 
 /* testDictionaryContains()
@@ -129,6 +151,9 @@ function testDictionaryContains()
     // Given key that does not exist in the dictionary
     let invalidHash = new StringHash("Does not exist.");
     assert(dictionary.contains(invalidHash) === false, "The dictionary should not contain the key.");
+	
+	// Contains in empty dictionary
+	assert(emptyDictionary.contains(key) === false, "The empty dictionary should not contain the key.");
 }
 
 /* testDictionaryIsEmpty()
@@ -137,6 +162,7 @@ Test isEmpty() method.
 function testDictionaryIsEmpty()
 {
     assert(dictionary.isEmpty() === false, "The dictionary should not be empty.");
+	assert(emptyDictionary.isEmpty() === true, "The empty dictionary should be empty.");
 }
 
 // Main
@@ -145,7 +171,6 @@ function main()
 {
     // Constructor
     testDictionaryConstructor();
-    assert(dictionary.isEmpty(), "The dictionary should be empty.");
 
     // put()
     testDictionaryPut();
@@ -158,5 +183,8 @@ function main()
 
     // isEmpty()
     testDictionaryIsEmpty();
+	
+	// Test ends successfully
+	console.log("Test ends successfully");
 }
 main();

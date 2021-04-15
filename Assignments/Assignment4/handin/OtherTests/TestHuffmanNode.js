@@ -1,4 +1,4 @@
-let HuffmanNode = require("./HuffmanNode.js");
+let HuffmanNode = require("../HuffmanNode.js");
 
 // Main
 
@@ -37,5 +37,8 @@ function main()
     console.assert(testNode.isLeaf() === false, "Test node should not be a leaf node.");
     console.assert(left.isLeaf() === true, "Left node should be a leaf node.");
     console.assert(right.isLeaf() === true, "Right node should be a leaf node.");
+	
+	// Test ends successfully
+	console.log("Test ends successfully.");
 }
 main();

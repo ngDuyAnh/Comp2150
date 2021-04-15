@@ -1,4 +1,4 @@
-let ListNode = require("./ListNode.js");
+let ListNode = require("../ListNode.js");
 
 // Global test variable
 let datum = 1;
@@ -84,5 +84,8 @@ function main()
 
     // Ensure the test variables are what expected
     testListNodeInitializeTestVar();
+	
+	// Test ends successfully
+	console.log("Test ends successfully.");
 }
 main();

@@ -1,5 +1,5 @@
-let IntHash = require("./IntHash.js");
-let HashEntry = require("./HashEntry.js");
+let IntHash = require("../IntHash.js");
+let HashEntry = require("../HashEntry.js");
 
 // Global variable dictionary
 let test = null;
@@ -55,12 +55,15 @@ function main()
     testHashEntryConstructor();
 
     // key
-    console.assert(test.key === 0, "The key should be 0.");
+    console.assert(test.key.key === 0, "The key should be 0.");
 
     // value
     console.assert(test.value === 1, "The value should be 1.");
 
     // hashValue()
     console.assert(test.hashVal() === 0, "The hash value should be 0.");
+	
+	// Test ends successfully
+	console.log("Test ends successfully.");
 }
 main();

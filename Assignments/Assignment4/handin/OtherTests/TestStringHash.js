@@ -1,4 +1,4 @@
-let StringHash = require("./StringHash.js")
+let StringHash = require("../StringHash.js")
 
 // Global variable dictionary
 let test = null;
@@ -86,5 +86,8 @@ function main()
 
     // equals()
     testStringHashEquals();
+	
+	// Test ends successfully
+	console.log("Test ends successfully.");
 }
 main();

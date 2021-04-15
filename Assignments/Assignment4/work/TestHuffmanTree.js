@@ -1,4 +1,5 @@
 let HuffmanTree = require("./HuffmanTree.js");
+let StringHash = require("./StringHash.js");
 
 // Global test variable
 let tree0 = null;
@@ -33,10 +34,13 @@ function main()
     console.assert(tree0.compareTo(tree2) === 1, "Tree0 must be greater than tree2.");
 
     // Test the combined tree using getCode()
-    console.assert(tree0.getCode("a") === "0", "a should be to the left.");
-    console.assert(tree0.getCode("b") === "1", "b should be to the right.");
+    console.assert(tree0.getCode(new StringHash("a")) === "0", "a should be to the left.");
+    console.assert(tree0.getCode(new StringHash("b")) === "1", "b should be to the right.");
 
     // getCode() character that does not exist
-    console.assert(tree0.getCode("c") === null, "c should not exist.");
+    console.assert(tree0.getCode(new StringHash("c")) === null, "c should not exist.");
+
+    // Test ends successfully
+    console.log("Test ends successfully.");
 }
 main();

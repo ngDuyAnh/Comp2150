@@ -1,4 +1,4 @@
-let Hashable = require("./Hashable.js");
+let Hashable = require("../Hashable.js");
 
 // Global variable dictionary
 let test = null;
@@ -17,5 +17,8 @@ function main()
     {
     }
     console.assert(test === null, "Should not be able to create an instance of Hashable.");
+	
+	// Test ends successfully
+	console.log("Test ends successfully.");
 }
 main();

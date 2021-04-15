@@ -1,4 +1,4 @@
-let IntHash = require("./IntHash.js");
+let IntHash = require("../IntHash.js");
 
 // Global variable dictionary
 let test = null;
@@ -81,5 +81,8 @@ function main()
 
     // equals()
     testIntHashEquals();
+	
+	// Test ends successfully
+    console.log("Test ends successfully.");
 }
 main();

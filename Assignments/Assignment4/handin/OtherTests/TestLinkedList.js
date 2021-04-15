@@ -1,4 +1,4 @@
-let LinkedList = require("./LinkedList.js")
+let LinkedList = require("../LinkedList.js")
 
 // Global variable dictionary
 let linkedList = null;
@@ -149,5 +149,8 @@ function main()
 
     // Test remove datum from the linked list
     testLinkedListRemoveElement();
+	
+	// Test ends successfully
+	console.log("Test ends successfully.");
 }
 main();
