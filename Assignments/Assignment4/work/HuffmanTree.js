@@ -1,5 +1,6 @@
 let LinkedList = require("./LinkedList.js");
 let HuffmanNode = require("./HuffmanNode.js");
+let Hashable = require("./Hashable.js");
 
 /*
 Duy Anh Nguyen 7892957
@@ -93,11 +94,14 @@ class HuffmanTree
         else
         {
             // Traversal to the left
-            pathList.append("0");
-            charFound = HuffmanTree.#nodeTraversal(CHARACTER, PARENT.left(), pathList);
+            if (PARENT.left() !== null)
+            {
+                pathList.append("0");
+                charFound = HuffmanTree.#nodeTraversal(CHARACTER, PARENT.left(), pathList);
+            }
 
             // Traversal to the right
-            if (charFound === false)
+            if (charFound === false && PARENT.right() !== null)
             {
                 // Remove and replace path to the right
                 pathList.removeTail();
@@ -237,7 +241,7 @@ class HuffmanTree
         {
             throw new Error("Too few arguments");
         }
-        else if (!(typeof(CHARACTER) === "string" || CHARACTER instanceof String))
+        else if (!(CHARACTER instanceof Hashable))
         {
             throw new Error("Invalid type");
         }
@@ -247,7 +251,7 @@ class HuffmanTree
             let pathList = new LinkedList(); // List to keep track of the path
 
             // Traversal to find the path
-            let pathFound = HuffmanTree.#nodeTraversal(CHARACTER, this.#rootNode, pathList);
+            let pathFound = HuffmanTree.#nodeTraversal(CHARACTER.key, this.#rootNode, pathList);
 
             // Get the path
             if (pathFound === false)

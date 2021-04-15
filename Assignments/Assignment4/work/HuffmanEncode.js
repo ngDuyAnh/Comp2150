@@ -2,6 +2,7 @@ let fs = require("fs");
 let HuffmanTree = require("./HuffmanTree.js");
 let LinkedList = require("./LinkedList.js");
 let Dictionary = require("./Dictionary.js");
+let StringHash = require("./StringHash.js");
 
 /*
 Duy Anh Nguyen 7892957
@@ -65,30 +66,30 @@ class HuffmanEncode
             for (let counter = 0; counter < INPUT_DATA.length; counter++)
             {
                 // Get the character
-                let character = INPUT_DATA.charAt(counter);
+                let characterHash = new StringHash(INPUT_DATA.charAt(counter));
 
                 // Record the count
-                if (dictionary.contains(character))
+                if (dictionary.contains(characterHash))
                 {
-                    dictionary.get(character).value = dictionary.get(character).value + 1;
+                    dictionary.get(characterHash).value = dictionary.get(characterHash).value + 1;
                 }
                 else
                 {
-                    dictionary.put(character, 1);
+                    dictionary.put(characterHash, 1);
                 }
             }
 
             // Build the Huffman tree
-            let huffmanTree = HuffmanEncode.#buildTree(dictionary);
+            let huffmanTree = HuffmanEncode.#buildTree(dictionary, INPUT_DATA.length);
 
             // Use the tree to output the encode of the input file
             for (let counter = 0; counter < INPUT_DATA.length; counter++)
             {
                 // Get the character to encode
-                let character = INPUT_DATA.charAt(counter);
+                let characterHash = new StringHash(INPUT_DATA.charAt(counter));
 
                 // Get the encode for the character
-                let encode = huffmanTree.getCode(character);
+                let encode = huffmanTree.getCode(characterHash);
 
                 // Write the encode to the output file
                 fs.appendFileSync(FILE_OUTPUT_NAME, encode);
@@ -104,8 +105,9 @@ class HuffmanEncode
 
     Parameter:
     DICTIONARY - The dictionary of the character frequency.
+    STRING_LENGTH - The length of the string.
     */
-    static #buildTree(DICTIONARY)
+    static #buildTree(DICTIONARY, STRING_LENGTH)
     {
         // Local variable dictionary
         let treeList = new LinkedList(); // Tracking the frequency from low to high
@@ -115,7 +117,7 @@ class HuffmanEncode
         let values = new LinkedList();
         for (let counter = 0; counter < keys.getLength(); counter++)
         {
-            values.append(DICTIONARY.get(keys.peekIndex(counter)));
+            values.append(DICTIONARY.get(new StringHash(keys.peekIndex(counter))).value);
         }
 
         // Put the keys and values to Huffman Tree list for combine into 1 tree
@@ -124,7 +126,7 @@ class HuffmanEncode
         {
             // Get the information
             const DATUM = keys.peekIndex(counter);
-            const WEIGHT = (values.peekIndex(counter) * 1.0) / values.getLength();
+            const WEIGHT = (values.peekIndex(counter) * 1.0) / STRING_LENGTH;
 
             // Create tree and put it into the track list
             treeList.append(new HuffmanTree(DATUM, WEIGHT));
@@ -160,12 +162,16 @@ class HuffmanEncode
 
             // Take the lowest two tree and combine them together
             let tree0 = treeList.removeHead();
-            let tree1 = treeList.removeTail();
+            let tree1 = treeList.removeHead();
+            tree0.compareTo(tree1);
             let combineTree = HuffmanTree.combineTree(tree0, tree1);
 
             // Insert the new tree into the track list
             treeList.append(combineTree);
         }
+
+        // Assert
+        console.assert(treeList.getLength() === 1, "The last tree should ");
 
         // Return the final combined tree
         return treeList.removeHead();

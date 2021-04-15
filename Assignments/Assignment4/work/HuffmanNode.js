@@ -152,36 +152,7 @@ class HuffmanNode
             }
             else if (this.#weight === OTHER.#weight)
             {
-                // Leaf node compare
-                if (this.#datum !== null && OTHER.#datum!== null)
-                {
-                    if (this.#datum < OTHER.#datum)
-                    {
-                        compareResult = -1;
-                    }
-                    else if (this.#datum > OTHER.#datum)
-                    {
-                        compareResult = 1;
-                    }
-                    else if (this.#datum === OTHER.#datum)
-                    {
-                        compareResult = 0;
-                    }
-                }
-
-                // Root node compare
-                else
-                {
-                    // Compare the left size
-                    compareResult = this.#left.compareTo(OTHER.#left);
-
-                    // If they are the same, compare the right side
-                    if (compareResult === 0)
-                    {
-                        compareResult = this.#right.compareTo(OTHER.#right);
-                    }
-                }
-
+                compareResult = 0
             }
             else if (this.#weight > OTHER.#weight)
             {

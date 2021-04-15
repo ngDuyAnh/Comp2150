@@ -87,7 +87,7 @@ class Dictionary
             {
                 // Get the key and value pair
                 let hashEntry = listIndex.peekIndex(count);
-                keys.append(hashEntry.key);
+                keys.append(hashEntry.key.key);
             }
         }
 
@@ -133,7 +133,7 @@ class Dictionary
             {
                 // Local variable dictionary
                 let hashEntry = new HashEntry(KEY, VALUE); // The hash pair
-                let hashIndex = KEY.hashVal % this.#table.getLength();
+                let hashIndex = KEY.hashVal() % this.#table.getLength();
 
                 // Insert the entry into the dictionary
                 this.#table.peekIndex(hashIndex).append(hashEntry);
@@ -153,12 +153,12 @@ class Dictionary
     "Invalid type" - The parameter type is incorrect.
 
     Return:
-    The value correlate to the given key.
+    The  hash entry correlate to the given key.
     */
     get(KEY)
     {
         // Local variable dictionary
-        let value = undefined; // The value pair of the key
+        let hashEntry = null; // The value pair of the key
 
         // Find the key and value pair
         if (arguments.length > 1)
@@ -176,25 +176,25 @@ class Dictionary
         else
         {
             // Local variable dictionary
-            let hashIndex = KEY.hashVal % this.#table.getLength();
+            let hashIndex = KEY.hashVal() % this.#table.getLength();
 
             // Find if the key exists in the table and get the value
             let listIndex = this.#table.peekIndex(hashIndex);
-            for (let counter = 0; counter < listIndex.getLength() && value === undefined; counter++)
+            for (let counter = 0; counter < listIndex.getLength() && hashEntry === null; counter++)
             {
                 // Get the hash entry
-                let hashEntry = listIndex.peekIndex(counter);
+                let entry = listIndex.peekIndex(counter);
 
                 // Check if the has entry is the key to get the value
-                if (hashEntry.key.equals(KEY))
+                if (entry.key.equals(KEY))
                 {
-                    value = hashEntry.value;
+                    hashEntry = entry;
                 }
             }
         }
 
         // Return the value pair of the key
-        return value;
+        return hashEntry;
     }
 
     /* contains()
@@ -232,8 +232,7 @@ class Dictionary
         else
         {
             // Local variable dictionary
-            let hashIndex = KEY.hashVal % this.#table.getLength();
-            console.log(hashIndex);
+            let hashIndex = KEY.hashVal() % this.#table.getLength();
 
             // Find if the key exists in the table and get the value
             let listIndex = this.#table.peekIndex(hashIndex);
@@ -241,6 +240,12 @@ class Dictionary
             {
                 // Get the hash entry
                 let hashEntry = listIndex.peekIndex(counter);
+
+                // Check if it is the same key
+                if (hashEntry.key.key === KEY.key)
+                {
+                    keyFound = true;
+                }
             }
         }
 

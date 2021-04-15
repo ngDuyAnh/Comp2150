@@ -69,7 +69,7 @@ class HashEntry
     */
     get key()
     {
-        return this.#key.key;
+        return this.#key;
     }
 
     /* value()
