@@ -15,6 +15,7 @@ Public method:
 constructor() - Constructor to create and initialize an instance.
 key() - Getter method to get the key.
 value() - Getter method to get the value.
+value() - Setter method to set the value.
 hashValue() - Getter method to get the value use for hashing.
 */
 
@@ -80,6 +81,11 @@ class HashEntry
     get value()
     {
         return this.#value;
+    }
+
+    set value(VALUE)
+    {
+        this.#value = VALUE;
     }
 
     /* hashValue()
