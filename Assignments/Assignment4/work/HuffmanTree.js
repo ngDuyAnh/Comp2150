@@ -104,6 +104,12 @@ class HuffmanTree
                 pathList.append("1");
                 charFound = HuffmanTree.#nodeTraversal(CHARACTER, PARENT.right(), pathList);
             }
+
+            // Travel up
+            if (charFound === false)
+            {
+                pathList.removeTail();
+            }
         }
 
         // Return if the character path found
