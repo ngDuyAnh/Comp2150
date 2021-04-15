@@ -152,7 +152,67 @@ class HuffmanNode
             }
             else if (this.#weight === OTHER.#weight)
             {
-                compareResult = 0
+                // Compare using the datum or child node datum
+                if (this.isLeaf() && OTHER.isLeaf())
+                {
+                    if (this.#datum < OTHER.#datum)
+                    {
+                        compareResult = -1;
+                    }
+                    else if (this.#datum > OTHER.#datum)
+                    {
+                        compareResult = 1;
+                    }
+                    else if (this.#datum === OTHER.#datum)
+                    {
+                        compareResult = 0;
+                    }
+                }
+                else if (this.isLeaf() && !OTHER.isLeaf())
+                {
+                    // Keep the weight but move to the branch
+                    const WEIGHT = OTHER.#weight;
+                    let leftBranch = null;
+                    let rightBranch = null;
+
+                    // Compare again the left branch
+                    leftBranch = OTHER.#left.#left;
+                    rightBranch = OTHER.#left.#right;
+                    compareResult = this.compareTo(
+                        new HuffmanNode(OTHER.#left.#datum, WEIGHT, leftBranch, rightBranch));
+
+                    // Compare the right branch
+                    if (compareResult === 0)
+                    {
+                        leftBranch = OTHER.#right.#left;
+                        rightBranch = OTHER.#right.#right;
+                        compareResult = this.compareTo(
+                            new HuffmanNode(OTHER.#left.#datum, WEIGHT, leftBranch, rightBranch));
+                    }
+                }
+                // Traversal down one side first then the other automatically using the first condition
+                else if (!this.isLeaf())
+                {
+                    // Keep the weight but move to the branch
+                    const WEIGHT = OTHER.#weight;
+                    let leftBranch = null;
+                    let rightBranch = null;
+
+                    // Compare the left branch
+                    leftBranch = this.#left.#left;
+                    rightBranch = this.#left.#right;
+                    let leftNode = new HuffmanNode(this.#left.#datum, WEIGHT, leftBranch, rightBranch);
+                    compareResult = leftNode.compareTo(OTHER);
+
+                    // Compare the right branch
+                    if (compareResult === 0)
+                    {
+                        leftBranch = this.#right.#left;
+                        rightBranch = this.#right.#right;
+                        let leftNode = new HuffmanNode(this.#right.#datum, WEIGHT, leftBranch, rightBranch);
+                        compareResult = leftNode.compareTo(OTHER);
+                    }
+                }
             }
             else if (this.#weight > OTHER.#weight)
             {

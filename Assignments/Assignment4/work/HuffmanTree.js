@@ -197,17 +197,24 @@ class HuffmanTree
             else if (this.#rootNode.compareTo(OTHER.#rootNode) === 0)
             {
                 // Use the character to determine the compare value
-                if (this.#rootNode.datum() < OTHER.#rootNode.datum())
+                if (this.#rootNode.isLeaf() && OTHER.#rootNode.isLeaf())
                 {
-                    compareResult = -1;
+                    if (this.#rootNode.datum() < OTHER.#rootNode.datum())
+                    {
+                        compareResult = -1;
+                    }
+                    else if (this.#rootNode.datum() > OTHER.#rootNode.datum())
+                    {
+                        compareResult = 1;
+                    }
+                    else if (this.#rootNode.datum() === OTHER.#rootNode.datum())
+                    {
+                        compareResult = 0;
+                    }
                 }
-                else if (this.#rootNode.datum() > OTHER.#rootNode.datum())
+                else if (!this.#rootNode.isLeaf() && !OTHER.#rootNode.isLeaf())
                 {
-                    compareResult = 1;
-                }
-                else if (this.#rootNode.datum() === OTHER.#rootNode.datum())
-                {
-                    compareResult = 0;
+
                 }
             }
         }

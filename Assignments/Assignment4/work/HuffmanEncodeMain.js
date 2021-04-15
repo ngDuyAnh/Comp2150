@@ -18,6 +18,10 @@ function main()
     try
     {
         HuffmanEncode.encodeFile(INPUT_FILE_NAME, OUTPUT_FILE_NAME);
+
+        // Finished encoding the input file
+        console.log("Encode file " + INPUT_FILE_NAME + "sucess.");
+        console.log("The output file is " + OUTPUT_FILE_NAME);
     }
     catch (e)
     {

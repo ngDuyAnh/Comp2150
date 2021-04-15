@@ -143,7 +143,7 @@ class HuffmanEncode
                 for (let counter = index + 1; counter < treeList.getLength(); counter++)
                 {
                     // Smaller tree found
-                    if (treeList.peekIndex(counter).compareTo(minTree) === -1)
+                    if (minTree.compareTo(treeList.peekIndex(counter)) === 1)
                     {
                         minIndex = counter;
                         minTree = treeList.peekIndex(counter);
