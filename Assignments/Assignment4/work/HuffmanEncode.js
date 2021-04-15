@@ -92,8 +92,11 @@ class HuffmanEncode
                 let encode = huffmanTree.getCode(characterHash);
 
                 // Write the encode to the output file
-                fs.appendFileSync(FILE_OUTPUT_NAME, encode);
+                fs.appendFileSync(FILE_OUTPUT_NAME, encode + " ");
             }
+
+            // End of file
+            fs.appendFileSync(FILE_OUTPUT_NAME, "\n");
         }
     }
 
