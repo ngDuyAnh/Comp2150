@@ -11,7 +11,7 @@ The main entry to the Huffman encode program.
 function main()
 {
     // Get the input and output file name
-    let INPUT_FILE_NAME = "input.txt";
+    let INPUT_FILE_NAME = "hamlet.txt";
     let OUTPUT_FILE_NAME = INPUT_FILE_NAME + ".huff";
 
     // Encode the input file to output file
@@ -20,7 +20,7 @@ function main()
         HuffmanEncode.encodeFile(INPUT_FILE_NAME, OUTPUT_FILE_NAME);
 
         // Finished encoding the input file
-        console.log("Encode file " + INPUT_FILE_NAME + "sucess.");
+        console.log("Encode file " + INPUT_FILE_NAME + "success.");
         console.log("The output file is " + OUTPUT_FILE_NAME);
     }
     catch (e)

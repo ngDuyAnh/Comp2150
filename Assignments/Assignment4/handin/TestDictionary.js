@@ -158,5 +158,8 @@ function main()
 
     // isEmpty()
     testDictionaryIsEmpty();
+	
+	// Test ends successfully
+	console.log("Test ends successfully");
 }
 main();
