@@ -1,0 +1,92 @@
+Huffman data compression.
+
+
+Part 1: Hash table dictionary
+
+class Dictionary as hash table.
+	Key-value pair.
+	There cannot be two same key.
+	Value can be anything except underfined.
+	
+	Initialize, the dictionary given size parameter.
+	Create an array of the given size field.
+	
+	Linked list chain when hash value collision occur.
+	
+	Implement dictionary methods...
+	put(k,v) - Add the key and value pair to the dictionary.
+		If the key and value already exists, replace the value.
+		No return value.
+	get(k) - Get the value with given key.
+		Return underfined if the key does not exist.
+	contains(k) - Flag if the given key exists in the hash table.
+	isEmpty() - Flag if the dictionary is empty.
+	
+	put, get, and contains ensure that the key parameter has a type that is hash-able.
+	The type has hashVal() and equals() methods.
+	Throw error code if the condition does not hold.
+	
+abstract class Hashable
+	Abstract hashVal() and equals() methods.
+	
+IntHash - hash integer and two IntHash objects are equal if they contain the same integer value.
+StringHash() - hash function following expression
+	s[0]*p^(n-1) + s[1]*p^(n-2) + ...
+	p is the prime number.
+	All character in the string are ASCII.
+	Two StringHash are equal if they contain the same strings.
+	
+Unit test.
+	5 different unit tests for Dictionary.
+	Do not use testing framework.
+	
+	Create test file with... let assert = require("assert"); near the top of the file.
+	Each test on its own fuction.
+	Main function that call the test function.
+	
+	In test, write... assert([something]) to give assertions. One assert per method.
+	
+	At least 2 tests shoudl test boundary conditions. empty Dictionary and dictionary with one element.
+	
+	All units test as part of a single file and submit with code.
+	
+	Write instruction readme file on how to run the code.
+	
+Part 2: Huffman trees.
+Create the Huffman Tree.
+
+It is a type of binary tree with the following properties.
+	Each tree is a binary tree.
+	Children are not ordered in the same way as binary search tree. (Not balance)
+	Every internal node has two children.
+	Leaf nodes are labelled with a single character. Internal nodes are not labelled with any data.
+	Tree has a weight which is floating point value between zero and one.
+	
+class HuffmanTree
+	Create a new tree that has one node based on two parameters.
+		Single character and weight.
+		This will create a tree with a leaf node and the weight given.
+	Combine two trees to create a new tree.
+		Create a new tree from two other trees, that is left and right.
+		New tree have a new root node and the weight of the new tree is the sum of the weights of the two subtrees.
+	compareTo() method take another HuffmanTree and return 1,0, or -1.
+		It represent if the tree comes before or after.
+	
+	Two trees the lowest weight should come first.
+	If the two trees have the same weight, compare the letter and determine the position.
+	
+	Search and traversal method.
+		Determine for each character in the tree, the path left or right move, from the root to the leaf.
+		
+	Unit test the tree is encourage but not required.
+	
+Part3: Huffman encoding.
+
+	Input text file. Read the entire file.
+	Calculate the character frequency. Calculate for all character, space, and newline.
+	Huffman tree constructor for encode.
+
+
+
+
+
