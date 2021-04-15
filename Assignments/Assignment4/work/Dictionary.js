@@ -69,12 +69,12 @@ class Dictionary
     Get all the keys in dictionary.
 
     Return:
-    Array of all the keys in dictionary.
+    Linked list of all the keys in dictionary.
     */
     keys()
     {
         // Local variable dictionary
-        let keys = [];
+        let keys = new LinkedList();
 
         // Get the keys
         for (let counter = 0; counter < this.#table.getLength(); counter++)
@@ -87,7 +87,7 @@ class Dictionary
             {
                 // Get the key and value pair
                 let hashEntry = listIndex.peekIndex(count);
-                keys.push(hashEntry.key);
+                keys.append(hashEntry.key);
             }
         }
 
