@@ -1,0 +1,75 @@
+
+Two classes two interfaces
+
+number guessing game
+
+model generates a random number between 0 to 100 inclusive
+
+player take turn guessing
+too high. too low, or the same
+
+
+
+interface Player
+	how the player setup
+
+	Two methods for player.
+	setModel() - One parameter of type Model that let the player know how to refer 
+		to the model.
+		Method call before any game code is executed by player class.
+		Return void.
+	turnStart() does not accept any parameter.
+		Player tell model their guess.
+		Return void.
+		This method is call in Model.
+
+interface Model
+	Model know about the players and defines how the game is run.
+	setPlayers() - Acccept an array list of parameters.
+		Model track of players in the game.
+		Return void.
+	playGame() - Starts a game.
+		No parameter and return void.
+		Random generate an integer answer.
+		Players take turn to guess.
+		The ame ends when a player guesses the correct.
+		The order of turn is based on the array list.
+	setGuess() - takes an integer parameter that is the player guess.
+		Return an integer indicate too high, low, or the same.
+		Method is called by player.
+		
+class Computer Player
+	Using binary search to find the answer
+
+class Model
+	Implement the model interface and run the game.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

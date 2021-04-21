@@ -1,0 +1,22 @@
+public class Mammal {
+ //we make this empty
+ public void communicate(){ /* implementation /}
+}
+
+public class walkingMammal extends Mammal{
+    public void walk() {/ implementation /}
+}
+
+public class swimmingMammal extends Mammal{
+    public void swim() {/ implementation /}
+}
+
+public Dolphin extends swimmingMammal {
+    public void swim() {/ implementation /}
+
+    public void communicate()
+    {
+        super.communicate();
+        / more stuff*/
+    }
+}
